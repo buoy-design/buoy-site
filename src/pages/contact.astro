@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Button from '../components/Button.astro'
+
+const contactOptions = [
+  {
+    title: 'GitHub Issues',
+    description: 'Report bugs, request features, or ask questions',
+    action: 'Open an issue',
+    href: 'https://github.com/buoy-dev/buoy/issues',
+    icon: '🐙'
+  },
+  {
+    title: 'GitHub Discussions',
+    description: 'Join the community for general discussion and help',
+    action: 'Start a discussion',
+    href: 'https://github.com/buoy-dev/buoy/discussions',
+    icon: '💬'
+  },
+  {
+    title: 'Twitter/X',
+    description: 'Follow for updates, tips, and design system content',
+    action: '@buoy_dev',
+    href: 'https://twitter.com/buoy_dev',
+    icon: '🐦'
+  },
+]
+---
+
+<Layout
+  title="Contact Buoy | Get in Touch"
+  description="Get help with Buoy, report issues, or reach out for enterprise inquiries."
+>
+  <Nav />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6">
+        Get in touch
+      </h1>
+      <p class="text-lg text-slate max-w-2xl mx-auto">
+        Questions, feedback, or just want to say hi? Here's how to reach us.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Options -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-6">
+        {contactOptions.map((option) => (
+          <a
+            href={option.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-navy-dark border border-navy-light/20 hover:border-buoy/30 rounded-xl p-6 transition-colors group"
+          >
+            <div class="text-3xl mb-4">{option.icon}</div>
+            <h3 class="font-semibold text-light mb-2 group-hover:text-buoy transition-colors">
+              {option.title}
+            </h3>
+            <p class="text-sm text-slate mb-4">{option.description}</p>
+            <span class="text-sm text-buoy">{option.action} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Enterprise Contact -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-navy border border-lavender/30 rounded-xl p-8 text-center">
+        <div class="text-4xl mb-4">🏢</div>
+        <h2 class="text-2xl font-bold text-light mb-4">Enterprise Inquiries</h2>
+        <p class="text-slate mb-6">
+          Looking for multi-repo support, SSO, or a custom integration?
+          Let's talk about how Buoy can work for your organization.
+        </p>
+        <Button href="mailto:enterprise@buoy.design">
+          Contact Sales
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Help -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Quick Help</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-2">Installation Issues?</h3>
+          <p class="text-sm text-slate mb-4">
+            Make sure you have Node.js 18+ installed. Then run:
+          </p>
+          <code class="text-sm text-buoy bg-navy px-3 py-2 rounded block">
+            npx @buoy/cli scan
+          </code>
+        </div>
+
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-2">Configuration Questions?</h3>
+          <p class="text-sm text-slate mb-4">
+            Check out our documentation for detailed setup guides.
+          </p>
+          <Button href="/demo" variant="secondary" class="w-full justify-center">
+            Read the docs
+          </Button>
+        </div>
+
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-2">Feature Request?</h3>
+          <p class="text-sm text-slate mb-4">
+            We love hearing what features would help your team.
+          </p>
+          <Button
+            href="https://github.com/buoy-dev/buoy/issues/new?template=feature_request.md"
+            variant="secondary"
+            class="w-full justify-center"
+            external
+          >
+            Request a feature
+          </Button>
+        </div>
+
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-2">Found a Bug?</h3>
+          <p class="text-sm text-slate mb-4">
+            Help us fix it! Include your config and error output.
+          </p>
+          <Button
+            href="https://github.com/buoy-dev/buoy/issues/new?template=bug_report.md"
+            variant="secondary"
+            class="w-full justify-center"
+            external
+          >
+            Report a bug
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Response Time -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-slate">
+        We typically respond to GitHub issues within 24-48 hours.
+        <br />
+        Enterprise inquiries receive priority response within 1 business day.
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

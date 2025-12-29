@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* Buoy Design Tokens - Morning Sky Nautical */
+@theme {
+  /* Primary Colors */
+  --color-navy: #1a2744;
+  --color-navy-dark: #0f1829;
+  --color-navy-light: #243352;
+
+  /* Buoy Orange - The Standout */
+  --color-buoy: #F97316;
+  --color-buoy-light: #FB923C;
+  --color-buoy-dark: #EA580C;
+
+  /* Sunrise Warmth */
+  --color-sunrise: #F59E0B;
+  --color-sunrise-light: #FBBF24;
+
+  /* Lavender/Purple Accents */
+  --color-lavender: #8B5CF6;
+  --color-lavender-light: #A78BFA;
+  --color-sky-purple: #6366F1;
+
+  /* Neutrals */
+  --color-light: #F8FAFC;
+  --color-light-muted: #E2E8F0;
+  --color-slate: #94A3B8;
+  --color-slate-dark: #64748B;
+
+  /* Semantic Colors */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-critical: #EF4444;
+  --color-info: #3B82F6;
+
+  /* Typography Scale */
+  --font-display: 'Satoshi', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+
+  /* Animations */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+/* Font Imports */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
+  font-display: swap;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-navy-dark);
+  color: var(--color-light);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-buoy);
+  color: var(--color-navy-dark);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Code */
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Focus States */
+:focus-visible {
+  outline: 2px solid var(--color-buoy);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-navy-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate-dark);
+}
+
+/* Sunrise Gradient Background */
+.bg-sunrise-gradient {
+  background: linear-gradient(
+    180deg,
+    var(--color-navy-dark) 0%,
+    var(--color-navy) 30%,
+    color-mix(in srgb, var(--color-sky-purple) 30%, var(--color-navy)) 60%,
+    color-mix(in srgb, var(--color-lavender) 20%, var(--color-navy)) 75%,
+    color-mix(in srgb, var(--color-sunrise) 15%, var(--color-navy)) 100%
+  );
+}
+
+/* Glow Effects */
+.glow-buoy {
+  box-shadow: 0 0 30px color-mix(in srgb, var(--color-buoy) 40%, transparent);
+}
+
+.glow-lavender {
+  box-shadow: 0 0 30px color-mix(in srgb, var(--color-lavender) 30%, transparent);
+}
+
+/* Text Gradient */
+.text-gradient-sunrise {
+  background: linear-gradient(135deg, var(--color-buoy), var(--color-sunrise), var(--color-lavender));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes wave {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25px) translateY(5px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-wave {
+  animation: wave 8s ease-in-out infinite;
+}
+
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '▋';
+  animation: blink 1s step-end infinite;
+  color: var(--color-buoy);
+}

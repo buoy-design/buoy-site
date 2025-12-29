@@ -1,0 +1,166 @@
+---
+import UseCaseLayout from '../../layouts/UseCaseLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+
+const painPoints = [
+  {
+    problem: 'Spending hours on manual audits',
+    solution: 'Automated scans in seconds, run on every PR'
+  },
+  {
+    problem: 'No data on which teams are adopting',
+    solution: 'Per-directory adoption metrics and trends'
+  },
+  {
+    problem: 'Can\'t prove ROI of design system investment',
+    solution: 'Real numbers: adoption %, drift reduction over time'
+  },
+  {
+    problem: '"We think we have 60% adoption" isn\'t good enough',
+    solution: 'Know exactly: 47% component coverage, 63% token coverage'
+  },
+]
+
+const metrics = [
+  { label: 'Component Coverage', value: '47%', change: '+12% this month' },
+  { label: 'Token Adoption', value: '63%', change: '+8% this month' },
+  { label: 'Drift Signals', value: '23', change: '-15 from last week' },
+  { label: 'Teams Onboarded', value: '4/6', change: '+1 this sprint' },
+]
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-light font-semibold">Design System Coverage</span>', type: 'output', delay: 800 },
+  { text: '═══════════════════════════════════════', type: 'muted', delay: 1000 },
+  { text: '', delay: 1200 },
+  { text: 'Components: <span class="text-warning">47%</span> ████████░░░░░░░░░░', type: 'output', delay: 1400 },
+  { text: 'Tokens:     <span class="text-success">63%</span> ████████████░░░░░░', type: 'output', delay: 1600 },
+  { text: 'Overall:    <span class="text-warning">52%</span> ██████████░░░░░░░░', type: 'output', delay: 1800 },
+  { text: '', delay: 2000 },
+  { text: '<span class="text-slate">By Source:</span>', type: 'output', delay: 2200 },
+  { text: '├─ src/components/    <span class="text-success">78%</span> ███████████████░', type: 'output', delay: 2400 },
+  { text: '├─ src/features/      <span class="text-warning">34%</span> ██████░░░░░░░░░', type: 'warning', delay: 2600 },
+  { text: '└─ src/pages/         <span class="text-critical">23%</span> ████░░░░░░░░░░░', type: 'critical', delay: 2800 },
+]
+---
+
+<UseCaseLayout
+  title="Design System Adoption Tools for Teams | Buoy"
+  description="Measure design system adoption without manual audits. Track which teams use components, see coverage trends, prove ROI."
+  keywords="design system adoption, design system metrics, design system ROI"
+  heroTitle="Design System Teams"
+  heroDescription="Measure design system adoption without manual audits. Track which teams use components, see coverage trends, and prove ROI."
+  icon="🎨"
+>
+  <!-- Pain Points -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Your Pain Points, Solved</h2>
+
+      <div class="space-y-4">
+        {painPoints.map((item) => (
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-navy/50 border border-critical/20 rounded-xl p-4">
+              <div class="flex items-start gap-3">
+                <span class="text-critical text-lg">✗</span>
+                <div>
+                  <span class="text-sm text-slate-dark uppercase tracking-wide">Problem</span>
+                  <p class="text-light">{item.problem}</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-navy/50 border border-success/20 rounded-xl p-4">
+              <div class="flex items-start gap-3">
+                <span class="text-success text-lg">✓</span>
+                <div>
+                  <span class="text-sm text-slate-dark uppercase tracking-wide">With Buoy</span>
+                  <p class="text-light">{item.solution}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Dashboard -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Real Metrics, Real Data</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        {metrics.map((metric) => (
+          <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-4 text-center">
+            <div class="text-3xl font-bold text-light mb-1">{metric.value}</div>
+            <div class="text-sm text-slate mb-2">{metric.label}</div>
+            <div class="text-xs text-success">{metric.change}</div>
+          </div>
+        ))}
+      </div>
+
+      <Terminal command="buoy status" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Value Props -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What You Get</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-light mb-3">📊 Adoption Metrics</h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li>• Percentage of components using design system</li>
+            <li>• Token coverage across the codebase</li>
+            <li>• Per-directory and per-team breakdowns</li>
+            <li>• Trend tracking over time</li>
+          </ul>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-light mb-3">🔍 Drift Detection</h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li>• Find hardcoded values that bypass tokens</li>
+            <li>• Detect duplicate component implementations</li>
+            <li>• Track deprecated component usage</li>
+            <li>• Catch naming inconsistencies</li>
+          </ul>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-light mb-3">🔄 CI/CD Integration</h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li>• Automatic checks on every PR</li>
+            <li>• Block merges with critical drift</li>
+            <li>• PR comments with drift reports</li>
+            <li>• GitHub Action ready to use</li>
+          </ul>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-light mb-3">📈 ROI Reporting</h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li>• Before/after adoption comparisons</li>
+            <li>• Time saved from reduced drift</li>
+            <li>• Team adoption leaderboards</li>
+            <li>• Executive-ready dashboards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <blockquote class="text-xl text-light italic mb-6">
+        "Finally, metrics for design system adoption. We went from 'we think 60%' to knowing exactly where we stand and where to focus."
+      </blockquote>
+      <div class="text-slate">
+        — Design System Lead, Fortune 500
+      </div>
+    </div>
+  </section>
+</UseCaseLayout>

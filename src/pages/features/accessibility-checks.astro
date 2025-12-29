@@ -1,0 +1,213 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Running accessibility checks...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: '<span class="text-critical">✗</span> Found <span class="text-light">3</span> accessibility issues', type: 'error', delay: 1400 },
+  { text: '', delay: 1600 },
+  { text: '<span class="text-critical">[Critical]</span> Missing alt text', type: 'error', delay: 1800 },
+  { text: '  └─ src/components/Avatar.tsx:12', type: 'muted', delay: 2000 },
+  { text: '     <span class="text-slate">&lt;img src={user.avatar} /&gt;</span>', type: 'muted', delay: 2200 },
+  { text: '', delay: 2400 },
+  { text: '<span class="text-warning">[Warning]</span> Low color contrast', type: 'warning', delay: 2600 },
+  { text: '  └─ src/components/Badge.tsx:8', type: 'muted', delay: 2800 },
+  { text: '     <span class="text-slate">text-gray-400 on bg-gray-100 (ratio: 2.5:1)</span>', type: 'muted', delay: 3000 },
+  { text: '', delay: 3200 },
+  { text: '<span class="text-warning">[Warning]</span> Missing aria-label', type: 'warning', delay: 3400 },
+  { text: '  └─ src/components/IconButton.tsx:5', type: 'muted', delay: 3600 },
+  { text: '     <span class="text-slate">&lt;button&gt;&lt;Icon /&gt;&lt;/button&gt;</span>', type: 'muted', delay: 3800 },
+]
+
+const checks = [
+  {
+    title: 'Color Contrast',
+    description: 'Ensures text meets WCAG 2.1 contrast requirements (4.5:1 for normal text, 3:1 for large text)',
+    severity: 'critical'
+  },
+  {
+    title: 'Alt Text',
+    description: 'Detects images without alt attributes or with empty alt on decorative images',
+    severity: 'critical'
+  },
+  {
+    title: 'ARIA Labels',
+    description: 'Catches buttons with only icons and no accessible label',
+    severity: 'warning'
+  },
+  {
+    title: 'Focus Indicators',
+    description: 'Warns when focus styles are removed without replacement',
+    severity: 'warning'
+  },
+  {
+    title: 'Semantic HTML',
+    description: 'Suggests semantic elements over divs with roles',
+    severity: 'info'
+  },
+  {
+    title: 'Heading Order',
+    description: 'Ensures headings follow logical hierarchy (h1 → h2 → h3)',
+    severity: 'info'
+  },
+]
+
+const relatedFeatures = [
+  {
+    title: 'Drift Detection',
+    description: 'All design system checks',
+    href: '/features/drift-detection'
+  },
+  {
+    title: 'CI Integration',
+    description: 'Block PRs on a11y issues',
+    href: '/features/ci'
+  },
+  {
+    title: 'Coverage',
+    description: 'Track a11y compliance',
+    href: '/features/coverage'
+  },
+]
+---
+
+<FeatureLayout
+  title="Accessibility Checks in Your Design System | Buoy"
+  description="Catch accessibility issues at build time. Check color contrast, missing alt text, ARIA labels, and more."
+  keywords="accessibility checks, wcag compliance, design system accessibility"
+  heroTitle="Accessibility checks at build time"
+  heroDescription="Catch a11y issues before they ship. Color contrast, alt text, ARIA labels, and more."
+>
+  <!-- Why A11y Matters -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Why Accessibility Matters</h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-4">⚖️</div>
+          <h3 class="font-semibold text-light mb-2">Legal Requirement</h3>
+          <p class="text-sm text-slate">
+            ADA, Section 508, and WCAG compliance is legally required for many organizations.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-4">👥</div>
+          <h3 class="font-semibold text-light mb-2">15% of Users</h3>
+          <p class="text-sm text-slate">
+            Over 1 billion people worldwide have some form of disability.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-4">🎯</div>
+          <h3 class="font-semibold text-light mb-2">Better for Everyone</h3>
+          <p class="text-sm text-slate">
+            Good contrast and clear labels help all users, not just those with disabilities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">See it in action</h2>
+      <Terminal command="buoy drift check --a11y" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- What We Check -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What We Check</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {checks.map((check) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class={`px-2 py-0.5 text-xs rounded ${
+                check.severity === 'critical' ? 'bg-critical/20 text-critical' :
+                check.severity === 'warning' ? 'bg-warning/20 text-warning' : 'bg-info/20 text-info'
+              }`}>{check.severity}</span>
+            </div>
+            <h3 class="font-semibold text-light mb-2">{check.title}</h3>
+            <p class="text-sm text-slate">{check.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Color Contrast Example -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Color Contrast Checking</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-navy-dark border border-critical/30 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-critical">✗</span> Failing Contrast
+          </h3>
+          <div class="bg-gray-100 rounded-lg p-4 mb-4">
+            <p class="text-gray-400 text-sm">This text is hard to read</p>
+          </div>
+          <p class="text-sm text-slate">
+            Contrast ratio: 2.5:1 (needs 4.5:1)
+          </p>
+        </div>
+
+        <div class="bg-navy-dark border border-success/30 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-success">✓</span> Passing Contrast
+          </h3>
+          <div class="bg-gray-100 rounded-lg p-4 mb-4">
+            <p class="text-gray-700 text-sm">This text is easy to read</p>
+          </div>
+          <p class="text-sm text-slate">
+            Contrast ratio: 5.3:1 (passes AA)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration with Tokens -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Works with Your Design Tokens</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">Checks token combinations</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`Checking token color pairs for WCAG compliance...
+
+✓ --color-text on --color-bg           7.2:1 (AAA)
+✓ --color-text-muted on --color-bg     5.1:1 (AA)
+✗ --color-text-muted on --color-bg-alt 2.8:1 (FAIL)
+  └─ Suggest: Use --color-text instead
+
+✓ --color-primary on --color-bg        4.8:1 (AA)
+✗ --color-primary on --color-primary-bg 1.9:1 (FAIL)
+  └─ Suggest: Darken --color-primary-bg`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>

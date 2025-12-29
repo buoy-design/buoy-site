@@ -1,0 +1,122 @@
+---
+import IntegrationLayout from '../../layouts/IntegrationLayout.astro'
+import Button from '../../components/Button.astro'
+
+const features = [
+  {
+    title: 'Design Token Sync',
+    description: 'Import design tokens directly from Figma Variables and compare against your codebase.'
+  },
+  {
+    title: 'Component Mapping',
+    description: 'Map Figma components to code components and track coverage.'
+  },
+  {
+    title: 'Style Comparison',
+    description: 'Compare Figma styles (colors, typography, spacing) with implemented values.'
+  },
+  {
+    title: 'Orphan Detection',
+    description: 'Find components in code that don\'t exist in Figma, and vice versa.'
+  },
+  {
+    title: 'Version Tracking',
+    description: 'Track changes when Figma designs update and flag code that needs updating.'
+  },
+  {
+    title: 'Export Tokens',
+    description: 'Generate CSS variables, JSON, or TypeScript from Figma Variables.'
+  },
+]
+
+const workflow = [
+  { step: '1', title: 'Connect Figma', description: 'Link your Figma file using an access token' },
+  { step: '2', title: 'Map Components', description: 'Buoy auto-maps Figma components to code' },
+  { step: '3', title: 'Detect Drift', description: 'See where code has drifted from design' },
+  { step: '4', title: 'Stay Synced', description: 'Get alerts when Figma updates' },
+]
+---
+
+<IntegrationLayout
+  title="Figma to Code Comparison | Buoy"
+  description="Compare your Figma designs to your code implementation. Find components in Figma that aren't in code, and code that's drifted from design."
+  keywords="figma to code, figma code comparison, design to code sync"
+  heroTitle="Figma to Code Comparison"
+  heroDescription="Keep your code in sync with Figma. Import design tokens, compare component implementations, and catch drift before it ships."
+  icon="🎨"
+  iconBg="bg-purple-500/20"
+>
+  <!-- Features Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Figma Integration Features</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-2">{feature.title}</h3>
+            <p class="text-sm text-slate">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-12 text-center">How It Works</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {workflow.map((item) => (
+          <div class="text-center">
+            <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+              {item.step}
+            </div>
+            <h3 class="font-semibold text-light mb-2">{item.title}</h3>
+            <p class="text-sm text-slate">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuration -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Configuration Example</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">buoy.config.mjs</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`// buoy.config.mjs
+export default {
+  figma: {
+    // Your Figma file URL or key
+    file: 'https://figma.com/file/xxx',
+
+    // Access token (use env var in production)
+    token: process.env.FIGMA_TOKEN,
+
+    // Map Figma pages to code directories
+    mapping: {
+      'Components': 'src/components',
+      'Primitives': 'src/ui',
+    },
+  },
+
+  // Compare Figma variables to these tokens
+  tokens: './src/tokens',
+}`}</code></pre>
+      </div>
+
+      <div class="mt-8 p-4 bg-navy/50 border border-lavender/30 rounded-xl">
+        <p class="text-sm text-slate">
+          <span class="text-lavender font-semibold">Pro Feature:</span> Figma sync requires Buoy Pro.
+          <a href="/pricing" class="text-buoy hover:underline">See pricing →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</IntegrationLayout>

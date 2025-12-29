@@ -1,0 +1,114 @@
+---
+import CompareLayout from '../../layouts/CompareLayout.astro'
+
+const comparison = [
+  { aspect: 'Time', manual: 'Hours to days', buoy: 'Seconds' },
+  { aspect: 'Coverage', manual: 'Sampling-based', buoy: '100% of codebase' },
+  { aspect: 'Frequency', manual: 'Quarterly at best', buoy: 'Every PR' },
+  { aspect: 'Accuracy', manual: 'Human error prone', buoy: 'Consistent rules' },
+  { aspect: 'Cost', manual: 'High labor cost', buoy: 'Free CLI' },
+  { aspect: 'Currency', manual: 'Outdated immediately', buoy: 'Always current' },
+  { aspect: 'Reproducibility', manual: 'Depends on auditor', buoy: 'Identical every run' },
+  { aspect: 'Trend Tracking', manual: 'Manual comparison', buoy: 'Automatic over time' },
+]
+---
+
+<CompareLayout
+  title="Buoy vs Manual Design Audits | Automated Design Drift Detection"
+  description="Stop spending hours on spreadsheet audits. Buoy runs in seconds, catches everything, and stays current automatically."
+  keywords="manual audit alternative, automated design audit, design system audit tool"
+  heroTitle="Manual Audits vs Automated Detection"
+  heroDescription="Stop spending hours on spreadsheet audits. Buoy runs in seconds, catches everything, and stays current automatically."
+  competitor="Manual Audits"
+>
+  <!-- Comparison Table -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Side-by-Side Comparison</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-3 bg-navy-dark border-b border-navy-light/20">
+          <div class="p-4 font-semibold text-slate">Aspect</div>
+          <div class="p-4 font-semibold text-slate border-l border-navy-light/20">Manual Audit</div>
+          <div class="p-4 font-semibold text-buoy border-l border-navy-light/20">Buoy</div>
+        </div>
+
+        {comparison.map((row, index) => (
+          <div class={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-navy/50' : ''}`}>
+            <div class="p-4 text-light">{row.aspect}</div>
+            <div class="p-4 text-slate border-l border-navy-light/20">{row.manual}</div>
+            <div class="p-4 text-success border-l border-navy-light/20">{row.buoy}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Manual Audit Problem -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">The Manual Audit Problem</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-navy-dark border border-critical/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-critical">📋</span> The Spreadsheet Approach
+          </h3>
+          <ul class="space-y-3 text-sm text-slate">
+            <li>• Someone spends 2-3 days reviewing code</li>
+            <li>• Results go into a spreadsheet</li>
+            <li>• Spreadsheet is outdated by the next PR</li>
+            <li>• Nobody wants to do the next audit</li>
+            <li>• Coverage is sampling, not complete</li>
+            <li>• Different auditors find different things</li>
+          </ul>
+        </div>
+
+        <div class="bg-navy-dark border border-success/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-success">⚓</span> The Buoy Approach
+          </h3>
+          <ul class="space-y-3 text-sm text-slate">
+            <li>• Run one command: <code class="text-buoy">buoy drift check</code></li>
+            <li>• Get results in seconds</li>
+            <li>• Runs automatically on every PR</li>
+            <li>• 100% coverage, every time</li>
+            <li>• Consistent rules, consistent results</li>
+            <li>• Tracks trends over time automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- When to Use What -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">When Manual Audits Still Make Sense</h2>
+
+      <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+        <p class="text-slate mb-4">
+          Manual audits aren't always wrong. They're valuable for:
+        </p>
+        <ul class="space-y-2 text-sm text-slate">
+          <li class="flex items-start gap-2">
+            <span class="text-buoy">•</span>
+            <span><strong class="text-light">UX reviews</strong> — Does the design feel right? Is the flow intuitive?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-buoy">•</span>
+            <span><strong class="text-light">Accessibility testing</strong> — Screen reader testing, keyboard navigation</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-buoy">•</span>
+            <span><strong class="text-light">Design decisions</strong> — Should these be the same component?</span>
+          </li>
+        </ul>
+        <p class="text-slate mt-4">
+          Use Buoy for the mechanical checks (hardcoded values, duplicates, naming).
+          Save manual time for the human judgment calls.
+        </p>
+      </div>
+    </div>
+  </section>
+</CompareLayout>

@@ -1,0 +1,113 @@
+---
+import IntegrationLayout from '../../layouts/IntegrationLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+
+const features = [
+  {
+    title: 'App Router Support',
+    description: 'Full support for Next.js 13+ App Router including layouts, pages, and server components.'
+  },
+  {
+    title: 'Server Components',
+    description: 'Distinguishes between server and client components for accurate drift detection.'
+  },
+  {
+    title: 'CSS Modules',
+    description: 'Scans .module.css files and validates against your design tokens.'
+  },
+  {
+    title: 'Tailwind Integration',
+    description: 'Works with Next.js + Tailwind setups, detecting arbitrary values and custom classes.'
+  },
+  {
+    title: 'Image Component',
+    description: 'Validates next/image usage for consistent styling across the app.'
+  },
+  {
+    title: 'Route Groups',
+    description: 'Respects route group boundaries for scoped drift analysis.'
+  },
+]
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Scanning Next.js project...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: 'Found <span class="text-light">45</span> pages/routes', type: 'output', delay: 1400 },
+  { text: 'Found <span class="text-light">92</span> components', type: 'output', delay: 1600 },
+  { text: 'Found <span class="text-light">23</span> server components', type: 'output', delay: 1800 },
+  { text: '', delay: 2000 },
+  { text: '<span class="text-warning">WARNING</span> 28 hardcoded values detected', type: 'warning', delay: 2200 },
+  { text: '<span class="text-warning">WARNING</span> 6 CSS module inconsistencies', type: 'warning', delay: 2400 },
+  { text: '<span class="text-info">INFO</span> 9 Tailwind arbitrary values', type: 'info', delay: 2600 },
+]
+
+const configExample = `// buoy.config.mjs
+export default {
+  framework: 'nextjs',
+
+  include: [
+    'app/**/*.tsx',
+    'components/**/*.tsx',
+  ],
+
+  // Next.js-specific options
+  nextjs: {
+    appRouter: true,
+    serverComponents: true,
+  },
+
+  // Tailwind config path
+  tailwind: './tailwind.config.ts',
+
+  tokens: './src/tokens',
+}`
+---
+
+<IntegrationLayout
+  title="Next.js Design System Integration | Buoy"
+  description="Design drift detection for Next.js applications. Scan pages, components, and app router for design system violations."
+  keywords="nextjs design system, next.js component audit, next.js code consistency"
+  heroTitle="Next.js Design System Integration"
+  heroDescription="Full support for Next.js 13+ App Router, server components, and CSS Modules. Detect drift across your entire Next.js application."
+  icon="▲"
+  iconBg="bg-white/10"
+>
+  <!-- Features Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Next.js-Specific Features</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-2">{feature.title}</h3>
+            <p class="text-sm text-slate">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">See it in action</h2>
+      <Terminal command="buoy scan --framework nextjs" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Configuration -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Configuration Example</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">buoy.config.mjs</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{configExample}</code></pre>
+      </div>
+    </div>
+  </section>
+</IntegrationLayout>

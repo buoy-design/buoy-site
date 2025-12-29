@@ -1,0 +1,188 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+
+const ciProviders = [
+  { name: 'GitHub Actions', example: 'npx @buoy/cli drift check --ci' },
+  { name: 'GitLab CI', example: 'npx @buoy/cli drift check --ci --format json' },
+  { name: 'CircleCI', example: 'npx @buoy/cli drift check --ci --fail-on warning' },
+  { name: 'Jenkins', example: 'npx @buoy/cli drift check --ci' },
+  { name: 'Azure Pipelines', example: 'npx @buoy/cli drift check --ci' },
+  { name: 'Bitbucket Pipelines', example: 'npx @buoy/cli drift check --ci' },
+]
+
+const outputFormats = [
+  {
+    format: 'CLI (default)',
+    description: 'Human-readable output for terminal',
+    flag: '--format cli'
+  },
+  {
+    format: 'JSON',
+    description: 'Machine-readable for custom integrations',
+    flag: '--format json'
+  },
+  {
+    format: 'JUnit XML',
+    description: 'For CI systems that parse JUnit reports',
+    flag: '--format junit'
+  },
+  {
+    format: 'SARIF',
+    description: 'For GitHub Code Scanning',
+    flag: '--format sarif'
+  },
+]
+
+const relatedFeatures = [
+  {
+    title: 'GitHub Action',
+    description: 'Pre-built action for GitHub',
+    href: '/features/github-action'
+  },
+  {
+    title: 'Coverage Metrics',
+    description: 'Track adoption in CI',
+    href: '/features/coverage'
+  },
+  {
+    title: 'Drift Detection',
+    description: 'What CI is checking for',
+    href: '/features/drift-detection'
+  },
+]
+---
+
+<FeatureLayout
+  title="Design System CI/CD Checks | Buoy"
+  description="Add design drift detection to your CI pipeline. Block PRs with critical drift. Get JSON output for custom integrations."
+  keywords="design system ci cd, component library checks, automated design review"
+  heroTitle="Design System CI/CD Checks"
+  heroDescription="Add drift detection to any CI pipeline. Block PRs, generate reports, and enforce design system compliance automatically."
+>
+  <!-- Quick Example -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Works with Any CI</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden mb-8">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">Basic CI command</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`# Run drift check in CI mode
+npx @buoy/cli drift check --ci
+
+# Exit codes:
+# 0 = No critical drift
+# 1 = Critical drift found (blocks merge)
+# 2 = Error running scan`}</code></pre>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {ciProviders.map((provider) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-lg p-4">
+            <h3 class="font-semibold text-light mb-2">{provider.name}</h3>
+            <code class="text-xs text-slate-dark break-all">{provider.example}</code>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Output Formats -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Output Formats</h2>
+
+      <div class="space-y-4">
+        {outputFormats.map((format) => (
+          <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-4 flex items-center justify-between">
+            <div>
+              <h3 class="font-semibold text-light">{format.format}</h3>
+              <p class="text-sm text-slate">{format.description}</p>
+            </div>
+            <code class="text-sm text-buoy bg-navy px-3 py-1 rounded">{format.flag}</code>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Fail Thresholds -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Failure Thresholds</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">Configure when to fail</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`# Fail on any critical issues (recommended)
+npx @buoy/cli drift check --ci --fail-on critical
+
+# Fail on warnings too (stricter)
+npx @buoy/cli drift check --ci --fail-on warning
+
+# Never fail, just report (audit mode)
+npx @buoy/cli drift check --ci --fail-on none
+
+# Custom thresholds
+npx @buoy/cli drift check --ci \\
+  --max-critical 0 \\
+  --max-warning 10 \\
+  --max-info 50`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Actions Example -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Full GitHub Actions Example</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">.github/workflows/design-drift.yml</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`name: Design Drift Check
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Buoy drift check
+        run: npx @buoy/cli drift check --ci --fail-on critical
+
+      - name: Upload SARIF (optional)
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: buoy-results.sarif`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>

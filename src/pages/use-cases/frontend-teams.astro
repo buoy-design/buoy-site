@@ -1,0 +1,139 @@
+---
+import UseCaseLayout from '../../layouts/UseCaseLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+
+const challenges = [
+  {
+    title: 'AI Code Drift',
+    description: 'Copilot and Claude write code that works but ignores your design system. Hardcoded colors, recreated components, inconsistent naming.',
+    icon: '🤖'
+  },
+  {
+    title: 'Component Sprawl',
+    description: 'Button, ButtonNew, MyButton, CustomButton. Same component, four implementations. Which one is the "right" one?',
+    icon: '📦'
+  },
+  {
+    title: 'Code Review Fatigue',
+    description: 'Manually checking every PR for design system compliance doesn\'t scale. Things slip through.',
+    icon: '😴'
+  },
+  {
+    title: 'Inconsistent Patterns',
+    description: 'Different developers use different patterns. onClick vs onPress. size="lg" vs size="large". No enforcement.',
+    icon: '🔀'
+  },
+]
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Scanning frontend codebase...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: 'Found <span class="text-light">156</span> components across <span class="text-light">89</span> files', type: 'output', delay: 1400 },
+  { text: '', delay: 1600 },
+  { text: '<span class="text-warning font-semibold">COMPONENT DUPLICATES</span>', type: 'output', delay: 1800 },
+  { text: '├─ Button (4 implementations)', type: 'warning', delay: 2000 },
+  { text: '│  ├─ src/components/Button.tsx', type: 'muted', delay: 2200 },
+  { text: '│  ├─ src/ui/ButtonNew.tsx', type: 'muted', delay: 2400 },
+  { text: '│  ├─ src/features/checkout/MyButton.tsx', type: 'muted', delay: 2600 },
+  { text: '│  └─ src/common/CustomButton.tsx', type: 'muted', delay: 2800 },
+  { text: '└─ Card (2 implementations)', type: 'warning', delay: 3000 },
+]
+---
+
+<UseCaseLayout
+  title="Frontend Component Consistency Tools | Buoy"
+  description="Keep components aligned as your frontend team scales. Catch hardcoded values, prop inconsistencies, and naming drift."
+  keywords="frontend consistency, component library health, react team tools"
+  heroTitle="Frontend Teams"
+  heroDescription="Keep your components aligned as your team scales. Catch drift before it becomes technical debt."
+  icon="💻"
+>
+  <!-- Challenges -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Frontend Team Challenges</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        {challenges.map((challenge) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <div class="text-3xl mb-3">{challenge.icon}</div>
+            <h3 class="text-lg font-semibold text-light mb-2">{challenge.title}</h3>
+            <p class="text-sm text-slate">{challenge.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Find Problems Automatically</h2>
+      <Terminal command="buoy scan" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">How Buoy Helps</h2>
+
+      <div class="space-y-6">
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center text-buoy font-bold flex-shrink-0">
+            1
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-light mb-2">Automated PR Checks</h3>
+            <p class="text-slate">Every pull request gets scanned automatically. No manual review needed for design system compliance. Focus code review on logic, not style.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center text-buoy font-bold flex-shrink-0">
+            2
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-light mb-2">Catch AI Drift</h3>
+            <p class="text-slate">AI tools write working code but ignore your design system. Buoy catches hardcoded values and recreated components before they merge.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center text-buoy font-bold flex-shrink-0">
+            3
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-light mb-2">Consolidate Components</h3>
+            <p class="text-slate">Find duplicate implementations and decide which to keep. Reduce your component surface area and maintenance burden.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center text-buoy font-bold flex-shrink-0">
+            4
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-light mb-2">Enforce Conventions</h3>
+            <p class="text-slate">Automatically enforce naming conventions, prop types, and patterns. New developers get immediate feedback on team standards.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Setup -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-8">Get Started in 2 Minutes</h2>
+
+      <div class="inline-flex items-center gap-3 px-6 py-4 bg-navy-dark border border-navy-light/30 rounded-xl font-mono">
+        <span class="text-buoy">$</span>
+        <code class="text-light">npx @buoy/cli scan</code>
+      </div>
+
+      <p class="text-slate mt-4">No signup. No config file needed. Just run it.</p>
+    </div>
+  </section>
+</UseCaseLayout>

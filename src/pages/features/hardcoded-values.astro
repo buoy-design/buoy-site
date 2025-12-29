@@ -1,0 +1,271 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: 'Found <span class="text-warning">47</span> hardcoded values — <span class="text-success">42 auto-fixable</span>', type: 'output', delay: 800 },
+  { text: '', delay: 1000 },
+  { text: '<span class="text-slate">src/components/Card.tsx:12</span>', type: 'output', delay: 1200 },
+  { text: '├─ #ffffff <span class="text-success">→ var(--bg-surface)</span>', type: 'warning', delay: 1400 },
+  { text: '├─ 16px <span class="text-success">→ var(--spacing-md)</span>', type: 'warning', delay: 1600 },
+  { text: '└─ 8px <span class="text-success">→ var(--radius-md)</span>', type: 'warning', delay: 1800 },
+  { text: '', delay: 2000 },
+  { text: '<span class="text-slate">src/components/Button.tsx:8</span>', type: 'output', delay: 2200 },
+  { text: '├─ #0066ff <span class="text-success">→ var(--color-primary)</span>', type: 'warning', delay: 2400 },
+  { text: '└─ 14px <span class="text-success">→ var(--text-sm)</span>', type: 'warning', delay: 2600 },
+  { text: '', delay: 2800 },
+  { text: '<span class="text-buoy font-semibold">Run buoy fix --auto to apply 42 fixes</span>', type: 'output', delay: 3000 },
+]
+
+const fixTerminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Fixing hardcoded values...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: '<span class="text-success">✓</span> Card.tsx: 3 values → tokens', type: 'success', delay: 1400 },
+  { text: '<span class="text-success">✓</span> Button.tsx: 2 values → tokens', type: 'success', delay: 1600 },
+  { text: '<span class="text-success">✓</span> Header.tsx: 5 values → tokens', type: 'success', delay: 1800 },
+  { text: '<span class="text-slate-dark">... and 32 more files</span>', type: 'muted', delay: 2000 },
+  { text: '', delay: 2200 },
+  { text: '<span class="text-success font-semibold">42 hardcoded values replaced with tokens.</span>', type: 'output', delay: 2400 },
+  { text: '', delay: 2600 },
+  { text: 'Token coverage: <span class="text-warning">34%</span> → <span class="text-success">89%</span>', type: 'output', delay: 2800 },
+]
+
+const valueTypes = [
+  { icon: '🎨', title: 'Colors', examples: ['#ffffff', 'rgb(255,255,255)', 'hsl(0,0%,100%)'] },
+  { icon: '📐', title: 'Spacing', examples: ['16px', '1.5rem', '24px'] },
+  { icon: '🔤', title: 'Typography', examples: ['14px', 'Arial', 'font-weight: 600'] },
+  { icon: '🌓', title: 'Shadows', examples: ['box-shadow: 0 2px 4px rgba(0,0,0,0.1)'] },
+  { icon: '📏', title: 'Borders', examples: ['1px solid #ccc', 'border-radius: 4px'] },
+]
+
+const relatedFeatures = [
+  {
+    title: 'Bootstrap',
+    description: 'Extract tokens from existing hardcoded values',
+    href: '/features/bootstrap'
+  },
+  {
+    title: 'Coverage',
+    description: 'See which components use design tokens',
+    href: '/features/coverage'
+  },
+  {
+    title: 'CI Integration',
+    description: 'Block PRs with new hardcoded values',
+    href: '/features/ci'
+  },
+]
+
+const faqs = [
+  {
+    question: 'What counts as a hardcoded value?',
+    answer: 'Any color (#hex, rgb, hsl), spacing (px, rem, em), or typography value that isn\'t using a CSS variable, theme token, or design system reference.'
+  },
+  {
+    question: 'Does Buoy support CSS-in-JS?',
+    answer: 'Yes. Buoy detects hardcoded values in styled-components, Emotion, inline styles, and CSS modules.'
+  },
+  {
+    question: 'Can I ignore certain hardcoded values?',
+    answer: 'Yes. Use buoy.config.mjs to define ignore patterns for intentional values like transparent, inherit, or specific hex codes.'
+  },
+  {
+    question: 'What frameworks does this work with?',
+    answer: 'React, Vue, Svelte, Angular, and vanilla CSS/SCSS files.'
+  },
+]
+---
+
+<FeatureLayout
+  title="Detect Hardcoded Colors & Values in React | Buoy"
+  description="Find hardcoded colors, spacing, and font sizes in your React, Vue, and Svelte components. Replace magic values with design tokens automatically."
+  keywords="hardcoded colors react, detect hardcoded values, design tokens enforcement"
+  heroTitle="Find hardcoded values. Replace them with tokens. Automatically."
+  heroDescription="AI-generated code uses #3b82f6 instead of var(--primary). Buoy finds them, shows you the exact token to use, and can fix them with one command."
+>
+  <!-- What It Detects Section -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Hardcoded Value Types</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
+        {valueTypes.map((type) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-5 text-center">
+            <div class="text-3xl mb-3">{type.icon}</div>
+            <h3 class="font-semibold text-light mb-3">{type.title}</h3>
+            <div class="space-y-1">
+              {type.examples.map((ex) => (
+                <div class="text-xs font-mono text-slate-dark bg-navy-dark/50 px-2 py-1 rounded">
+                  {ex}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Example Section -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Before -->
+        <div>
+          <h3 class="text-lg font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-critical">✗</span> Before: Hardcoded values everywhere
+          </h3>
+          <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+            <div class="px-4 py-2 bg-navy border-b border-navy-light/20 text-xs text-slate font-mono">
+              Card.tsx
+            </div>
+            <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`export function Card({ title }) {
+  return (
+    <div style={{
+      backgroundColor: '#ffffff',  // ⚠️
+      padding: '16px',             // ⚠️
+      borderRadius: '8px'          // ⚠️
+    }}>
+      {title}
+    </div>
+  );
+}`}</code></pre>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div>
+          <h3 class="text-lg font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-success">✓</span> After: Using design tokens
+          </h3>
+          <div class="bg-navy-dark border border-success/30 rounded-xl overflow-hidden">
+            <div class="px-4 py-2 bg-navy border-b border-navy-light/20 text-xs text-slate font-mono">
+              Card.tsx
+            </div>
+            <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`export function Card({ title }) {
+  return (
+    <div style={{
+      backgroundColor: 'var(--bg-surface)',
+      padding: 'var(--spacing-md)',
+      borderRadius: 'var(--radius-md)'
+    }}>
+      {title}
+    </div>
+  );
+}`}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo Section: Detect -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">Step 1: Find Every Hardcoded Value</h2>
+      <p class="text-slate text-center mb-8">Each issue shows the exact token replacement.</p>
+
+      <Terminal
+        command="buoy drift check --type hardcoded-value"
+        lines={terminalLines}
+      />
+    </div>
+  </section>
+
+  <!-- Terminal Demo Section: Fix -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">Step 2: Auto-Fix Them All</h2>
+      <p class="text-slate text-center mb-8">One command. Dozens of files fixed. Token coverage jumps.</p>
+
+      <Terminal
+        command="buoy fix --auto --type hardcoded-value"
+        lines={fixTerminalLines}
+      />
+    </div>
+  </section>
+
+  <!-- Outcome Section -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">The Visible Outcome</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-5xl font-bold text-warning mb-2">34%</div>
+          <div class="text-slate text-sm">Token Coverage Before</div>
+          <div class="mt-4 text-xs text-slate-dark">
+            47 hardcoded values scattered across 35 files
+          </div>
+        </div>
+
+        <div class="bg-navy/50 border border-success/30 rounded-xl p-6 text-center">
+          <div class="text-5xl font-bold text-success mb-2">89%</div>
+          <div class="text-slate text-sm">Token Coverage After</div>
+          <div class="mt-4 text-xs text-slate-dark">
+            42 values auto-fixed in under 5 seconds
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-slate">
+          Now when you update <code class="text-buoy">--color-primary</code>, every component updates at once.
+          <br />No hunting through files. No missed spots. One source of truth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Frequently Asked Questions</h2>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-navy-dark border border-navy-light/20 rounded-xl">
+            <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
+              <span class="font-medium text-light">{faq.question}</span>
+              <svg class="w-5 h-5 text-slate group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <div class="px-4 pb-4 text-slate">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features Slot -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>
+
+<!-- Structured Data for FAQ -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+})} />

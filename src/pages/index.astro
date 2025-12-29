@@ -1,0 +1,452 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Terminal from '../components/Terminal.astro'
+import Button from '../components/Button.astro'
+import FeatureCard from '../components/FeatureCard.astro'
+import CodeBlock from '../components/CodeBlock.astro'
+
+const terminalLines = [
+  { text: '', type: 'output', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Scanning for design drift...', type: 'output', delay: 800 },
+  { text: '', type: 'output', delay: 1200 },
+  { text: 'Found <span class="text-warning">23</span> issues — <span class="text-success">18 auto-fixable</span>', type: 'output', delay: 1400 },
+  { text: '', type: 'output', delay: 1600 },
+  { text: '<span class="text-critical font-semibold">CRITICAL (2)</span>', type: 'output', delay: 1800 },
+  { text: '├─ Button.tsx:12 Missing aria-label <span class="text-success">→ auto-fix</span>', type: 'critical', delay: 2000 },
+  { text: '└─ Modal.tsx:45 Focus trap conflict <span class="text-success">→ auto-fix</span>', type: 'critical', delay: 2200 },
+  { text: '', type: 'output', delay: 2400 },
+  { text: '<span class="text-warning font-semibold">WARNING (8)</span>', type: 'output', delay: 2600 },
+  { text: '├─ Card.tsx:8 #ffffff <span class="text-success">→ var(--bg-surface)</span>', type: 'warning', delay: 2800 },
+  { text: '├─ Badge.tsx:3 8px <span class="text-success">→ var(--spacing-sm)</span>', type: 'warning', delay: 3000 },
+  { text: '└─ <span class="text-slate-dark">... and 6 more</span>', type: 'muted', delay: 3200 },
+  { text: '', type: 'output', delay: 3400 },
+  { text: '<span class="text-buoy font-semibold">Run buoy fix --auto to apply 18 fixes</span>', type: 'output', delay: 3600 },
+]
+
+const fixTerminalLines = [
+  { text: '', type: 'output', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Applying 18 auto-fixes...', type: 'output', delay: 800 },
+  { text: '', type: 'output', delay: 1200 },
+  { text: '<span class="text-success">✓</span> Button.tsx: Added aria-label', type: 'success', delay: 1400 },
+  { text: '<span class="text-success">✓</span> Modal.tsx: Using FocusTrap component', type: 'success', delay: 1600 },
+  { text: '<span class="text-success">✓</span> Card.tsx: #ffffff → var(--bg-surface)', type: 'success', delay: 1800 },
+  { text: '<span class="text-success">✓</span> Badge.tsx: 8px → var(--spacing-sm)', type: 'success', delay: 2000 },
+  { text: '<span class="text-slate-dark">... and 14 more files</span>', type: 'muted', delay: 2200 },
+  { text: '', type: 'output', delay: 2400 },
+  { text: '<span class="text-success font-semibold">18 issues fixed.</span> <span class="text-slate">5 need manual review.</span>', type: 'output', delay: 2600 },
+  { text: '', type: 'output', delay: 2800 },
+  { text: 'Design system coverage: <span class="text-warning">47%</span> → <span class="text-success">72%</span>', type: 'output', delay: 3000 },
+]
+
+const features = [
+  {
+    title: 'Hardcoded Values',
+    description: 'Find colors, spacing, and fonts that bypass your design tokens.',
+    icon: '🎨',
+    examples: ['#ff0000', '16px', 'Arial'],
+    href: '/features/hardcoded-values'
+  },
+  {
+    title: 'Duplicate Components',
+    description: 'Detect similar components that should be consolidated.',
+    icon: '📦',
+    examples: ['Button', 'ButtonNew', 'MyButton'],
+    href: '/features/duplicate-detection'
+  },
+  {
+    title: 'Naming Drift',
+    description: 'Catch inconsistent naming conventions across your codebase.',
+    icon: '🏷️',
+    examples: ['btn vs Button', 'color vs colour'],
+    href: '/features/naming-consistency'
+  },
+  {
+    title: 'Prop Mismatches',
+    description: 'Find when the same prop has different types across components.',
+    icon: '🔧',
+    examples: ['onClick vs onPress', 'size: string | number'],
+    href: '/features/prop-consistency'
+  },
+  {
+    title: 'Deprecated Patterns',
+    description: 'Track components marked @deprecated still in use.',
+    icon: '⚠️',
+    examples: ['@deprecated', 'legacy components'],
+    href: '/features/drift-detection'
+  },
+  {
+    title: 'Framework Sprawl',
+    description: 'Detect multiple UI frameworks competing in your codebase.',
+    icon: '🌐',
+    examples: ['React + Vue + ...'],
+    href: '/features/framework-sprawl'
+  },
+]
+
+const integrations = [
+  { name: 'React', icon: '⚛️' },
+  { name: 'Vue', icon: '💚' },
+  { name: 'Svelte', icon: '🔶' },
+  { name: 'Angular', icon: '🔺' },
+  { name: 'Next.js', icon: '▲' },
+  { name: 'Figma', icon: '🎨' },
+  { name: 'Storybook', icon: '📖' },
+  { name: 'Tailwind', icon: '🌊' },
+  { name: 'GitHub', icon: '🐙' },
+]
+
+const steps = [
+  {
+    step: '1',
+    title: 'Find',
+    command: 'buoy drift check',
+    description: 'Finds every issue with exact file and line'
+  },
+  {
+    step: '2',
+    title: 'Fix',
+    command: 'buoy fix --auto',
+    description: 'Auto-applies safe fixes in seconds'
+  },
+  {
+    step: '3',
+    title: 'Measure',
+    command: 'buoy status',
+    description: 'Shows coverage improvement'
+  },
+]
+---
+
+<Layout title="Buoy - Design Drift Detection for the AI Era">
+  <Nav />
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Sunrise gradient background -->
+    <div class="absolute inset-0 bg-sunrise-gradient"></div>
+
+    <!-- Animated wave overlay -->
+    <div class="absolute inset-0 opacity-30">
+      <svg class="absolute bottom-0 w-full h-64 animate-wave" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path fill="currentColor" class="text-navy-light/30" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/>
+      </svg>
+    </div>
+
+    <!-- Floating buoy decoration -->
+    <div class="absolute top-1/4 right-[15%] animate-float opacity-40 hidden lg:block">
+      <span class="text-8xl">🛟</span>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div class="text-center max-w-4xl mx-auto">
+        <!-- Tagline badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy/60 border border-navy-light/30 mb-8 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-buoy animate-pulse"></span>
+          <span class="text-sm text-slate">Design drift detection for the AI era</span>
+        </div>
+
+        <!-- Main headline -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          <span class="text-light">AI writes code fast.</span>
+          <br />
+          <span class="text-gradient-sunrise">Buoy catches design drift faster.</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-lg sm:text-xl text-slate max-w-2xl mx-auto mb-10">
+          Your team ships code 10x faster with AI. But Copilot doesn't know your design system.
+          Buoy scans your codebase and shows what's drifting before it ships.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <Button href="/demo" size="lg">
+            Get your first scan in 2 minutes
+          </Button>
+          <Button href="https://github.com/buoy-dev/buoy" variant="secondary" size="lg" external>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            View on GitHub
+          </Button>
+        </div>
+
+        <!-- Quick install command -->
+        <div class="inline-flex items-center gap-3 px-4 py-3 bg-navy/80 border border-navy-light/30 rounded-lg font-mono text-sm backdrop-blur-sm">
+          <span class="text-slate">$</span>
+          <code class="text-light">npx @buoy/cli scan</code>
+          <button class="text-slate hover:text-buoy transition-colors" aria-label="Copy command">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Problem Statement Section -->
+  <section class="py-24 bg-navy-dark relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+          AI-generated code is drifting from your design system
+        </h2>
+        <p class="text-lg text-slate max-w-2xl mx-auto">
+          AI code looks correct and passes review. But it doesn't know your design tokens exist.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Before AI -->
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <div class="text-sm font-semibold text-slate mb-4 uppercase tracking-wide">Before AI</div>
+          <div class="space-y-3 font-mono text-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-success">✓</span>
+              <span class="text-slate">Developer</span>
+            </div>
+            <div class="flex items-center gap-2 pl-4">
+              <span class="text-slate-dark">→</span>
+              <span class="text-slate">Check design system</span>
+            </div>
+            <div class="flex items-center gap-2 pl-4">
+              <span class="text-slate-dark">→</span>
+              <span class="text-slate">Use component</span>
+            </div>
+            <div class="flex items-center gap-2 pl-4">
+              <span class="text-slate-dark">→</span>
+              <span class="text-success">Ship</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- With AI -->
+        <div class="bg-navy/50 border border-warning/30 rounded-xl p-6">
+          <div class="text-sm font-semibold text-warning mb-4 uppercase tracking-wide">With AI</div>
+          <div class="space-y-3 font-mono text-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-success">✓</span>
+              <span class="text-slate">Developer</span>
+            </div>
+            <div class="flex items-center gap-2 pl-4">
+              <span class="text-slate-dark">→</span>
+              <span class="text-slate">Ask Claude/Copilot</span>
+            </div>
+            <div class="flex items-center gap-2 pl-4">
+              <span class="text-slate-dark">→</span>
+              <span class="text-slate">Get code</span>
+            </div>
+            <div class="flex items-center gap-2 pl-4">
+              <span class="text-slate-dark">→</span>
+              <span class="text-slate">Ship</span>
+              <span class="text-slate-dark">→</span>
+              <span class="text-warning">🚨 Drift</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI code characteristics -->
+      <div class="mt-12 max-w-2xl mx-auto">
+        <div class="bg-navy/30 border border-navy-light/20 rounded-xl p-6">
+          <div class="text-sm font-semibold text-slate mb-4">AI code characteristics:</div>
+          <div class="grid sm:grid-cols-2 gap-3 text-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-success">✓</span>
+              <span class="text-slate">Works correctly</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-success">✓</span>
+              <span class="text-slate">Passes code review</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-critical">✗</span>
+              <span class="text-slate">Uses <code class="text-warning">#3b82f6</code> not <code class="text-success">var(--primary)</code></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-critical">✗</span>
+              <span class="text-slate">Recreates Button instead of importing</span>
+            </div>
+            <div class="flex items-center gap-2 sm:col-span-2">
+              <span class="text-critical">✗</span>
+              <span class="text-slate">Ignores your naming conventions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo Section: Find -->
+  <section class="py-24 bg-navy relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+          Find drift in seconds
+        </h2>
+        <p class="text-lg text-slate">
+          One command. Every issue with exact file, line, and suggested fix.
+        </p>
+      </div>
+
+      <Terminal
+        command="buoy drift check"
+        lines={terminalLines}
+        class="max-w-3xl mx-auto"
+      />
+    </div>
+  </section>
+
+  <!-- Terminal Demo Section: Fix -->
+  <section class="py-24 bg-navy-dark relative overflow-hidden">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+          Fix it automatically
+        </h2>
+        <p class="text-lg text-slate">
+          One more command. Watch your design system coverage jump.
+        </p>
+      </div>
+
+      <Terminal
+        command="buoy fix --auto"
+        lines={fixTerminalLines}
+        class="max-w-3xl mx-auto"
+      />
+
+      <!-- Outcome callout -->
+      <div class="mt-12 max-w-2xl mx-auto">
+        <div class="bg-navy/50 border border-success/30 rounded-xl p-6 text-center">
+          <div class="text-sm text-success font-semibold mb-2">THE OUTCOME</div>
+          <div class="text-2xl font-bold text-light mb-2">
+            47% → 72% design system coverage
+          </div>
+          <p class="text-slate text-sm">
+            18 issues fixed in under 5 seconds. Your team sees the improvement immediately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid Section -->
+  <section class="py-24 bg-navy-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+          What Buoy Detects
+        </h2>
+        <p class="text-lg text-slate max-w-2xl mx-auto">
+          Comprehensive drift detection for modern frontend codebases
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <FeatureCard {...feature} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-24 bg-navy">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+          Find. Fix. Measure.
+        </h2>
+        <p class="text-lg text-slate">
+          Not just detection — action and visible results.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {steps.map((step) => (
+          <div class="text-center">
+            <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy text-buoy font-bold flex items-center justify-center mx-auto mb-4 text-xl">
+              {step.step}
+            </div>
+            <h3 class="text-xl font-semibold text-light mb-2">{step.title}</h3>
+            <code class="text-sm text-buoy bg-navy-dark px-3 py-1 rounded-md font-mono inline-block mb-3">
+              $ {step.command}
+            </code>
+            <p class="text-slate text-sm">{step.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <Button href="/docs" variant="secondary">
+          See full documentation →
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations Section -->
+  <section class="py-24 bg-navy-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+          Works with your stack
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+        {integrations.map((integration) => (
+          <div class="flex items-center gap-2 px-4 py-2 bg-navy/50 border border-navy-light/20 rounded-lg hover:border-buoy/30 transition-colors">
+            <span class="text-xl">{integration.icon}</span>
+            <span class="text-sm text-slate">{integration.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 bg-gradient-to-b from-navy to-navy-dark relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-64 bg-buoy/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-64 h-64 bg-lavender/10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
+        Get your first scan in 2 minutes
+      </h2>
+      <p class="text-lg text-slate mb-8">
+        Free. Open source. No signup required.
+      </p>
+
+      <div class="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-navy/80 border border-navy-light/30 rounded-xl backdrop-blur-sm">
+        <code class="text-lg font-mono text-light">npx @buoy/cli scan</code>
+        <div class="flex items-center gap-3">
+          <button class="px-4 py-2 bg-navy-light/30 hover:bg-navy-light/50 text-slate hover:text-light rounded-lg transition-colors text-sm">
+            Copy command
+          </button>
+          <Button href="https://github.com/buoy-dev/buoy" external>
+            View on GitHub
+          </Button>
+          <Button href="/docs" variant="secondary">
+            Read the docs
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

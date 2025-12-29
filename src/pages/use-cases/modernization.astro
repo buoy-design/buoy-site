@@ -1,0 +1,161 @@
+---
+import UseCaseLayout from '../../layouts/UseCaseLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+
+const phases = [
+  {
+    phase: 'Baseline',
+    description: 'Scan your legacy codebase to understand the current state. How many hardcoded values? How many duplicate components?',
+    icon: '📊'
+  },
+  {
+    phase: 'Track',
+    description: 'As you migrate, track progress with real metrics. See adoption grow week over week, sprint over sprint.',
+    icon: '📈'
+  },
+  {
+    phase: 'Enforce',
+    description: 'Once migrated, enforce the new patterns. Block PRs that introduce new legacy patterns.',
+    icon: '🛡️'
+  },
+  {
+    phase: 'Report',
+    description: 'Show leadership exactly how much is done, what\'s left, and the trend. No more "we think 60%".',
+    icon: '📋'
+  },
+]
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-light font-semibold">Migration Progress</span>', type: 'output', delay: 800 },
+  { text: '═══════════════════════════════════════', type: 'muted', delay: 1000 },
+  { text: '', delay: 1200 },
+  { text: '<span class="text-slate">Legacy Code:</span>      <span class="text-critical">38%</span> ███████░░░░░░░░░░░', type: 'output', delay: 1400 },
+  { text: '<span class="text-slate">In Progress:</span>      <span class="text-warning">15%</span> ███░░░░░░░░░░░░░░░', type: 'output', delay: 1600 },
+  { text: '<span class="text-slate">Migrated:</span>         <span class="text-success">47%</span> █████████░░░░░░░░░', type: 'output', delay: 1800 },
+  { text: '', delay: 2000 },
+  { text: '<span class="text-slate">This sprint:</span> +8% migrated', type: 'success', delay: 2200 },
+  { text: '<span class="text-slate">Velocity:</span>   ~12% per sprint', type: 'info', delay: 2400 },
+  { text: '<span class="text-slate">ETA:</span>        3 more sprints to 100%', type: 'info', delay: 2600 },
+]
+---
+
+<UseCaseLayout
+  title="Legacy Code Modernization Tracking | Buoy"
+  description="Track your frontend migration from legacy to modern design system. Know what's migrated, what's legacy, and what's drifting."
+  keywords="legacy modernization tracking, frontend migration, legacy code migration"
+  heroTitle="Modernization Tracking"
+  heroDescription="Track your migration from legacy to modern with data, not guesswork. Leadership asks 'how much is done?' — now you'll know."
+  icon="🔄"
+>
+  <!-- The Problem -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-navy/50 border border-warning/30 rounded-xl p-8 text-center">
+        <div class="text-4xl mb-4">😰</div>
+        <h2 class="text-xl font-bold text-light mb-4">The Modernization Question</h2>
+        <p class="text-lg text-slate mb-4">
+          Leadership asks: "How much of the legacy code is migrated?"
+        </p>
+        <p class="text-xl text-warning font-mono">
+          You say: "We think... maybe 60%?"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Migration Phases -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Migration Phases with Buoy</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        {phases.map((phase, index) => (
+          <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 rounded-full bg-buoy/20 border border-buoy flex items-center justify-center text-buoy font-bold text-sm">
+                {index + 1}
+              </div>
+              <span class="text-2xl">{phase.icon}</span>
+              <h3 class="text-lg font-semibold text-light">{phase.phase}</h3>
+            </div>
+            <p class="text-sm text-slate">{phase.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Track Progress with Real Data</h2>
+      <Terminal command="buoy status --migration" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Configuration -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Configuration for Migrations</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">buoy.config.mjs</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`export default {
+  // Define what "legacy" means
+  legacy: {
+    // Legacy directories to track
+    directories: ['src/legacy/', 'src/old-components/'],
+
+    // Legacy patterns to detect
+    patterns: [
+      'className="legacy-*"',
+      'import.*from.*@old-design-system',
+    ],
+
+    // Mark files with this comment as legacy
+    markers: ['@legacy', '@deprecated'],
+  },
+
+  // Modern design system reference
+  tokens: './src/tokens',
+
+  // Track migration progress
+  migration: {
+    enabled: true,
+    trackBy: 'directory', // or 'file' or 'component'
+  },
+}`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Props -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What You Get</h2>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="font-semibold text-light mb-2">Exact Numbers</h3>
+          <p class="text-sm text-slate">Not "we think 60%" but "47.3% migrated, up 8% from last sprint"</p>
+        </div>
+
+        <div class="text-center">
+          <div class="text-4xl mb-4">📈</div>
+          <h3 class="font-semibold text-light mb-2">Velocity Tracking</h3>
+          <p class="text-sm text-slate">Know your migration velocity and estimate completion dates</p>
+        </div>
+
+        <div class="text-center">
+          <div class="text-4xl mb-4">🛡️</div>
+          <h3 class="font-semibold text-light mb-2">Prevent Regression</h3>
+          <p class="text-sm text-slate">Block PRs that add new legacy code to migrated areas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</UseCaseLayout>

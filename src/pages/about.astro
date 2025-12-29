@@ -1,0 +1,186 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Button from '../components/Button.astro'
+
+const values = [
+  {
+    title: 'Clarity Over Reports',
+    description: 'Every scan ends with clear next steps. Not another dashboard to check — actionable fixes you can apply now.'
+  },
+  {
+    title: 'Automation Over Manual Work',
+    description: "If a fix is safe and obvious, we do it for you. Your time is better spent building, not hunting through files."
+  },
+  {
+    title: 'Measurement Over Guessing',
+    description: "\"About 60% adopted\" isn't good enough. Real numbers let you prove ROI and track improvement."
+  },
+  {
+    title: 'Open Source at Core',
+    description: 'The CLI is free forever. It lives in your codebase, not on our servers. Your whole team uses it.'
+  },
+]
+
+const timeline = [
+  {
+    phase: 'Now',
+    title: 'CLI + CI Integration',
+    description: 'Drift detection, auto-fixes, and coverage tracking in your terminal and CI pipeline.'
+  },
+  {
+    phase: 'Next',
+    title: 'MCP Server',
+    description: 'Real-time drift prevention in AI editors like Cursor and Claude. Stop drift before it happens.'
+  },
+  {
+    phase: 'Future',
+    title: 'Figma Sync',
+    description: 'Keep design tokens synchronized between Figma and code. One source of truth.'
+  },
+]
+---
+
+<Layout
+  title="About Buoy | Design Drift Detection"
+  description="Buoy catches design drift in AI-generated code. Find issues, fix them automatically, and measure the improvement."
+>
+  <Nav />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6">
+        Design systems shouldn't be optional
+      </h1>
+      <p class="text-lg text-slate max-w-2xl mx-auto">
+        AI writes code fast. But it doesn't know your design system exists.
+        Buoy bridges that gap — finding drift, fixing it, and measuring the improvement.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem We Solve -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">The Problem</h2>
+
+      <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-8">
+        <div class="space-y-6 text-slate">
+          <p>
+            Your team invested months building a design system. Components, tokens, documentation — the works.
+          </p>
+          <p>
+            Then AI coding assistants arrived. Copilot, Cursor, Claude — they write code 10x faster.
+            But they don't know your design system exists.
+          </p>
+          <p>
+            The AI writes <code class="text-warning">color: #3b82f6</code> instead of <code class="text-success">var(--color-primary)</code>.
+            It creates a new button instead of importing yours.
+            It ignores your naming conventions.
+          </p>
+          <p class="text-light font-semibold">
+            The code works. It passes review. But your design system is slowly becoming irrelevant.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Solution -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Our Solution</h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-4xl mb-4">1</div>
+          <h3 class="font-semibold text-light mb-2">Find</h3>
+          <p class="text-sm text-slate">
+            Scan your codebase. Get every issue with exact file, line, and suggested fix.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-4xl mb-4">2</div>
+          <h3 class="font-semibold text-light mb-2">Fix</h3>
+          <p class="text-sm text-slate">
+            One command applies all safe fixes. Watch dozens of files update in seconds.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6 text-center">
+          <div class="text-4xl mb-4">3</div>
+          <h3 class="font-semibold text-light mb-2">Measure</h3>
+          <p class="text-sm text-slate">
+            See your coverage improve. Prove ROI to leadership with real data.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What We Believe</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        {values.map((value) => (
+          <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-2">{value.title}</h3>
+            <p class="text-sm text-slate">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Where We're Headed</h2>
+
+      <div class="space-y-6">
+        {timeline.map((item, index) => (
+          <div class={`flex gap-6 ${index === 0 ? 'opacity-100' : 'opacity-70'}`}>
+            <div class="flex-shrink-0">
+              <div class={`w-16 h-8 rounded-full flex items-center justify-center text-xs font-semibold ${
+                index === 0 ? 'bg-success/20 text-success' : 'bg-navy-light/20 text-slate'
+              }`}>
+                {item.phase}
+              </div>
+            </div>
+            <div>
+              <h3 class="font-semibold text-light mb-1">{item.title}</h3>
+              <p class="text-sm text-slate">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">Ready to catch design drift?</h2>
+      <p class="text-slate mb-8">
+        One command. 2 minutes. No signup required.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Button href="/demo" size="lg">
+          Get started
+        </Button>
+        <Button href="https://github.com/buoy-dev/buoy" variant="secondary" size="lg" external>
+          View on GitHub
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

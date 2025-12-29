@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Terminal from '../components/Terminal.astro'
+import Button from '../components/Button.astro'
+
+const installSteps = [
+  {
+    title: '1. Run your first scan',
+    description: 'No install required. Just run this command in your project:',
+    command: 'npx @buoy/cli scan',
+  },
+  {
+    title: '2. Check for drift',
+    description: 'Analyze your codebase for design drift signals:',
+    command: 'npx @buoy/cli drift check',
+  },
+  {
+    title: '3. See your status',
+    description: 'Get a summary of your design system adoption:',
+    command: 'npx @buoy/cli status',
+  },
+]
+
+const demoTerminalLines = [
+  { text: '', delay: 400 },
+  { text: '<span class="text-buoy">⚓</span> Scanning codebase...', type: 'output', delay: 600 },
+  { text: '', delay: 1000 },
+  { text: 'Found <span class="text-light">127</span> components', type: 'output', delay: 1200 },
+  { text: 'Found <span class="text-light">34</span> design tokens', type: 'output', delay: 1400 },
+  { text: '', delay: 1600 },
+  { text: '<span class="text-success">✓</span> Scan complete! Run <span class="text-buoy">buoy drift check</span> to analyze', type: 'success', delay: 1800 },
+]
+---
+
+<Layout
+  title="Get Started | Buoy - Design Drift Detection"
+  description="Get your first design drift scan in 2 minutes. No signup required. Free and open source."
+  keywords="buoy cli, design drift detection, get started"
+>
+  <Nav />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-sunrise-gradient"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy/60 border border-navy-light/30 mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+        <span class="text-sm text-slate">No signup required</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6">
+        Get your first scan in 2 minutes
+      </h1>
+      <p class="text-lg text-slate max-w-2xl mx-auto mb-8">
+        One command. Full visibility into your design drift. Free and open source.
+      </p>
+
+      <!-- Quick command -->
+      <div class="inline-flex items-center gap-3 px-6 py-4 bg-navy/80 border border-navy-light/30 rounded-xl font-mono backdrop-blur-sm">
+        <span class="text-buoy">$</span>
+        <code class="text-light text-lg">npx @buoy/cli scan</code>
+        <button
+          class="ml-2 p-2 text-slate hover:text-buoy transition-colors rounded-lg hover:bg-navy-light/20"
+          aria-label="Copy command"
+          id="copy-btn"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Terminal -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Terminal
+        command="npx @buoy/cli scan"
+        lines={demoTerminalLines}
+      />
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-12 text-center">Three commands to full visibility</h2>
+
+      <div class="space-y-8">
+        {installSteps.map((step, index) => (
+          <div class="flex gap-6 items-start">
+            <div class="w-10 h-10 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center text-buoy font-bold flex-shrink-0">
+              {index + 1}
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-light mb-2">{step.title}</h3>
+              <p class="text-slate mb-3">{step.description}</p>
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-navy-dark border border-navy-light/20 rounded-lg font-mono text-sm">
+                <span class="text-buoy">$</span>
+                <code class="text-light">{step.command}</code>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuration -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Optional: Configure for your project</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20 flex items-center justify-between">
+          <span class="text-sm text-slate font-mono">buoy.config.mjs</span>
+          <span class="text-xs text-slate">Optional configuration</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`export default {
+  // Your design system source
+  tokens: './src/tokens',
+
+  // Components to scan
+  include: ['src/components/**/*.tsx'],
+
+  // Patterns to ignore
+  ignore: ['**/*.test.tsx', '**/stories/**'],
+
+  // Severity thresholds for CI
+  thresholds: {
+    critical: 0,  // Fail on any critical
+    warning: 10,  // Allow up to 10 warnings
+  }
+}`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Steps -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-8">What's next?</h2>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        <a href="/docs" class="bg-navy-dark border border-navy-light/20 rounded-xl p-6 hover:border-buoy/30 transition-colors group">
+          <div class="text-3xl mb-3">📖</div>
+          <h3 class="font-semibold text-light mb-2 group-hover:text-buoy transition-colors">Read the Docs</h3>
+          <p class="text-sm text-slate">Full CLI reference and configuration options</p>
+        </a>
+
+        <a href="/features/github-action" class="bg-navy-dark border border-navy-light/20 rounded-xl p-6 hover:border-buoy/30 transition-colors group">
+          <div class="text-3xl mb-3">🔄</div>
+          <h3 class="font-semibold text-light mb-2 group-hover:text-buoy transition-colors">Add to CI</h3>
+          <p class="text-sm text-slate">Get drift reports on every pull request</p>
+        </a>
+
+        <a href="https://github.com/buoy-dev/buoy" target="_blank" rel="noopener" class="bg-navy-dark border border-navy-light/20 rounded-xl p-6 hover:border-buoy/30 transition-colors group">
+          <div class="text-3xl mb-3">⭐</div>
+          <h3 class="font-semibold text-light mb-2 group-hover:text-buoy transition-colors">Star on GitHub</h3>
+          <p class="text-sm text-slate">Support the project and stay updated</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const copyBtn = document.getElementById('copy-btn')
+  copyBtn?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText('npx @buoy/cli scan')
+    copyBtn.innerHTML = `<svg class="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
+    setTimeout(() => {
+      copyBtn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`
+    }, 2000)
+  })
+</script>

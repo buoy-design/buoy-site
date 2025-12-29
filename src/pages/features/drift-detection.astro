@@ -1,0 +1,396 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Scanning for design drift...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: 'Found <span class="text-warning">31</span> issues across <span class="text-light">89</span> files', type: 'output', delay: 1400 },
+  { text: '', delay: 1600 },
+  { text: '<span class="text-critical font-semibold">CRITICAL (3)</span> — <span class="text-slate">Auto-fixable: 2</span>', type: 'output', delay: 1800 },
+  { text: '├─ Button.tsx:12 Missing aria-label', type: 'critical', delay: 2000 },
+  { text: '│  <span class="text-success">→ Fix: Add aria-label={buttonText}</span>', type: 'output', delay: 2200 },
+  { text: '└─ Modal.tsx:45 Focus trap conflict', type: 'critical', delay: 2400 },
+  { text: '   <span class="text-success">→ Fix: Use FocusTrap from design system</span>', type: 'output', delay: 2600 },
+  { text: '', delay: 2800 },
+  { text: '<span class="text-warning font-semibold">WARNING (12)</span> — <span class="text-slate">Auto-fixable: 10</span>', type: 'output', delay: 3000 },
+  { text: '├─ Card.tsx:8 Hardcoded #ffffff → var(--color-bg)', type: 'warning', delay: 3200 },
+  { text: '├─ Header.tsx:3 NavHeader deprecated → Navigation', type: 'warning', delay: 3400 },
+  { text: '└─ <span class="text-slate-dark">... and 10 more</span>', type: 'muted', delay: 3600 },
+  { text: '', delay: 3800 },
+  { text: '<span class="text-buoy font-semibold">Run buoy fix --auto to apply 12 auto-fixes</span>', type: 'output', delay: 4000 },
+]
+
+const fixTerminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Applying auto-fixes...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: '<span class="text-success">✓</span> Fixed Card.tsx: #ffffff → var(--color-bg)', type: 'success', delay: 1400 },
+  { text: '<span class="text-success">✓</span> Fixed Button.tsx: Added aria-label', type: 'success', delay: 1600 },
+  { text: '<span class="text-success">✓</span> Fixed Badge.tsx: 8px → var(--spacing-sm)', type: 'success', delay: 1800 },
+  { text: '<span class="text-success">✓</span> Fixed Header.tsx: NavHeader → Navigation', type: 'success', delay: 2000 },
+  { text: '<span class="text-slate-dark">... and 8 more</span>', type: 'muted', delay: 2200 },
+  { text: '', delay: 2400 },
+  { text: '<span class="text-success font-semibold">12 issues fixed.</span> <span class="text-slate">3 need manual review.</span>', type: 'output', delay: 2600 },
+  { text: '', delay: 2800 },
+  { text: 'Coverage improved: <span class="text-warning">52%</span> → <span class="text-success">68%</span>', type: 'output', delay: 3000 },
+]
+
+const driftTypes = [
+  {
+    title: 'Hardcoded Values',
+    severity: 'Warning',
+    description: 'Colors, spacing, fonts not using tokens',
+    icon: '🎨',
+    href: '/features/hardcoded-values'
+  },
+  {
+    title: 'Duplicate Components',
+    severity: 'Warning',
+    description: 'Similar components that should be consolidated',
+    icon: '📦',
+    href: '/features/duplicate-detection'
+  },
+  {
+    title: 'Naming Inconsistency',
+    severity: 'Info',
+    description: 'Component/prop names that don\'t match conventions',
+    icon: '🏷️',
+    href: '/features/naming-consistency'
+  },
+  {
+    title: 'Deprecated Patterns',
+    severity: 'Warning',
+    description: 'Components marked @deprecated still in use',
+    icon: '⚠️',
+  },
+  {
+    title: 'Prop Type Mismatch',
+    severity: 'Warning',
+    description: 'Same prop with different types across components',
+    icon: '🔧',
+    href: '/features/prop-consistency'
+  },
+  {
+    title: 'Accessibility Conflict',
+    severity: 'Critical',
+    description: 'Missing ARIA labels, focus issues',
+    icon: '♿',
+    href: '/features/accessibility-checks'
+  },
+  {
+    title: 'Framework Sprawl',
+    severity: 'Warning',
+    description: 'Multiple UI frameworks in same codebase',
+    icon: '🌐',
+    href: '/features/framework-sprawl'
+  },
+  {
+    title: 'Orphaned Components',
+    severity: 'Info',
+    description: 'Components in code but not in design',
+    icon: '👻',
+  },
+]
+
+const relatedFeatures = [
+  {
+    title: 'Coverage Metrics',
+    description: 'Measure design system adoption with real data',
+    href: '/features/coverage'
+  },
+  {
+    title: 'GitHub Action',
+    description: 'Catch drift in every PR automatically',
+    href: '/features/github-action'
+  },
+  {
+    title: 'CI Integration',
+    description: 'Add drift checks to your CI pipeline',
+    href: '/features/ci'
+  },
+]
+---
+
+<FeatureLayout
+  title="Design Drift Detection for React, Vue & Svelte | Buoy"
+  description="Automatically detect when AI-generated code drifts from your design system. Find hardcoded values, naming inconsistencies, and deprecated patterns."
+  keywords="design drift detection, AI code consistency, design system enforcement"
+  heroTitle="Find drift. Fix it. Measure the improvement."
+  heroDescription="Not just another linter. Buoy finds design drift, auto-fixes what it can, and shows you the measurable improvement in your design system adoption."
+>
+  <!-- Drift Types Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">Drift Types Detected</h2>
+      <p class="text-slate text-center mb-12 max-w-2xl mx-auto">
+        Buoy categorizes drift by severity to help you prioritize fixes
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {driftTypes.map((drift) => {
+          const severityColors = {
+            Critical: 'border-critical/30 hover:border-critical/50',
+            Warning: 'border-warning/30 hover:border-warning/50',
+            Info: 'border-info/30 hover:border-info/50',
+          }
+          const severityBadge = {
+            Critical: 'bg-critical/20 text-critical',
+            Warning: 'bg-warning/20 text-warning',
+            Info: 'bg-info/20 text-info',
+          }
+
+          return (
+            <div class={`bg-navy/50 border ${severityColors[drift.severity]} rounded-xl p-5 transition-colors`}>
+              <div class="flex items-start justify-between mb-3">
+                <span class="text-2xl">{drift.icon}</span>
+                <span class={`text-xs px-2 py-0.5 rounded-full ${severityBadge[drift.severity]}`}>
+                  {drift.severity}
+                </span>
+              </div>
+              <h3 class="font-semibold text-light mb-2">
+                {drift.href ? (
+                  <a href={drift.href} class="hover:text-buoy transition-colors">
+                    {drift.title}
+                  </a>
+                ) : drift.title}
+              </h3>
+              <p class="text-sm text-slate">{drift.description}</p>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">How Drift Detection Works</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+            1
+          </div>
+          <h3 class="font-semibold text-light mb-2">Scan</h3>
+          <p class="text-sm text-slate">
+            Buoy parses your codebase to build a map of all components, props, and style values.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+            2
+          </div>
+          <h3 class="font-semibold text-light mb-2">Analyze</h3>
+          <p class="text-sm text-slate">
+            Compares against your design system config to identify patterns that don't match.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+            3
+          </div>
+          <h3 class="font-semibold text-light mb-2">Report</h3>
+          <p class="text-sm text-slate">
+            Outputs drift signals with severity, location, and suggested fixes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo: Detect -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">Step 1: Find Drift</h2>
+      <p class="text-slate text-center mb-8 max-w-2xl mx-auto">
+        Every issue includes the exact file, line, and what to change.
+      </p>
+
+      <Terminal
+        command="buoy drift check"
+        lines={terminalLines}
+      />
+    </div>
+  </section>
+
+  <!-- Terminal Demo: Fix -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">Step 2: Auto-Fix</h2>
+      <p class="text-slate text-center mb-8 max-w-2xl mx-auto">
+        One command applies all safe fixes. No manual editing required.
+      </p>
+
+      <Terminal
+        command="buoy fix --auto"
+        lines={fixTerminalLines}
+      />
+    </div>
+  </section>
+
+  <!-- Actions Section -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">What You Get</h2>
+      <p class="text-slate text-center mb-12 max-w-2xl mx-auto">
+        Clarity, not just data. Every scan ends with concrete next steps.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-navy/50 border border-success/30 rounded-xl p-6">
+          <div class="text-2xl mb-4">🔧</div>
+          <h3 class="font-semibold text-light mb-2">Auto-Fixes Applied</h3>
+          <p class="text-sm text-slate mb-4">
+            Hardcoded colors → tokens. Deprecated components → current ones. Done automatically.
+          </p>
+          <code class="text-xs text-success bg-success/10 px-2 py-1 rounded">buoy fix --auto</code>
+        </div>
+
+        <div class="bg-navy/50 border border-warning/30 rounded-xl p-6">
+          <div class="text-2xl mb-4">📋</div>
+          <h3 class="font-semibold text-light mb-2">Manual Review Queue</h3>
+          <p class="text-sm text-slate mb-4">
+            Complex issues get a clear explanation and exactly what needs to change.
+          </p>
+          <code class="text-xs text-warning bg-warning/10 px-2 py-1 rounded">buoy fix --interactive</code>
+        </div>
+
+        <div class="bg-navy/50 border border-buoy/30 rounded-xl p-6">
+          <div class="text-2xl mb-4">📈</div>
+          <h3 class="font-semibold text-light mb-2">Coverage Score</h3>
+          <p class="text-sm text-slate mb-4">
+            Before: 52%. After: 68%. Show leadership exactly how much you improved.
+          </p>
+          <code class="text-xs text-buoy bg-buoy/10 px-2 py-1 rounded">buoy status</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Happy Team -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Visible Outcomes</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-2xl">👩‍💻</span> For Developers
+          </h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>No guessing — exact file, line, and fix</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Auto-fix handles the tedious work</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>PR checks catch issues before review</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Less time debating, more time building</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4 flex items-center gap-2">
+            <span class="text-2xl">📊</span> For Leaders
+          </h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Real adoption numbers, not estimates</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Track improvement week over week</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Prove design system ROI with data</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Identify which teams need help</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Drift Matters -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Why Design Drift Matters</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-3">Without Drift Detection</h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li class="flex items-start gap-2">
+              <span class="text-critical">✗</span>
+              <span>Inconsistent UI across the app</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-critical">✗</span>
+              <span>Design system becomes optional</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-critical">✗</span>
+              <span>Harder to maintain and update</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-critical">✗</span>
+              <span>No way to measure adoption</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-navy-dark border border-success/30 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-3">With Buoy</h3>
+          <ul class="space-y-2 text-sm text-slate">
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Consistent, cohesive UI</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Design system enforcement</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Easy global updates via tokens</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-success">✓</span>
+              <span>Real adoption metrics</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features Slot -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>

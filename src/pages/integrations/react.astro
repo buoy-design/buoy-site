@@ -1,0 +1,125 @@
+---
+import IntegrationLayout from '../../layouts/IntegrationLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+
+const features = [
+  {
+    title: 'JSX/TSX Scanning',
+    description: 'Full parsing support for JSX and TSX files, including complex expressions and fragments.'
+  },
+  {
+    title: 'Props Extraction',
+    description: 'Automatically extracts and analyzes component props, including TypeScript interfaces and PropTypes.'
+  },
+  {
+    title: 'CSS-in-JS Support',
+    description: 'Detects hardcoded values in styled-components, Emotion, and inline styles.'
+  },
+  {
+    title: 'Hook Analysis',
+    description: 'Understands React hooks like useMemo, useCallback, and custom hooks for accurate scanning.'
+  },
+  {
+    title: 'Component Detection',
+    description: 'Recognizes React.memo, forwardRef, lazy, and other React patterns.'
+  },
+  {
+    title: 'Import Tracking',
+    description: 'Tracks component imports to identify duplicate implementations and naming conflicts.'
+  },
+]
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Scanning React components...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: 'Found <span class="text-light">89</span> React components', type: 'output', delay: 1400 },
+  { text: 'Found <span class="text-light">12</span> styled-components', type: 'output', delay: 1600 },
+  { text: 'Found <span class="text-light">34</span> Emotion components', type: 'output', delay: 1800 },
+  { text: '', delay: 2000 },
+  { text: '<span class="text-warning">WARNING</span> 23 hardcoded values in JSX', type: 'warning', delay: 2200 },
+  { text: '<span class="text-warning">WARNING</span> 5 duplicate Button implementations', type: 'warning', delay: 2400 },
+  { text: '<span class="text-info">INFO</span> 8 naming inconsistencies', type: 'info', delay: 2600 },
+]
+
+const configExample = `// buoy.config.mjs
+export default {
+  // React-specific settings
+  framework: 'react',
+
+  // Include patterns
+  include: [
+    'src/components/**/*.tsx',
+    'src/features/**/*.tsx',
+  ],
+
+  // CSS-in-JS libraries to scan
+  cssInJs: ['styled-components', 'emotion'],
+
+  // Your design tokens
+  tokens: './src/tokens/index.ts',
+}`
+---
+
+<IntegrationLayout
+  title="React Component Drift Detection | Buoy"
+  description="Scan React and JSX/TSX files for design drift. Detect hardcoded styles, duplicate components, and prop inconsistencies in your React codebase."
+  keywords="react design system, react component audit, react code consistency"
+  heroTitle="React Component Drift Detection"
+  heroDescription="Scan your React codebase for design drift. Detect hardcoded styles in JSX, styled-components, and Emotion. Find duplicate components and prop inconsistencies."
+  icon="⚛️"
+  iconBg="bg-sky-500/20"
+>
+  <!-- Features Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">React-Specific Features</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-2">{feature.title}</h3>
+            <p class="text-sm text-slate">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">See it in action</h2>
+      <Terminal command="buoy scan --framework react" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Configuration -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Configuration Example</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">buoy.config.mjs</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{configExample}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supported Libraries -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Supported React Libraries</h2>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {['styled-components', 'Emotion', 'CSS Modules', 'Tailwind CSS', 'Chakra UI', 'Material UI', 'Ant Design', 'shadcn/ui'].map((lib) => (
+          <div class="bg-navy-dark/50 border border-navy-light/20 rounded-lg p-4 text-center">
+            <span class="text-sm text-slate">{lib}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</IntegrationLayout>

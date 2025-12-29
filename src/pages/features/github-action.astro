@@ -1,0 +1,181 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+
+const workflowYaml = `# .github/workflows/buoy.yml
+name: Design Drift Check
+on: [pull_request]
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: buoy-dev/buoy-action@v1
+        with:
+          fail-on: critical  # or 'warning', 'info', 'none'`
+
+const prCommentExample = `## Buoy Drift Report
+
+| Severity | Count |
+|----------|-------|
+| 🔴 Critical | 0 |
+| 🟡 Warning | 3 |
+| 🟢 Info | 7 |
+
+### Warnings
+- \`Card.tsx:12\` Hardcoded color #ffffff
+- \`Badge.tsx:8\` Hardcoded spacing 8px
+- \`Header.tsx:3\` Using deprecated NavHeader
+
+---
+📊 [View full report](#) | ⚓ Powered by Buoy`
+
+const features = [
+  {
+    title: 'One-File Setup',
+    description: 'Add one YAML file to your repo. That\'s it. No server, no dashboard, no signup.'
+  },
+  {
+    title: 'PR Comments',
+    description: 'Automatic drift reports posted as comments on every pull request.'
+  },
+  {
+    title: 'Check Status',
+    description: 'Pass or fail based on drift severity. Block merges on critical drift.'
+  },
+  {
+    title: 'Diff-Aware',
+    description: 'Only reports drift in changed files, not the entire codebase.'
+  },
+  {
+    title: 'Fast Execution',
+    description: 'Typically completes in under 30 seconds, even on large codebases.'
+  },
+  {
+    title: 'Free Forever',
+    description: 'Open source action. No usage limits, no API keys needed.'
+  },
+]
+
+const relatedFeatures = [
+  {
+    title: 'CI Integration',
+    description: 'More CI options beyond GitHub',
+    href: '/features/ci'
+  },
+  {
+    title: 'Coverage Metrics',
+    description: 'Track adoption over time',
+    href: '/features/coverage'
+  },
+  {
+    title: 'GitHub Integration',
+    description: 'Full GitHub integration options',
+    href: '/integrations/github'
+  },
+]
+---
+
+<FeatureLayout
+  title="Buoy GitHub Action - Design Drift PR Comments | Buoy"
+  description="Add one workflow file. Get design drift reports on every pull request. Block merges on critical drift. Free forever."
+  keywords="github action design system, design system pr checks, component library github action"
+  heroTitle="Catch design drift in every PR"
+  heroDescription="Add one workflow file. Get drift reports on every pull request. No server required."
+>
+  <!-- Quick Setup -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Setup in 30 Seconds</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20 flex items-center justify-between">
+          <span class="text-sm text-slate font-mono">.github/workflows/buoy.yml</span>
+          <span class="text-xs px-2 py-1 bg-success/20 text-success rounded">Copy this file</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{workflowYaml}</code></pre>
+      </div>
+
+      <p class="text-center text-slate mt-4">
+        That's it. Open a PR and watch the magic happen.
+      </p>
+    </div>
+  </section>
+
+  <!-- PR Comment Preview -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What You'll See</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy border-b border-navy-light/20 flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-buoy/20 flex items-center justify-center text-sm">🤖</div>
+          <div>
+            <span class="text-sm text-light font-medium">buoy-bot</span>
+            <span class="text-xs text-slate ml-2">commented just now</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <pre class="text-sm text-slate whitespace-pre-wrap">{prCommentExample}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Why Teams Love It</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-2">{feature.title}</h3>
+            <p class="text-sm text-slate">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuration Options -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Configuration Options</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">Full configuration example</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`- uses: buoy-dev/buoy-action@v1
+  with:
+    # When to fail the check
+    fail-on: critical  # critical | warning | info | none
+
+    # Post a PR comment with results
+    comment: true
+
+    # Compare against this branch
+    base: main
+
+    # Path to buoy config
+    config: ./buoy.config.mjs
+
+    # Only check changed files (faster)
+    diff-only: true`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>

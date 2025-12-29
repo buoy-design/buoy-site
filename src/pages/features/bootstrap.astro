@@ -1,0 +1,171 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Scanning codebase for style values...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: 'Found <span class="text-light">47</span> unique colors', type: 'output', delay: 1400 },
+  { text: 'Found <span class="text-light">12</span> unique spacing values', type: 'output', delay: 1600 },
+  { text: 'Found <span class="text-light">8</span> unique font sizes', type: 'output', delay: 1800 },
+  { text: '', delay: 2000 },
+  { text: '<span class="text-success">✓</span> Generated tokens.css', type: 'success', delay: 2200 },
+  { text: '<span class="text-success">✓</span> Generated tokens.json', type: 'success', delay: 2400 },
+  { text: '<span class="text-success">✓</span> Generated tailwind.config.js extension', type: 'success', delay: 2600 },
+]
+
+const outputFormats = [
+  { name: 'CSS Variables', file: 'tokens.css' },
+  { name: 'JSON', file: 'tokens.json' },
+  { name: 'Tailwind Config', file: 'tailwind.config.js' },
+  { name: 'SCSS Variables', file: '_tokens.scss' },
+  { name: 'TypeScript', file: 'tokens.ts' },
+  { name: 'Style Dictionary', file: 'tokens.sd.json' },
+]
+
+const relatedFeatures = [
+  {
+    title: 'Build',
+    description: 'Generate tokens with AI',
+    href: '/features/build'
+  },
+  {
+    title: 'Hardcoded Values',
+    description: 'Find values to tokenize',
+    href: '/features/hardcoded-values'
+  },
+  {
+    title: 'Coverage',
+    description: 'Measure token adoption',
+    href: '/features/coverage'
+  },
+]
+---
+
+<FeatureLayout
+  title="Extract Design Tokens from Existing Code | Buoy"
+  description="Turn hardcoded colors, spacing, and fonts into design tokens. Scan your codebase and generate tokens.json, CSS variables, or Tailwind config."
+  keywords="extract design tokens, create design tokens cli, hardcoded to design tokens"
+  heroTitle="Turn hardcoded values into design tokens"
+  heroDescription="You have colors and spacing scattered everywhere. Buoy extracts them into a token file in seconds."
+>
+  <!-- How It Works -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">How It Works</h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+            1
+          </div>
+          <h3 class="font-semibold text-light mb-2">Scan</h3>
+          <p class="text-sm text-slate">
+            Buoy scans your codebase for all hardcoded style values
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+            2
+          </div>
+          <h3 class="font-semibold text-light mb-2">Dedupe</h3>
+          <p class="text-sm text-slate">
+            Groups similar values and suggests consolidation
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-buoy/20 border-2 border-buoy flex items-center justify-center mx-auto mb-4 text-buoy font-bold">
+            3
+          </div>
+          <h3 class="font-semibold text-light mb-2">Generate</h3>
+          <p class="text-sm text-slate">
+            Outputs token files in your preferred format
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">See it in action</h2>
+      <Terminal command="buoy bootstrap" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Output Formats -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Output Formats</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {outputFormats.map((format) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-lg p-4 flex items-center justify-between">
+            <span class="text-light">{format.name}</span>
+            <code class="text-sm text-slate-dark">{format.file}</code>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">Example: tokens.css output</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`:root {
+  /* Colors - extracted from codebase */
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-secondary: #10b981;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f3f4f6;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Typography */
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+}`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pro Feature Note -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="bg-navy-dark border border-lavender/30 rounded-xl p-6">
+        <span class="text-lavender font-semibold">Pro Feature</span>
+        <p class="text-slate mt-2">
+          Bootstrap is available in Buoy Pro. The CLI will scan and show what it found, but token generation requires a Pro subscription.
+        </p>
+        <a href="/pricing" class="text-buoy hover:text-buoy-light transition-colors mt-4 inline-block">
+          View pricing →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>

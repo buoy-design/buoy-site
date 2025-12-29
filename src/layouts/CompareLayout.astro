@@ -1,0 +1,106 @@
+---
+import Layout from './Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Button from '../components/Button.astro'
+
+interface Props {
+  title: string
+  description: string
+  keywords?: string
+  heroTitle: string
+  heroDescription: string
+  competitor: string
+}
+
+const { title, description, keywords, heroTitle, heroDescription, competitor } = Astro.props
+
+const comparisons = [
+  { name: 'Manual Audits', href: '/compare/manual-audits' },
+  { name: 'Figma Plugins', href: '/compare/figma-plugins' },
+  { name: 'ESLint', href: '/compare/eslint' },
+  { name: 'Chromatic', href: '/compare/chromatic' },
+  { name: 'Style Dictionary', href: '/compare/style-dictionary' },
+]
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <Nav />
+
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center justify-center gap-2 text-sm text-slate">
+          <li><a href="/" class="hover:text-buoy transition-colors">Home</a></li>
+          <li>/</li>
+          <li><a href="/compare/manual-audits" class="hover:text-buoy transition-colors">Compare</a></li>
+          <li>/</li>
+          <li class="text-light">{competitor}</li>
+        </ol>
+      </nav>
+
+      <div class="inline-flex items-center gap-3 mb-6">
+        <span class="text-3xl font-bold text-buoy">Buoy</span>
+        <span class="text-slate">vs</span>
+        <span class="text-3xl font-bold text-light">{competitor}</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-light mb-6 leading-tight">
+        {heroTitle}
+      </h1>
+
+      <p class="text-lg text-slate max-w-2xl mx-auto mb-8">
+        {heroDescription}
+      </p>
+
+      <Button href="/demo" size="lg">
+        Try Buoy free
+      </Button>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="bg-navy-dark">
+    <slot />
+  </main>
+
+  <!-- Other Comparisons -->
+  <section class="py-16 bg-navy border-t border-navy-light/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-xl font-semibold text-light mb-8 text-center">Other Comparisons</h3>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        {comparisons.map((item) => (
+          <a
+            href={item.href}
+            class="px-4 py-2 bg-navy-dark/50 border border-navy-light/20 rounded-lg hover:border-buoy/30 transition-colors text-sm text-slate hover:text-light"
+          >
+            vs {item.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">
+        Ready to try Buoy?
+      </h2>
+      <p class="text-slate mb-6">
+        Free. Open source. No signup required.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Button href="/demo">Get your first scan</Button>
+        <Button href="/docs" variant="secondary">Read the docs</Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

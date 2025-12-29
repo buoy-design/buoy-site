@@ -1,0 +1,106 @@
+---
+import Layout from './Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Button from '../components/Button.astro'
+
+interface Props {
+  title: string
+  description: string
+  keywords?: string
+  heroTitle: string
+  heroDescription: string
+  icon: string
+}
+
+const { title, description, keywords, heroTitle, heroDescription, icon } = Astro.props
+
+const useCases = [
+  { name: 'Design System Teams', href: '/use-cases/design-system-teams', icon: '🎨' },
+  { name: 'Frontend Teams', href: '/use-cases/frontend-teams', icon: '💻' },
+  { name: 'Modernization', href: '/use-cases/modernization', icon: '🔄' },
+  { name: 'Enterprise', href: '/use-cases/enterprise', icon: '🏢' },
+  { name: 'Agencies', href: '/use-cases/agencies', icon: '🏪' },
+]
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <Nav />
+
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-lavender/10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center justify-center gap-2 text-sm text-slate">
+          <li><a href="/" class="hover:text-buoy transition-colors">Home</a></li>
+          <li>/</li>
+          <li><a href="/use-cases/design-system-teams" class="hover:text-buoy transition-colors">Use Cases</a></li>
+          <li>/</li>
+          <li class="text-light">{heroTitle.split(' ')[0]}</li>
+        </ol>
+      </nav>
+
+      <!-- Icon -->
+      <div class="text-6xl mb-6">{icon}</div>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6 leading-tight">
+        {heroTitle}
+      </h1>
+
+      <p class="text-lg sm:text-xl text-slate max-w-2xl mx-auto mb-8">
+        {heroDescription}
+      </p>
+
+      <Button href="/demo" size="lg">
+        Get started free
+      </Button>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="bg-navy-dark">
+    <slot />
+  </main>
+
+  <!-- Other Use Cases -->
+  <section class="py-16 bg-navy border-t border-navy-light/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-xl font-semibold text-light mb-8 text-center">Other Use Cases</h3>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        {useCases.map((useCase) => (
+          <a
+            href={useCase.href}
+            class="flex items-center gap-2 px-4 py-2 bg-navy-dark/50 border border-navy-light/20 rounded-lg hover:border-buoy/30 transition-colors text-sm"
+          >
+            <span>{useCase.icon}</span>
+            <span class="text-slate hover:text-light transition-colors">{useCase.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">
+        Ready to catch design drift?
+      </h2>
+      <p class="text-slate mb-6">
+        Free. Open source. No signup required.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Button href="/demo">Get your first scan</Button>
+        <Button href="/docs" variant="secondary">Read the docs</Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

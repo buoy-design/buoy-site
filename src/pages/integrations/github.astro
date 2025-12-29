@@ -1,0 +1,180 @@
+---
+import IntegrationLayout from '../../layouts/IntegrationLayout.astro'
+
+const features = [
+  {
+    title: 'PR Comments',
+    description: 'Automatic drift reports posted as comments on every pull request.'
+  },
+  {
+    title: 'Check Runs',
+    description: 'GitHub Check that passes or fails based on drift severity thresholds.'
+  },
+  {
+    title: 'Status Badges',
+    description: 'Add drift status badges to your README showing current health.'
+  },
+  {
+    title: 'Multi-Repo',
+    description: 'Track drift across multiple repositories from a single dashboard.'
+  },
+  {
+    title: 'Branch Protection',
+    description: 'Block merges when critical drift is detected in the PR.'
+  },
+  {
+    title: 'Trend Tracking',
+    description: 'See drift trends over time across branches and releases.'
+  },
+]
+
+const workflowYaml = `# .github/workflows/buoy.yml
+name: Design Drift Check
+on: [pull_request]
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: buoy-dev/buoy-action@v1
+        with:
+          # Fail on critical drift
+          fail-on: critical
+
+          # Post PR comment
+          comment: true
+
+          # Compare against main
+          base: main`
+
+const prCommentExample = `## Buoy Drift Report
+
+| Severity | Count |
+|----------|-------|
+| 🔴 Critical | 0 |
+| 🟡 Warning | 3 |
+| 🟢 Info | 7 |
+
+### Warnings
+- \`Card.tsx:12\` Hardcoded color #ffffff
+- \`Badge.tsx:8\` Hardcoded spacing 8px
+- \`Header.tsx:3\` Using deprecated NavHeader
+
+---
+📊 View trends over time → (requires Buoy Cloud)`
+---
+
+<IntegrationLayout
+  title="GitHub Integration for Design Drift | Buoy"
+  description="Post drift reports to GitHub PRs. Block merges on critical drift. Track design system health across repositories."
+  keywords="github design system, github pr design checks, github action design"
+  heroTitle="GitHub Integration"
+  heroDescription="Catch drift in every pull request. Automatic comments, check runs, and branch protection for design system health."
+  icon="🐙"
+  iconBg="bg-gray-500/20"
+>
+  <!-- Features Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">GitHub Integration Features</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-2">{feature.title}</h3>
+            <p class="text-sm text-slate">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Setup -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Quick Setup</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy border-b border-navy-light/20 flex items-center justify-between">
+          <span class="text-sm text-slate font-mono">.github/workflows/buoy.yml</span>
+          <span class="text-xs text-buoy">Copy this file</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{workflowYaml}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- PR Comment Preview -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">PR Comment Preview</h2>
+
+      <div class="bg-navy border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy-dark border-b border-navy-light/20 flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-buoy/20 flex items-center justify-center text-sm">🤖</div>
+          <div>
+            <span class="text-sm text-light font-medium">buoy-bot</span>
+            <span class="text-xs text-slate ml-2">commented 2 minutes ago</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <pre class="text-sm text-slate whitespace-pre-wrap">{prCommentExample}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuration Options -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Action Configuration</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">Inputs</h3>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between">
+              <code class="text-buoy">fail-on</code>
+              <span class="text-slate">critical | warning | info | none</span>
+            </li>
+            <li class="flex justify-between">
+              <code class="text-buoy">comment</code>
+              <span class="text-slate">true | false</span>
+            </li>
+            <li class="flex justify-between">
+              <code class="text-buoy">base</code>
+              <span class="text-slate">Branch to compare against</span>
+            </li>
+            <li class="flex justify-between">
+              <code class="text-buoy">config</code>
+              <span class="text-slate">Path to buoy.config.mjs</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">Outputs</h3>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between">
+              <code class="text-buoy">critical-count</code>
+              <span class="text-slate">Number of critical issues</span>
+            </li>
+            <li class="flex justify-between">
+              <code class="text-buoy">warning-count</code>
+              <span class="text-slate">Number of warnings</span>
+            </li>
+            <li class="flex justify-between">
+              <code class="text-buoy">info-count</code>
+              <span class="text-slate">Number of info items</span>
+            </li>
+            <li class="flex justify-between">
+              <code class="text-buoy">report-url</code>
+              <span class="text-slate">Link to full report</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</IntegrationLayout>

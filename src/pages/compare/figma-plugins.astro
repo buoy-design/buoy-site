@@ -1,0 +1,111 @@
+---
+import CompareLayout from '../../layouts/CompareLayout.astro'
+
+const comparison = [
+  { aspect: 'What it analyzes', figma: 'Figma files only', buoy: 'Your actual shipped code' },
+  { aspect: 'Source of truth', figma: 'Figma designs', buoy: 'Codebase implementation' },
+  { aspect: 'Catches AI drift', figma: 'No', buoy: 'Yes - primary use case' },
+  { aspect: 'Runtime values', figma: 'Not visible', buoy: 'Full visibility' },
+  { aspect: 'Coverage scope', figma: 'Design files', buoy: 'All code files' },
+  { aspect: 'CI/CD integration', figma: 'Limited', buoy: 'Full GitHub Action' },
+  { aspect: 'Cost', figma: 'Varies by plugin', buoy: 'Free CLI' },
+]
+---
+
+<CompareLayout
+  title="Buoy vs Figma Plugins | Code-First Design Drift Detection"
+  description="Figma plugins only see Figma. Buoy scans your actual shipped codebase for design drift."
+  keywords="figma plugin alternative, code design comparison, figma to code"
+  heroTitle="Figma Plugins vs Code Analysis"
+  heroDescription="Figma plugins analyze your design files. Buoy analyzes your actual code. The code is what ships."
+  competitor="Figma Plugins"
+>
+  <!-- Key Insight -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-navy/50 border border-buoy/30 rounded-xl p-8 text-center">
+        <h2 class="text-xl font-bold text-light mb-4">The Key Insight</h2>
+        <p class="text-lg text-slate">
+          Figma plugins analyze <span class="text-warning">what you designed</span>.
+        </p>
+        <p class="text-lg text-slate mt-2">
+          Buoy analyzes <span class="text-buoy">what you shipped</span>.
+        </p>
+        <p class="text-sm text-slate-dark mt-4">
+          (They're often different, especially with AI-generated code)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Feature Comparison</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-3 bg-navy border-b border-navy-light/20">
+          <div class="p-4 font-semibold text-slate">Feature</div>
+          <div class="p-4 font-semibold text-slate border-l border-navy-light/20">Figma Plugins</div>
+          <div class="p-4 font-semibold text-buoy border-l border-navy-light/20">Buoy</div>
+        </div>
+
+        {comparison.map((row, index) => (
+          <div class={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-navy/30' : ''}`}>
+            <div class="p-4 text-light">{row.aspect}</div>
+            <div class="p-4 text-slate border-l border-navy-light/20">{row.figma}</div>
+            <div class="p-4 text-success border-l border-navy-light/20">{row.buoy}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem with Figma-Only -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">The Problem with Figma-Only Analysis</h2>
+
+      <div class="space-y-6">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-3">1. AI Doesn't Look at Figma</h3>
+          <p class="text-slate">
+            When developers use Copilot or Claude to write code, the AI doesn't have access to your Figma files.
+            It generates code that works but doesn't follow your design system.
+            Figma plugins can't catch this — they only see Figma.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-3">2. Code Drifts from Design</h3>
+          <p class="text-slate">
+            Even without AI, code drifts from design over time. Quick fixes, edge cases, "temporary" solutions.
+            Figma shows what was designed. Buoy shows what was actually built.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-3">3. Runtime Values Matter</h3>
+          <p class="text-slate">
+            Some values are computed at runtime, come from APIs, or are set in CSS-in-JS.
+            Figma plugins can't see these. Buoy scans the actual code that runs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Together -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">Buoy + Figma Integration</h2>
+      <p class="text-slate mb-8 max-w-2xl mx-auto">
+        Buoy Pro can connect to your Figma files to compare design tokens and components.
+        Get the best of both: Figma as source of truth, Buoy for code verification.
+      </p>
+      <a href="/integrations/figma" class="text-buoy hover:text-buoy-light transition-colors">
+        Learn about Figma integration →
+      </a>
+    </div>
+  </section>
+</CompareLayout>

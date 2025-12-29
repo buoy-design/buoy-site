@@ -1,0 +1,201 @@
+---
+import FeatureLayout from '../../layouts/FeatureLayout.astro'
+import Terminal from '../../components/Terminal.astro'
+import FeatureCard from '../../components/FeatureCard.astro'
+
+const terminalLines = [
+  { text: '', delay: 600 },
+  { text: '<span class="text-buoy">⚓</span> Checking naming conventions...', type: 'output', delay: 800 },
+  { text: '', delay: 1200 },
+  { text: '<span class="text-warning">⚠</span> Found <span class="text-light">5</span> naming inconsistencies', type: 'warning', delay: 1400 },
+  { text: '', delay: 1600 },
+  { text: '<span class="text-slate">Components:</span>', type: 'output', delay: 1800 },
+  { text: '  <span class="text-warning">⚠</span> LoginBtn.tsx → Expected: LoginButton.tsx', type: 'warning', delay: 2000 },
+  { text: '  <span class="text-warning">⚠</span> userCard.tsx → Expected: UserCard.tsx', type: 'warning', delay: 2200 },
+  { text: '', delay: 2400 },
+  { text: '<span class="text-slate">Tokens:</span>', type: 'output', delay: 2600 },
+  { text: '  <span class="text-warning">⚠</span> --primary-clr → Expected: --color-primary', type: 'warning', delay: 2800 },
+  { text: '  <span class="text-warning">⚠</span> --txtColor → Expected: --color-text', type: 'warning', delay: 3000 },
+  { text: '', delay: 3200 },
+  { text: '<span class="text-slate">Props:</span>', type: 'output', delay: 3400 },
+  { text: '  <span class="text-warning">⚠</span> isDisabled vs disabled (inconsistent across 12 components)', type: 'warning', delay: 3600 },
+]
+
+const conventions = [
+  {
+    category: 'Components',
+    rules: [
+      'PascalCase file names (Button.tsx, not button.tsx)',
+      'Match file name to default export',
+      'Suffix patterns (Button, ButtonGroup, ButtonIcon)',
+    ]
+  },
+  {
+    category: 'Tokens',
+    rules: [
+      'Consistent prefix (--color-*, --spacing-*, --font-*)',
+      'kebab-case naming',
+      'Semantic names (--color-primary, not --blue-500)',
+    ]
+  },
+  {
+    category: 'Props',
+    rules: [
+      'Boolean props: is*, has*, should* prefix',
+      'Handler props: on* prefix',
+      'Consistent across similar components',
+    ]
+  },
+  {
+    category: 'Files & Folders',
+    rules: [
+      'components/ for shared components',
+      'features/ for feature-specific code',
+      'Consistent index exports',
+    ]
+  },
+]
+
+const relatedFeatures = [
+  {
+    title: 'Prop Consistency',
+    description: 'Ensure consistent prop patterns',
+    href: '/features/prop-consistency'
+  },
+  {
+    title: 'Duplicate Detection',
+    description: 'Find component clones',
+    href: '/features/duplicate-detection'
+  },
+  {
+    title: 'Drift Detection',
+    description: 'All consistency checks',
+    href: '/features/drift-detection'
+  },
+]
+---
+
+<FeatureLayout
+  title="Enforce Naming Conventions | Buoy"
+  description="Ensure consistent naming across components, tokens, and props. Catch naming drift before it fragments your codebase."
+  keywords="naming conventions, component naming, design token naming"
+  heroTitle="Consistent naming everywhere"
+  heroDescription="LoginBtn or LoginButton? --primary-color or --color-primary? Pick once, enforce forever."
+>
+  <!-- Why Naming Matters -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Why Naming Matters</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-navy/50 border border-critical/30 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">Without Conventions</h3>
+          <ul class="space-y-2 text-sm font-mono text-slate">
+            <li class="text-critical">Button.tsx</li>
+            <li class="text-critical">loginBtn.tsx</li>
+            <li class="text-critical">SubmitBTN.tsx</li>
+            <li class="text-critical">cta-button.tsx</li>
+          </ul>
+          <p class="text-sm text-slate mt-4">
+            Nobody can find anything. Imports break. Autocomplete fails.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-success/30 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">With Buoy</h3>
+          <ul class="space-y-2 text-sm font-mono text-slate">
+            <li class="text-success">Button.tsx</li>
+            <li class="text-success">LoginButton.tsx</li>
+            <li class="text-success">SubmitButton.tsx</li>
+            <li class="text-success">CtaButton.tsx</li>
+          </ul>
+          <p class="text-sm text-slate mt-4">
+            Predictable, searchable, and consistent everywhere.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">See it in action</h2>
+      <Terminal command="buoy drift check --naming" lines={terminalLines} />
+    </div>
+  </section>
+
+  <!-- Convention Types -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What We Check</h2>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        {conventions.map((conv) => (
+          <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+            <h3 class="font-semibold text-light mb-4">{conv.category}</h3>
+            <ul class="space-y-2">
+              {conv.rules.map((rule) => (
+                <li class="flex items-start gap-2 text-sm text-slate">
+                  <span class="text-buoy">•</span>
+                  <span>{rule}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuration -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Customize Your Conventions</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="px-4 py-3 bg-navy border-b border-navy-light/20">
+          <span class="text-sm text-slate font-mono">buoy.config.mjs</span>
+        </div>
+        <pre class="p-4 text-sm font-mono overflow-x-auto"><code class="text-slate">{`export default {
+  naming: {
+    components: {
+      // File naming
+      fileCase: 'PascalCase',  // PascalCase, camelCase, kebab-case
+      matchExport: true,        // File name must match default export
+
+      // Suffixes
+      requiredSuffixes: {
+        'Button': ['Button', 'Btn'],  // Allow both
+        'Icon': ['Icon'],
+      },
+    },
+
+    tokens: {
+      prefix: '--ds-',           // Token prefix
+      categories: ['color', 'spacing', 'font', 'radius', 'shadow'],
+      casing: 'kebab-case',
+    },
+
+    props: {
+      booleans: 'is*',           // isDisabled, isLoading
+      handlers: 'on*',           // onClick, onChange
+      refs: '*Ref',              // buttonRef, inputRef
+    }
+  }
+}`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Features -->
+  <div slot="related" class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    {relatedFeatures.map((feature) => (
+      <FeatureCard
+        title={feature.title}
+        description={feature.description}
+        href={feature.href}
+      />
+    ))}
+  </div>
+</FeatureLayout>

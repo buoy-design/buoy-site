@@ -1,0 +1,140 @@
+---
+import CompareLayout from '../../layouts/CompareLayout.astro'
+
+const comparison = [
+  { aspect: 'What it detects', chromatic: 'Visual changes in Storybook', buoy: 'Structural drift in code' },
+  { aspect: 'Scope', chromatic: 'Components with stories', buoy: 'Entire codebase' },
+  { aspect: 'Detection method', chromatic: 'Screenshot comparison', buoy: 'Code analysis' },
+  { aspect: 'Hardcoded values', chromatic: 'Not detected', buoy: 'Detected + suggestions' },
+  { aspect: 'Duplicate components', chromatic: 'Not detected', buoy: 'Semantic detection' },
+  { aspect: 'Token coverage', chromatic: 'Not tracked', buoy: 'Full metrics' },
+  { aspect: 'Requires Storybook', chromatic: 'Yes', buoy: 'No (optional integration)' },
+  { aspect: 'Free tier', chromatic: '5,000 snapshots/mo', buoy: 'Unlimited (CLI)' },
+]
+---
+
+<CompareLayout
+  title="Buoy vs Chromatic | Structural vs Visual Drift Detection"
+  description="Chromatic catches visual regressions in Storybook. Buoy scans your entire codebase for structural design drift."
+  keywords="chromatic alternative, visual regression alternative, design system testing"
+  heroTitle="Visual Regression vs Structural Drift"
+  heroDescription="Chromatic catches visual changes. Buoy catches structural drift. Different problems, different solutions."
+  competitor="Chromatic"
+>
+  <!-- Key Difference -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">Chromatic Answers:</h3>
+          <p class="text-lg text-slate italic">
+            "Did the visual appearance of my Storybook components change?"
+          </p>
+          <ul class="mt-4 space-y-2 text-sm text-slate">
+            <li>• Screenshot-based comparison</li>
+            <li>• Requires Storybook stories</li>
+            <li>• Great for catching visual regressions</li>
+          </ul>
+        </div>
+
+        <div class="bg-navy/50 border border-buoy/30 rounded-xl p-6">
+          <h3 class="font-semibold text-buoy mb-4">Buoy Answers:</h3>
+          <p class="text-lg text-slate italic">
+            "Is my codebase following the design system?"
+          </p>
+          <ul class="mt-4 space-y-2 text-sm text-slate">
+            <li>• Code analysis</li>
+            <li>• Works on any codebase</li>
+            <li>• Great for catching design drift</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Feature Comparison</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-3 bg-navy border-b border-navy-light/20">
+          <div class="p-4 font-semibold text-slate">Feature</div>
+          <div class="p-4 font-semibold text-slate border-l border-navy-light/20">Chromatic</div>
+          <div class="p-4 font-semibold text-buoy border-l border-navy-light/20">Buoy</div>
+        </div>
+
+        {comparison.map((row, index) => (
+          <div class={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-navy/30' : ''}`}>
+            <div class="p-4 text-light">{row.aspect}</div>
+            <div class="p-4 text-slate border-l border-navy-light/20">{row.chromatic}</div>
+            <div class="p-4 text-success border-l border-navy-light/20">{row.buoy}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- When Buoy Catches What Chromatic Misses -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What Chromatic Misses</h2>
+
+      <div class="space-y-4">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-4">
+          <h3 class="font-semibold text-light mb-2">Components Without Stories</h3>
+          <p class="text-sm text-slate">
+            If a component doesn't have a Storybook story, Chromatic can't see it.
+            Buoy scans your entire codebase, stories or not.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-4">
+          <h3 class="font-semibold text-light mb-2">Hardcoded Values That Look Right</h3>
+          <p class="text-sm text-slate">
+            <code class="text-warning">#3b82f6</code> and <code class="text-success">var(--primary)</code> might render identically.
+            Chromatic sees them as the same. Buoy knows one is a problem.
+          </p>
+        </div>
+
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-4">
+          <h3 class="font-semibold text-light mb-2">Duplicate Implementations</h3>
+          <p class="text-sm text-slate">
+            Button and ButtonNew might look identical in screenshots.
+            Buoy identifies them as duplicates that should be consolidated.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Together -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">Better Together</h2>
+      <p class="text-slate mb-8 max-w-2xl mx-auto">
+        Chromatic and Buoy solve different problems. Use Chromatic to catch visual regressions.
+        Use Buoy to ensure structural consistency with your design system.
+      </p>
+
+      <div class="inline-flex flex-col sm:flex-row gap-4">
+        <div class="bg-navy-dark border border-navy-light/20 rounded-lg p-4 text-center">
+          <div class="text-2xl mb-2">📸</div>
+          <div class="text-sm text-slate">Chromatic</div>
+          <div class="text-xs text-slate-dark">Visual regression</div>
+        </div>
+        <div class="text-2xl text-slate self-center">+</div>
+        <div class="bg-navy-dark border border-buoy/30 rounded-lg p-4 text-center">
+          <div class="text-2xl mb-2">⚓</div>
+          <div class="text-sm text-light">Buoy</div>
+          <div class="text-xs text-slate-dark">Structural drift</div>
+        </div>
+        <div class="text-2xl text-slate self-center">=</div>
+        <div class="bg-navy-dark border border-success/30 rounded-lg p-4 text-center">
+          <div class="text-2xl mb-2">✨</div>
+          <div class="text-sm text-success">Complete coverage</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</CompareLayout>

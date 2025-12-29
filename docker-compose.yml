@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  buoy-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: buoy-site
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"

@@ -1,0 +1,237 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import Button from '../components/Button.astro'
+
+const plans = [
+  {
+    name: 'Open Source',
+    price: '$0',
+    period: 'forever',
+    description: 'Free CLI that lives in your codebase. Unlimited developers, unlimited scans.',
+    features: [
+      'Unlimited developers',
+      'All drift detections',
+      'JSON & CLI output',
+      'CI/CD integration',
+      'Community support',
+    ],
+    cta: 'Install Now',
+    ctaHref: '/demo',
+    variant: 'secondary',
+  },
+  {
+    name: 'Pro',
+    price: '$299',
+    period: '/month per codebase',
+    description: 'Advanced tools for teams serious about design system health',
+    features: [
+      'Everything in Open Source',
+      'Historical trend tracking',
+      'MCP Server for AI editors',
+      'Figma sync integration',
+      'AI-powered suggestions',
+      'Priority support',
+    ],
+    cta: 'Start Free Trial',
+    ctaHref: '/demo',
+    variant: 'primary',
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: '',
+    description: 'For organizations with multiple codebases and advanced requirements',
+    features: [
+      'Everything in Pro',
+      'Multi-repo dashboard',
+      'SSO / SAML',
+      'Custom integrations',
+      'Dedicated support',
+      'SLA guarantees',
+    ],
+    cta: 'Contact Sales',
+    ctaHref: '/contact',
+    variant: 'secondary',
+  },
+]
+
+const faqs = [
+  {
+    question: 'Is the CLI really free forever?',
+    answer: 'Yes. The open source CLI will always be free under the MIT license. It lives in your codebase with no per-seat licensing. Your entire team can use it.'
+  },
+  {
+    question: 'Why per-codebase pricing instead of per-developer?',
+    answer: 'Buoy lives in your codebase, not on individual machines. We think it\'s fairer to charge based on what you\'re monitoring, not how many people are on your team. Add 50 developers without changing your bill.'
+  },
+  {
+    question: 'What\'s the MCP Server?',
+    answer: 'The MCP (Model Context Protocol) Server integrates Buoy directly into AI-powered editors like Cursor and Claude. Your AI assistant can check drift in real-time as you code, preventing drift before it happens.'
+  },
+  {
+    question: 'What does historical tracking include?',
+    answer: 'Track your drift metrics over time. See trends, set goals, and prove ROI to stakeholders with real data showing adoption improvements week over week.'
+  },
+  {
+    question: 'What counts as a "codebase"?',
+    answer: 'One codebase = one git repository. Monorepos count as one codebase. Multi-repo setups need the Enterprise plan or multiple Pro subscriptions.'
+  },
+  {
+    question: 'Can I try Pro features before paying?',
+    answer: 'Yes! Start a 14-day free trial with full access to all Pro features. No credit card required to start.'
+  },
+]
+---
+
+<Layout
+  title="Pricing | Buoy - Design Drift Detection"
+  description="Free forever open source CLI with unlimited developers. Upgrade to Pro for history, MCP server, and advanced tools."
+  keywords="buoy pricing, design drift tool pricing, design system tool cost"
+>
+  <Nav />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6">
+        Free for everyone. Pro for serious teams.
+      </h1>
+      <p class="text-lg text-slate max-w-2xl mx-auto">
+        No per-seat pricing. Buoy lives in your codebase — your whole team uses it for free.
+        Pay only for advanced features when you need them.
+      </p>
+    </div>
+  </section>
+
+  <!-- No Per-Seat Callout -->
+  <section class="py-8 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-navy-dark border border-buoy/30 rounded-xl p-6 flex items-center gap-4">
+        <div class="text-4xl">🎉</div>
+        <div>
+          <h3 class="font-semibold text-light mb-1">No per-developer pricing</h3>
+          <p class="text-sm text-slate">
+            Add 5 developers or 500 — same price. Buoy is a codebase tool, not a per-seat subscription.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        {plans.map((plan) => (
+          <div class={`relative bg-navy/50 border rounded-2xl p-8 ${plan.popular ? 'border-buoy' : 'border-navy-light/20'}`}>
+            {plan.popular && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-buoy text-navy-dark text-xs font-semibold rounded-full">
+                Most Popular
+              </div>
+            )}
+
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-bold text-light mb-2">{plan.name}</h3>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-bold text-light">{plan.price}</span>
+                {plan.period && <span class="text-slate text-sm">{plan.period}</span>}
+              </div>
+              <p class="text-sm text-slate mt-2">{plan.description}</p>
+            </div>
+
+            <ul class="space-y-3 mb-8">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm text-slate">
+                  <svg class="w-5 h-5 text-success flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              href={plan.ctaHref}
+              variant={plan.variant as 'primary' | 'secondary'}
+              class="w-full justify-center"
+            >
+              {plan.cta}
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Comparison -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Feature Comparison</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-4 bg-navy border-b border-navy-light/20 text-sm">
+          <div class="p-4 font-semibold text-slate">Feature</div>
+          <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Open Source</div>
+          <div class="p-4 font-semibold text-buoy text-center border-l border-navy-light/20">Pro</div>
+          <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Enterprise</div>
+        </div>
+
+        {[
+          { feature: 'Drift Detection', oss: true, pro: true, ent: true },
+          { feature: 'CI/CD Integration', oss: true, pro: true, ent: true },
+          { feature: 'Unlimited Developers', oss: true, pro: true, ent: true },
+          { feature: 'Historical Trends', oss: false, pro: true, ent: true },
+          { feature: 'MCP Server', oss: false, pro: true, ent: true },
+          { feature: 'Figma Sync', oss: false, pro: true, ent: true },
+          { feature: 'AI Suggestions', oss: false, pro: true, ent: true },
+          { feature: 'Multi-Repo Dashboard', oss: false, pro: false, ent: true },
+          { feature: 'SSO / SAML', oss: false, pro: false, ent: true },
+          { feature: 'SLA', oss: false, pro: false, ent: true },
+        ].map((row, index) => (
+          <div class={`grid grid-cols-4 text-sm ${index % 2 === 0 ? 'bg-navy/30' : ''}`}>
+            <div class="p-4 text-light">{row.feature}</div>
+            <div class="p-4 text-center border-l border-navy-light/20">
+              {row.oss ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
+            </div>
+            <div class="p-4 text-center border-l border-navy-light/20">
+              {row.pro ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
+            </div>
+            <div class="p-4 text-center border-l border-navy-light/20">
+              {row.ent ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Frequently Asked Questions</h2>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-navy/50 border border-navy-light/20 rounded-xl">
+            <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
+              <span class="font-medium text-light">{faq.question}</span>
+              <svg class="w-5 h-5 text-slate group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <div class="px-4 pb-4 text-slate">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
