@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   buoy-site:
     build:
@@ -8,6 +6,6 @@ services:
     container_name: buoy-site
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "3001:80"
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
