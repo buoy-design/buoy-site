@@ -149,11 +149,11 @@ const terminalId = `terminal-${Math.random().toString(36).substr(2, 9)}`
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            setTimeout(typeCommand, 500)
+            typeCommand()
             observer.disconnect()
           }
         })
-      }, { threshold: 0.3 })
+      }, { threshold: 0.1 })
 
       observer.observe(terminal)
     } else {
