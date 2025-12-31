@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import PostHog from '../components/PostHog.astro'
 
 interface Props {
   title: string
@@ -56,6 +57,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
     <!-- Generator -->
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Analytics -->
+    <PostHog />
   </head>
   <body class="min-h-screen bg-navy-dark text-light antialiased">
     <slot />
