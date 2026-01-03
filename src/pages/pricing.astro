@@ -6,15 +6,15 @@ import Button from '../components/Button.astro'
 
 const plans = [
   {
-    name: 'Open Source',
+    name: 'Free',
     price: '$0',
     period: 'forever',
-    description: 'Free CLI that lives in your codebase. Unlimited developers, unlimited scans.',
+    description: 'Open source CLI for individuals and small teams getting started.',
     features: [
-      'Unlimited developers',
+      'Up to 3 users',
       'All drift detections',
-      'JSON & CLI output',
-      'CI/CD integration',
+      'CLI scans',
+      'JSON output',
       'Community support',
     ],
     cta: 'Install Now',
@@ -24,14 +24,14 @@ const plans = [
   {
     name: 'Pro',
     price: '$299',
-    period: '/month per codebase',
-    description: 'Advanced tools for teams serious about design system health',
+    period: '/month',
+    description: 'Unlimited users, one price. Everything you need to enforce your design system.',
     features: [
-      'Everything in Open Source',
-      'Historical trend tracking',
-      'MCP Server for AI editors',
-      'Figma sync integration',
-      'AI-powered suggestions',
+      'Unlimited users',
+      'Historical trends',
+      'Figma sync',
+      'GitHub App & PR comments',
+      'Web dashboard',
       'Priority support',
     ],
     cta: 'Start Free Trial',
@@ -43,14 +43,14 @@ const plans = [
     name: 'Enterprise',
     price: 'Custom',
     period: '',
-    description: 'For organizations with multiple codebases and advanced requirements',
+    description: 'For organizations with advanced security and scale requirements.',
     features: [
       'Everything in Pro',
-      'Multi-repo dashboard',
       'SSO / SAML',
-      'Custom integrations',
+      'Multi-repo dashboard',
       'Dedicated support',
       'SLA guarantees',
+      'Custom integrations',
     ],
     cta: 'Contact Sales',
     ctaHref: '/contact',
@@ -60,16 +60,12 @@ const plans = [
 
 const faqs = [
   {
-    question: 'Is the CLI really free forever?',
-    answer: 'Yes. The open source CLI will always be free under the MIT license. It lives in your codebase with no per-seat licensing. Your entire team can use it.'
+    question: 'Is the free tier really free forever?',
+    answer: 'Yes. The open source CLI will always be free under the MIT license. Teams up to 3 users can use all drift detection features at no cost.'
   },
   {
-    question: 'Why per-codebase pricing instead of per-developer?',
-    answer: 'Buoy lives in your codebase, not on individual machines. We think it\'s fairer to charge based on what you\'re monitoring, not how many people are on your team. Add 50 developers without changing your bill.'
-  },
-  {
-    question: 'What\'s the MCP Server?',
-    answer: 'The MCP (Model Context Protocol) Server integrates Buoy directly into AI-powered editors like Cursor and Claude. Your AI assistant can check drift in real-time as you code, preventing drift before it happens.'
+    question: 'Why flat pricing instead of per-seat?',
+    answer: 'Most tools charge $20-30 per developer. We think that\'s backwards. Buoy lives in your codebase, not on individual machines. Add 5 developers or 50 — same $299/month. Your team grows, your bill doesn\'t.'
   },
   {
     question: 'What does historical tracking include?',
@@ -82,6 +78,10 @@ const faqs = [
   {
     question: 'Can I try Pro features before paying?',
     answer: 'Yes! Start a 14-day free trial with full access to all Pro features. No credit card required to start.'
+  },
+  {
+    question: 'How does this compare to per-seat pricing?',
+    answer: 'At 10 users, competitors charge $200-300/month. At 25 users, they charge $500-750/month. Buoy is $299/month regardless of team size. You break even at ~12 users and save more as you grow.'
   },
 ]
 ---
@@ -176,33 +176,35 @@ const faqs = [
       <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
         <div class="grid grid-cols-4 bg-navy border-b border-navy-light/20 text-sm">
           <div class="p-4 font-semibold text-slate">Feature</div>
-          <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Open Source</div>
+          <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Free</div>
           <div class="p-4 font-semibold text-buoy text-center border-l border-navy-light/20">Pro</div>
           <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Enterprise</div>
         </div>
 
         {[
-          { feature: 'Drift Detection', oss: true, pro: true, ent: true },
-          { feature: 'CI/CD Integration', oss: true, pro: true, ent: true },
-          { feature: 'Unlimited Developers', oss: true, pro: true, ent: true },
-          { feature: 'Historical Trends', oss: false, pro: true, ent: true },
-          { feature: 'MCP Server', oss: false, pro: true, ent: true },
-          { feature: 'Figma Sync', oss: false, pro: true, ent: true },
-          { feature: 'AI Suggestions', oss: false, pro: true, ent: true },
-          { feature: 'Multi-Repo Dashboard', oss: false, pro: false, ent: true },
-          { feature: 'SSO / SAML', oss: false, pro: false, ent: true },
-          { feature: 'SLA', oss: false, pro: false, ent: true },
+          { feature: 'Drift Detection', free: true, pro: true, ent: true },
+          { feature: 'CLI Scans', free: true, pro: true, ent: true },
+          { feature: 'JSON Output', free: true, pro: true, ent: true },
+          { feature: 'Users', free: 'Up to 3', pro: 'Unlimited', ent: 'Unlimited' },
+          { feature: 'Historical Trends', free: false, pro: true, ent: true },
+          { feature: 'Web Dashboard', free: false, pro: true, ent: true },
+          { feature: 'GitHub App', free: false, pro: true, ent: true },
+          { feature: 'Figma Sync', free: false, pro: true, ent: true },
+          { feature: 'PR Comments', free: false, pro: true, ent: true },
+          { feature: 'Multi-Repo Dashboard', free: false, pro: false, ent: true },
+          { feature: 'SSO / SAML', free: false, pro: false, ent: true },
+          { feature: 'SLA', free: false, pro: false, ent: true },
         ].map((row, index) => (
           <div class={`grid grid-cols-4 text-sm ${index % 2 === 0 ? 'bg-navy/30' : ''}`}>
             <div class="p-4 text-light">{row.feature}</div>
             <div class="p-4 text-center border-l border-navy-light/20">
-              {row.oss ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
+              {typeof row.free === 'string' ? <span class="text-slate">{row.free}</span> : row.free ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
             </div>
             <div class="p-4 text-center border-l border-navy-light/20">
-              {row.pro ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
+              {typeof row.pro === 'string' ? <span class="text-success">{row.pro}</span> : row.pro ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
             </div>
             <div class="p-4 text-center border-l border-navy-light/20">
-              {row.ent ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
+              {typeof row.ent === 'string' ? <span class="text-success">{row.ent}</span> : row.ent ? <span class="text-success">✓</span> : <span class="text-slate-dark">—</span>}
             </div>
           </div>
         ))}
