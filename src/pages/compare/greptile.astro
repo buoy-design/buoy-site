@@ -1,0 +1,210 @@
+---
+import CompareLayout from '../../layouts/CompareLayout.astro'
+import Button from '../../components/Button.astro'
+
+const comparison = [
+  { aspect: 'Focus', greptile: 'Codebase understanding', buoy: 'Design system compliance' },
+  { aspect: 'Strength', greptile: 'Semantic code search, context', buoy: 'Token matching, pattern detection' },
+  { aspect: 'Learns from', greptile: 'Your entire codebase', buoy: 'Your design tokens & components' },
+  { aspect: 'Reviews', greptile: 'Code logic & patterns', buoy: 'Design consistency' },
+  { aspect: 'Adapts via', greptile: 'Developer feedback (thumbs up/down)', buoy: 'Token definitions & config' },
+  { aspect: 'Integration', greptile: 'Reads CLAUDE.md automatically', buoy: 'Writes to CLAUDE.md' },
+]
+---
+
+<CompareLayout
+  title="Buoy vs Greptile | Codebase-Aware Design Reviews"
+  description="Greptile understands your codebase. Buoy adds design system expertise. Together: reviews that understand both your code AND your design system."
+  keywords="greptile design system, ai code review, codebase context"
+  heroTitle="Buoy + Greptile = Codebase-Aware Design Reviews"
+  heroDescription="Greptile understands your codebase. Buoy adds design system expertise."
+  competitor="Greptile"
+>
+  <!-- Key Difference -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-navy/50 border border-buoy/30 rounded-xl p-8 text-center">
+        <h2 class="text-xl font-bold text-light mb-4">The Key Difference</h2>
+        <p class="text-lg text-slate">
+          Greptile builds: <span class="text-warning">A semantic graph of your codebase</span>
+        </p>
+        <p class="text-lg text-slate mt-2">
+          Buoy adds: <span class="text-buoy">Design system context to that graph</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Feature Comparison</h2>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-3 bg-navy border-b border-navy-light/20">
+          <div class="p-4 font-semibold text-slate">Feature</div>
+          <div class="p-4 font-semibold text-slate border-l border-navy-light/20">Greptile</div>
+          <div class="p-4 font-semibold text-buoy border-l border-navy-light/20">Buoy</div>
+        </div>
+
+        {comparison.map((row, index) => (
+          <div class={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-navy/30' : ''}`}>
+            <div class="p-4 text-light">{row.aspect}</div>
+            <div class="p-4 text-slate border-l border-navy-light/20">{row.greptile}</div>
+            <div class="p-4 text-success border-l border-navy-light/20">{row.buoy}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What Each Tool Catches -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What Each Tool Catches</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-navy/50 border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">Greptile catches:</h3>
+          <ul class="space-y-2 text-slate">
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Logic inconsistencies
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Pattern violations
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Missing error handling
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Code that contradicts existing patterns
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-navy/50 border border-buoy/30 rounded-xl p-6">
+          <h3 class="font-semibold text-buoy mb-4">Buoy catches:</h3>
+          <ul class="space-y-2 text-slate">
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Hardcoded design values
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Token misuse
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Component drift
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Design system anti-patterns
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Workflow -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">The Greptile + Buoy Workflow</h2>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-navy-dark border border-navy-light/20 rounded-xl p-6">
+          <h3 class="font-semibold text-light mb-4">Greptile learns from your team:</h3>
+          <ul class="space-y-2 text-slate text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Watches which comments get thumbs up/down
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Learns from developer replies
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-slate">•</span>
+              Adapts to your preferences
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-navy-dark border border-buoy/30 rounded-xl p-6">
+          <h3 class="font-semibold text-buoy mb-4">Buoy adds design expertise:</h3>
+          <ul class="space-y-2 text-slate text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Knows your exact token values
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Tracks component patterns
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-buoy">•</span>
+              Flags design system violations
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-navy/50 border border-buoy/30 rounded-xl p-6 text-center">
+        <p class="text-lg text-light">
+          Together: <span class="text-buoy">Reviews that understand both your code AND your design system.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auto-Learning -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-4 text-center">Auto-Learning Integration</h2>
+      <p class="text-slate mb-8 text-center max-w-2xl mx-auto">
+        Greptile automatically reads these files for context:
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <code class="px-4 py-2 bg-navy-dark border border-navy-light/20 rounded-lg text-sm text-slate">CLAUDE.md</code>
+        <code class="px-4 py-2 bg-navy-dark border border-navy-light/20 rounded-lg text-sm text-slate">.cursorrules</code>
+        <code class="px-4 py-2 bg-navy-dark border border-navy-light/20 rounded-lg text-sm text-slate">agents.md</code>
+      </div>
+
+      <div class="bg-navy/50 border border-buoy/30 rounded-xl p-6 text-center">
+        <p class="text-slate mb-4">
+          Run <code class="text-buoy bg-navy-dark px-2 py-1 rounded">buoy onboard</code> to add design system context to <code class="text-light bg-navy-dark px-2 py-1 rounded">CLAUDE.md</code>
+        </p>
+        <p class="text-buoy font-semibold">
+          Greptile picks it up automatically.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">Already using Greptile?</h2>
+      <p class="text-slate mb-8">Add Buoy context in seconds:</p>
+
+      <div class="bg-navy-dark border border-navy-light/30 rounded-xl p-6 inline-block mb-8">
+        <pre class="text-sm font-mono text-left"><code class="text-slate"># Option 1: Update CLAUDE.md (Greptile reads this!)
+npx @buoy-design/cli begin
+buoy onboard
+
+# Option 2: Export dedicated Greptile config
+buoy lighthouse --export-greptile > greptile-buoy.json</code></pre>
+      </div>
+
+      <p class="text-slate">
+        Your design system is now part of Greptile's context.
+      </p>
+    </div>
+  </section>
+</CompareLayout>
