@@ -20,7 +20,7 @@ const terminalLines = [
   { text: '├─ Header.tsx:3 NavHeader deprecated → Navigation', type: 'warning', delay: 3400 },
   { text: '└─ <span class="text-slate-dark">... and 10 more</span>', type: 'muted', delay: 3600 },
   { text: '', delay: 3800 },
-  { text: '<span class="text-buoy font-semibold">Run buoy fix --auto to apply 12 auto-fixes</span>', type: 'output', delay: 4000 },
+  { text: '<span class="text-buoy font-semibold">Run buoy fix --apply to apply 12 auto-fixes</span>', type: 'output', delay: 4000 },
 ]
 
 const fixTerminalLines = [
@@ -240,7 +240,7 @@ const relatedFeatures = [
       </p>
 
       <Terminal
-        command="buoy fix --auto"
+        command="buoy fix --apply"
         lines={fixTerminalLines}
       />
     </div>
@@ -261,7 +261,7 @@ const relatedFeatures = [
           <p class="text-sm text-slate mb-4">
             Hardcoded colors → tokens. Deprecated components → current ones. Done automatically.
           </p>
-          <code class="text-xs text-success bg-success/10 px-2 py-1 rounded">buoy fix --auto</code>
+          <code class="text-xs text-success bg-success/10 px-2 py-1 rounded">buoy fix --apply</code>
         </div>
 
         <div class="bg-navy/50 border border-warning/30 rounded-xl p-6">
@@ -279,7 +279,7 @@ const relatedFeatures = [
           <p class="text-sm text-slate mb-4">
             Before: 52%. After: 68%. Show leadership exactly how much you improved.
           </p>
-          <code class="text-xs text-buoy bg-buoy/10 px-2 py-1 rounded">buoy status</code>
+          <code class="text-xs text-buoy bg-buoy/10 px-2 py-1 rounded">buoy audit</code>
         </div>
       </div>
     </div>

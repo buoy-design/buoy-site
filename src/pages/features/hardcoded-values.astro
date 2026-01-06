@@ -17,7 +17,7 @@ const terminalLines = [
   { text: '├─ #0066ff <span class="text-success">→ var(--color-primary)</span>', type: 'warning', delay: 2400 },
   { text: '└─ 14px <span class="text-success">→ var(--text-sm)</span>', type: 'warning', delay: 2600 },
   { text: '', delay: 2800 },
-  { text: '<span class="text-buoy font-semibold">Run buoy fix --auto to apply 42 fixes</span>', type: 'output', delay: 3000 },
+  { text: '<span class="text-buoy font-semibold">Run buoy fix --apply to apply 42 fixes</span>', type: 'output', delay: 3000 },
 ]
 
 const fixTerminalLines = [
@@ -183,7 +183,7 @@ const faqs = [
       <p class="text-slate text-center mb-8">One command. Dozens of files fixed. Token coverage jumps.</p>
 
       <Terminal
-        command="buoy fix --auto --type hardcoded-value"
+        command="buoy fix --apply --type hardcoded-value"
         lines={fixTerminalLines}
       />
     </div>

@@ -24,7 +24,7 @@ const terminalLines = [
   { text: '├─ Badge.tsx:3 8px <span class="text-success">→ var(--spacing-sm)</span>', type: 'warning', delay: 3000 },
   { text: '└─ <span class="text-slate-dark">... and 6 more</span>', type: 'muted', delay: 3200 },
   { text: '', type: 'output', delay: 3400 },
-  { text: '<span class="text-buoy font-semibold">Run buoy fix --auto to apply 18 fixes</span>', type: 'output', delay: 3600 },
+  { text: '<span class="text-buoy font-semibold">Run buoy fix --apply to apply 18 fixes</span>', type: 'output', delay: 3600 },
 ]
 
 const fixTerminalLines = [
@@ -109,14 +109,14 @@ const steps = [
   {
     step: '2',
     title: 'Fix',
-    command: 'buoy fix --auto',
+    command: 'buoy fix --apply',
     description: 'Auto-applies safe fixes in seconds'
   },
   {
     step: '3',
     title: 'Measure',
-    command: 'buoy status',
-    description: 'Shows coverage improvement'
+    command: 'buoy audit',
+    description: 'Shows design system health'
   },
 ]
 ---
@@ -194,10 +194,10 @@ const steps = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
-          The code works. But it's not your code.
+          Design systems leak. Buoy plugs the holes.
         </h2>
         <p class="text-lg text-slate max-w-2xl mx-auto">
-          AI assistants generate functional code that ignores your design system entirely.
+          Hardcoded values creep in. Drift compounds.
         </p>
       </div>
 
@@ -312,7 +312,7 @@ const steps = [
       </div>
 
       <Terminal
-        command="buoy fix --auto"
+        command="buoy fix --apply"
         lines={fixTerminalLines}
         class="max-w-3xl mx-auto"
       />
