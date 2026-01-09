@@ -88,15 +88,15 @@ const features = [
 ]
 
 const integrations = [
-  { name: 'React', icon: '⚛️' },
-  { name: 'Vue', icon: '💚' },
-  { name: 'Svelte', icon: '🔶' },
-  { name: 'Angular', icon: '🔺' },
-  { name: 'Next.js', icon: '▲' },
-  { name: 'Figma', icon: '🎨' },
-  { name: 'Storybook', icon: '📖' },
-  { name: 'Tailwind', icon: '🌊' },
-  { name: 'GitHub', icon: '🐙' },
+  { name: 'React', icon: '⚛️', href: '/integrations/react' },
+  { name: 'Vue', icon: '💚', href: '/integrations/vue' },
+  { name: 'Svelte', icon: '🔶', href: '/integrations/svelte' },
+  { name: 'Angular', icon: '🔺', href: '/integrations/angular' },
+  { name: 'Next.js', icon: '▲', href: '/integrations/nextjs' },
+  { name: 'Figma', icon: '🎨', href: '/integrations/figma' },
+  { name: 'Storybook', icon: '📖', href: '/integrations/storybook' },
+  { name: 'Tailwind', icon: '🌊', href: '/integrations/tailwind' },
+  { name: 'GitHub', icon: '🐙', href: '/integrations/github' },
 ]
 
 const steps = [
@@ -398,10 +398,10 @@ const steps = [
 
       <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
         {integrations.map((integration) => (
-          <div class="flex items-center gap-2 px-4 py-2 bg-navy/50 border border-navy-light/20 rounded-lg hover:border-buoy/30 transition-colors">
+          <a href={integration.href} class="flex items-center gap-2 px-4 py-2 bg-navy/50 border border-navy-light/20 rounded-lg hover:border-buoy/30 hover:bg-navy/70 transition-colors">
             <span class="text-xl">{integration.icon}</span>
             <span class="text-sm text-slate">{integration.name}</span>
-          </div>
+          </a>
         ))}
       </div>
     </div>
