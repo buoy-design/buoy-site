@@ -39,6 +39,9 @@
     </g>
   </svg>
 
+  <!-- Little boat riding the waves -->
+  <div class="boat">⛵</div>
+
   <!-- Floating particles -->
   <div class="particles">
     <div class="particle p1"></div>
@@ -191,6 +194,27 @@
       transform: translateY(-20vh) scale(0);
       opacity: 0;
     }
+  }
+
+  /* Little boat */
+  .boat {
+    position: absolute;
+    bottom: 42%;
+    left: 15%;
+    font-size: 1.5rem;
+    animation: boatBob 4s ease-in-out infinite, boatDrift 25s linear infinite;
+    opacity: 0.7;
+    z-index: 1;
+  }
+
+  @keyframes boatBob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-15px) rotate(3deg); }
+  }
+
+  @keyframes boatDrift {
+    0% { left: -5%; }
+    100% { left: 105%; }
   }
 
   /* Mesh gradient overlay */
