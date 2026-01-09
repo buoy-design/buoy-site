@@ -13,33 +13,35 @@ const terminalLines = [
   { text: '', type: 'output', delay: 600 },
   { text: '<span class="text-buoy">🛟</span> Scanning for design drift...', type: 'output', delay: 800 },
   { text: '', type: 'output', delay: 1200 },
-  { text: 'Found <span class="text-warning">23</span> issues — <span class="text-success">18 auto-fixable</span>', type: 'output', delay: 1400 },
+  { text: 'Found <span class="text-warning">23</span> issues in <span class="text-slate">142 files</span>', type: 'output', delay: 1400 },
   { text: '', type: 'output', delay: 1600 },
   { text: '<span class="text-critical font-semibold">CRITICAL (2)</span>', type: 'output', delay: 1800 },
-  { text: '├─ Button.tsx:12 Missing aria-label <span class="text-success">→ auto-fix</span>', type: 'critical', delay: 2000 },
-  { text: '└─ Modal.tsx:45 Focus trap conflict <span class="text-success">→ auto-fix</span>', type: 'critical', delay: 2200 },
+  { text: '├─ Button.tsx:12 Missing aria-label', type: 'critical', delay: 2000 },
+  { text: '└─ Modal.tsx:45 Focus trap not implemented', type: 'critical', delay: 2200 },
   { text: '', type: 'output', delay: 2400 },
-  { text: '<span class="text-warning font-semibold">WARNING (8)</span>', type: 'output', delay: 2600 },
-  { text: '├─ Card.tsx:8 #ffffff <span class="text-success">→ var(--bg-surface)</span>', type: 'warning', delay: 2800 },
-  { text: '├─ Badge.tsx:3 8px <span class="text-success">→ var(--spacing-sm)</span>', type: 'warning', delay: 3000 },
+  { text: '<span class="text-warning font-semibold">HARDCODED VALUES (8)</span>', type: 'output', delay: 2600 },
+  { text: '├─ Card.tsx:8 #ffffff <span class="text-slate">→ use var(--bg-surface)</span>', type: 'warning', delay: 2800 },
+  { text: '├─ Badge.tsx:3 8px <span class="text-slate">→ use var(--spacing-sm)</span>', type: 'warning', delay: 3000 },
   { text: '└─ <span class="text-slate-dark">... and 6 more</span>', type: 'muted', delay: 3200 },
   { text: '', type: 'output', delay: 3400 },
-  { text: '<span class="text-buoy font-semibold">Run buoy fix --apply to apply 18 fixes</span>', type: 'output', delay: 3600 },
+  { text: '<span class="text-buoy font-semibold">Add to CI to catch drift on every PR</span>', type: 'output', delay: 3600 },
 ]
 
-const fixTerminalLines = [
+const ciTerminalLines = [
   { text: '', type: 'output', delay: 600 },
-  { text: '<span class="text-buoy">🛟</span> Applying 18 auto-fixes...', type: 'output', delay: 800 },
+  { text: '<span class="text-buoy">🛟</span> Buoy CI — checking PR #247...', type: 'output', delay: 800 },
   { text: '', type: 'output', delay: 1200 },
-  { text: '<span class="text-success">✓</span> Button.tsx: Added aria-label', type: 'success', delay: 1400 },
-  { text: '<span class="text-success">✓</span> Modal.tsx: Using FocusTrap component', type: 'success', delay: 1600 },
-  { text: '<span class="text-success">✓</span> Card.tsx: #ffffff → var(--bg-surface)', type: 'success', delay: 1800 },
-  { text: '<span class="text-success">✓</span> Badge.tsx: 8px → var(--spacing-sm)', type: 'success', delay: 2000 },
-  { text: '<span class="text-slate-dark">... and 14 more files</span>', type: 'muted', delay: 2200 },
+  { text: '<span class="text-critical font-semibold">✗ BLOCKED</span> — 3 new drift issues found', type: 'critical', delay: 1400 },
+  { text: '', type: 'output', delay: 1600 },
+  { text: '├─ src/components/Card.tsx:23', type: 'output', delay: 1800 },
+  { text: '│  <span class="text-warning">Hardcoded color #3b82f6</span>', type: 'warning', delay: 2000 },
+  { text: '│  <span class="text-slate">→ use var(--color-primary)</span>', type: 'output', delay: 2200 },
   { text: '', type: 'output', delay: 2400 },
-  { text: '<span class="text-success font-semibold">18 issues fixed.</span> <span class="text-slate">5 need manual review.</span>', type: 'output', delay: 2600 },
-  { text: '', type: 'output', delay: 2800 },
-  { text: 'Design system coverage: <span class="text-warning">47%</span> → <span class="text-success">72%</span>', type: 'output', delay: 3000 },
+  { text: '├─ src/components/Modal.tsx:8', type: 'output', delay: 2600 },
+  { text: '│  <span class="text-warning">Hardcoded spacing 24px</span>', type: 'warning', delay: 2800 },
+  { text: '│  <span class="text-slate">→ use var(--spacing-lg)</span>', type: 'output', delay: 3000 },
+  { text: '', type: 'output', delay: 3200 },
+  { text: '<span class="text-slate">Fix these issues to merge this PR</span>', type: 'output', delay: 3400 },
 ]
 
 const features = [
@@ -102,21 +104,21 @@ const integrations = [
 const steps = [
   {
     step: '1',
-    title: 'Find',
+    title: 'Detect',
     command: 'buoy drift check',
-    description: 'Zero config. Finds every issue with exact file and line'
+    description: 'Zero config. Every issue with exact file and line.'
   },
   {
     step: '2',
-    title: 'Fix',
-    command: 'buoy fix --apply',
-    description: 'Auto-applies safe fixes in seconds'
+    title: 'Enforce',
+    command: 'buoy ci',
+    description: 'Block drift at PR. Nothing bad reaches main.'
   },
   {
     step: '3',
     title: 'Measure',
     command: 'buoy audit',
-    description: 'Shows design system health'
+    description: 'Track design system health over time.'
   },
 ]
 ---
@@ -287,7 +289,7 @@ const steps = [
           Find drift in seconds
         </h2>
         <p class="text-lg text-slate">
-          One command. Every issue with exact file, line, and suggested fix.
+          One command. Every issue with exact file, line, and suggestion.
         </p>
       </div>
 
@@ -299,33 +301,122 @@ const steps = [
     </div>
   </section>
 
-  <!-- Terminal Demo Section: Fix -->
+  <!-- CI Enforcement Section: GitHub PR Style -->
   <section class="py-24 bg-navy-dark relative overflow-hidden">
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
-          Fix it automatically
+          Block drift at the PR
         </h2>
         <p class="text-lg text-slate">
-          One more command. Watch your design system coverage jump.
+          Add Buoy to CI. Drift never reaches main.
         </p>
       </div>
 
-      <Terminal
-        command="buoy fix --apply"
-        lines={fixTerminalLines}
-        class="max-w-3xl mx-auto"
-      />
+      <!-- GitHub PR Check Style Card -->
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-[#0d1117] border border-[#30363d] rounded-lg overflow-hidden shadow-xl">
+          <!-- PR Header -->
+          <div class="px-4 py-3 border-b border-[#30363d] flex items-center gap-3">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-[#3fb950]" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/>
+              </svg>
+              <span class="text-[#c9d1d9] font-semibold">feat: add new Card component</span>
+            </div>
+            <span class="text-[#8b949e] text-sm">#247</span>
+          </div>
+
+          <!-- Checks Section -->
+          <div class="px-4 py-3 border-b border-[#30363d]">
+            <div class="flex items-center gap-2 mb-3">
+              <svg class="w-4 h-4 text-[#f85149]" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"/>
+              </svg>
+              <span class="text-[#f85149] font-medium text-sm">Buoy Design Check — 3 issues found</span>
+            </div>
+          </div>
+
+          <!-- Annotations -->
+          <div class="divide-y divide-[#30363d]">
+            <!-- Annotation 1 -->
+            <div class="px-4 py-3">
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#f8514926] text-[#f85149] border border-[#f8514940]">
+                    error
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[#58a6ff] text-sm font-mono hover:underline cursor-pointer">src/components/Card.tsx</span>
+                    <span class="text-[#8b949e] text-sm">line 23</span>
+                  </div>
+                  <p class="text-[#c9d1d9] text-sm mb-1">Hardcoded color <code class="px-1.5 py-0.5 bg-[#161b22] rounded text-[#f85149] text-xs">#3b82f6</code></p>
+                  <p class="text-[#8b949e] text-sm">Use <code class="px-1.5 py-0.5 bg-[#161b22] rounded text-[#7ee787] text-xs">var(--color-primary)</code> instead</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Annotation 2 -->
+            <div class="px-4 py-3">
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#f8514926] text-[#f85149] border border-[#f8514940]">
+                    error
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[#58a6ff] text-sm font-mono hover:underline cursor-pointer">src/components/Card.tsx</span>
+                    <span class="text-[#8b949e] text-sm">line 31</span>
+                  </div>
+                  <p class="text-[#c9d1d9] text-sm mb-1">Hardcoded spacing <code class="px-1.5 py-0.5 bg-[#161b22] rounded text-[#f85149] text-xs">24px</code></p>
+                  <p class="text-[#8b949e] text-sm">Use <code class="px-1.5 py-0.5 bg-[#161b22] rounded text-[#7ee787] text-xs">var(--spacing-lg)</code> instead</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Annotation 3 -->
+            <div class="px-4 py-3">
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#d29922] text-[#0d1117] border border-[#d2992240]">
+                    warn
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[#58a6ff] text-sm font-mono hover:underline cursor-pointer">src/components/Modal.tsx</span>
+                    <span class="text-[#8b949e] text-sm">line 8</span>
+                  </div>
+                  <p class="text-[#c9d1d9] text-sm mb-1">Hardcoded border radius <code class="px-1.5 py-0.5 bg-[#161b22] rounded text-[#d29922] text-xs">8px</code></p>
+                  <p class="text-[#8b949e] text-sm">Use <code class="px-1.5 py-0.5 bg-[#161b22] rounded text-[#7ee787] text-xs">var(--radius-md)</code> instead</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="px-4 py-3 bg-[#161b22] border-t border-[#30363d] flex items-center justify-between">
+            <span class="text-[#8b949e] text-sm">Fix these issues to merge</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[#8b949e] text-xs">Powered by</span>
+              <span class="text-[#c9d1d9] text-sm font-semibold">🛟 Buoy</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Outcome callout -->
       <div class="mt-12 max-w-2xl mx-auto">
-        <div class="bg-navy/50 border border-success/30 rounded-xl p-6 text-center">
-          <div class="text-sm text-success font-semibold mb-2">THE OUTCOME</div>
+        <div class="bg-navy/50 border border-buoy/30 rounded-xl p-6 text-center">
+          <div class="text-sm text-buoy font-semibold mb-2">THE OUTCOME</div>
           <div class="text-2xl font-bold text-light mb-2">
-            47% → 72% design system coverage
+            Drift caught before it ships
           </div>
           <p class="text-slate text-sm">
-            18 issues fixed in under 5 seconds. Your team sees the improvement immediately.
+            Every PR checked. Every violation flagged. Your design system stays consistent.
           </p>
         </div>
       </div>
@@ -357,10 +448,10 @@ const steps = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
-          Find. Fix. Measure.
+          Detect. Enforce. Measure.
         </h2>
         <p class="text-lg text-slate">
-          Not just detection — action and visible results.
+          Find drift, block it at CI, and track your progress.
         </p>
       </div>
 
@@ -464,7 +555,7 @@ const steps = [
             </li>
             <li class="flex items-start gap-2">
               <span class="text-success mt-0.5">✓</span>
-              <span class="text-slate">Auto-fix suggestions</span>
+              <span class="text-slate">Fix suggestions with exact replacements</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-success mt-0.5">✓</span>
@@ -502,7 +593,7 @@ const steps = [
             </li>
             <li class="flex items-start gap-2">
               <span class="text-lavender mt-0.5">+</span>
-              <span class="text-slate">Smart fix recommendations</span>
+              <span class="text-slate">Context-aware suggestions</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-lavender mt-0.5">+</span>
