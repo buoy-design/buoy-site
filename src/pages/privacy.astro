@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+
+const lastUpdated = 'January 9, 2026'
+---
+
+<Layout
+  title="Privacy Policy | Buoy"
+  description="Buoy's privacy policy - how we collect, use, and protect your data"
+>
+  <Nav />
+
+  <section class="relative pt-32 pb-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-light mb-4">Privacy Policy</h1>
+        <p class="text-slate">Last updated: {lastUpdated}</p>
+      </div>
+
+      <div class="prose prose-invert max-w-none space-y-8">
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Overview</h2>
+          <p class="text-slate mb-4">
+            Buoy Design, Inc. ("Buoy," "we," "us," or "our") respects your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our CLI tool, website, and related services.
+          </p>
+          <p class="text-slate">
+            <strong class="text-light">The short version:</strong> The Buoy CLI runs locally and doesn't send your code anywhere. Our cloud features (Team plan) only sync metadata and scan results—never your source code.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Information We Collect</h2>
+
+          <h3 class="text-lg font-medium text-light mb-3">CLI Tool (Free)</h3>
+          <p class="text-slate mb-4">
+            The Buoy CLI runs entirely on your local machine. By default, it does not transmit any data externally. Your source code never leaves your computer.
+          </p>
+          <ul class="list-disc list-inside text-slate space-y-2 mb-4">
+            <li>No source code is collected or transmitted</li>
+            <li>No telemetry is sent without explicit opt-in</li>
+            <li>Scan results are stored locally in your project</li>
+          </ul>
+
+          <h3 class="text-lg font-medium text-light mb-3">Cloud Features (Team Plan)</h3>
+          <p class="text-slate mb-4">
+            If you opt into cloud features, we collect:
+          </p>
+          <ul class="list-disc list-inside text-slate space-y-2 mb-4">
+            <li><strong class="text-light">Account information:</strong> Email, name, organization name</li>
+            <li><strong class="text-light">Scan metadata:</strong> File counts, issue counts, coverage percentages (not source code)</li>
+            <li><strong class="text-light">GitHub integration:</strong> Repository names, PR numbers (for PR comments feature)</li>
+            <li><strong class="text-light">Usage data:</strong> Feature usage, command frequency</li>
+          </ul>
+
+          <h3 class="text-lg font-medium text-light mb-3">Website</h3>
+          <p class="text-slate mb-4">
+            When you visit buoy.design, we collect:
+          </p>
+          <ul class="list-disc list-inside text-slate space-y-2">
+            <li>Standard web analytics (page views, referrer, browser type)</li>
+            <li>Information you provide via forms (name, email, message)</li>
+            <li>Cookies for essential site functionality</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">How We Use Your Information</h2>
+          <ul class="list-disc list-inside text-slate space-y-2">
+            <li>Provide and maintain our services</li>
+            <li>Send you scan results and alerts (Team plan)</li>
+            <li>Respond to your inquiries and support requests</li>
+            <li>Improve our products and develop new features</li>
+            <li>Send product updates and announcements (with opt-out)</li>
+            <li>Comply with legal obligations</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Data Sharing</h2>
+          <p class="text-slate mb-4">
+            We do not sell your personal information. We may share data with:
+          </p>
+          <ul class="list-disc list-inside text-slate space-y-2">
+            <li><strong class="text-light">Service providers:</strong> Hosting, email, analytics (bound by confidentiality)</li>
+            <li><strong class="text-light">Legal requirements:</strong> When required by law or to protect rights</li>
+            <li><strong class="text-light">Business transfers:</strong> In connection with a merger or acquisition</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Data Security</h2>
+          <p class="text-slate">
+            We implement industry-standard security measures including encryption in transit (TLS) and at rest, access controls, and regular security audits. However, no method of transmission over the Internet is 100% secure.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Data Retention</h2>
+          <p class="text-slate">
+            We retain your data for as long as your account is active or as needed to provide services. You can request deletion of your data at any time by contacting support@buoy.design.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Your Rights</h2>
+          <p class="text-slate mb-4">
+            Depending on your location, you may have rights to:
+          </p>
+          <ul class="list-disc list-inside text-slate space-y-2">
+            <li>Access the personal data we hold about you</li>
+            <li>Correct inaccurate data</li>
+            <li>Delete your data</li>
+            <li>Export your data in a portable format</li>
+            <li>Opt out of marketing communications</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Children's Privacy</h2>
+          <p class="text-slate">
+            Our services are not intended for children under 13. We do not knowingly collect personal information from children under 13.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Changes to This Policy</h2>
+          <p class="text-slate">
+            We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-light mb-4">Contact Us</h2>
+          <p class="text-slate">
+            If you have questions about this Privacy Policy, please contact us at:
+          </p>
+          <ul class="list-none text-slate mt-4 space-y-1">
+            <li>Email: <a href="mailto:privacy@buoy.design" class="text-buoy hover:underline">privacy@buoy.design</a></li>
+            <li>Support: <a href="/support" class="text-buoy hover:underline">buoy.design/support</a></li>
+          </ul>
+        </section>
+
+      </div>
+
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
