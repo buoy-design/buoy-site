@@ -44,69 +44,60 @@ const ciTerminalLines = [
   { text: '<span class="text-slate">Fix these issues to merge this PR</span>', type: 'output', delay: 3400 },
 ]
 
-const features = [
+const driftTypes = [
   {
     title: 'Hardcoded Values',
-    description: 'Find colors, spacing, and fonts that bypass your design tokens.',
+    severity: 'Warning',
+    description: 'Colors, spacing, fonts not using tokens',
     icon: '🎨',
-    examples: ['#ff0000', '16px', 'Arial'],
     href: '/features/hardcoded-values'
   },
   {
     title: 'Duplicate Components',
-    description: 'Detect similar components that should be consolidated.',
+    severity: 'Warning',
+    description: 'Similar components that should be consolidated',
     icon: '📦',
-    examples: ['Button', 'ButtonNew', 'MyButton'],
     href: '/features/duplicate-detection'
   },
   {
-    title: 'Naming Drift',
-    description: 'Catch inconsistent naming conventions across your codebase.',
+    title: 'Naming Inconsistency',
+    severity: 'Info',
+    description: 'Component/prop names that don\'t match conventions',
     icon: '🏷️',
-    examples: ['btn vs Button', 'color vs colour'],
     href: '/features/naming-consistency'
   },
   {
-    title: 'Prop Mismatches',
-    description: 'Find when the same prop has different types across components.',
+    title: 'Deprecated Patterns',
+    severity: 'Warning',
+    description: 'Components marked @deprecated still in use',
+    icon: '⚠️',
+  },
+  {
+    title: 'Prop Type Mismatch',
+    severity: 'Warning',
+    description: 'Same prop with different types across components',
     icon: '🔧',
-    examples: ['onClick vs onPress', 'size: string | number'],
     href: '/features/prop-consistency'
   },
   {
-    title: 'Deprecated Patterns',
-    description: 'Track components marked @deprecated still in use.',
-    icon: '⚠️',
-    examples: ['@deprecated', 'legacy components'],
-    href: '/features/drift-detection'
-  },
-  {
-    title: 'Framework Sprawl',
-    description: 'Detect multiple UI frameworks competing in your codebase.',
-    icon: '🌐',
-    examples: ['React + Vue + ...'],
-    href: '/features/framework-sprawl'
-  },
-  {
-    title: 'Color Contrast',
-    description: 'Find colors that fail WCAG accessibility contrast ratios.',
-    icon: '🔲',
-    examples: ['AA fails', 'AAA fails'],
+    title: 'Accessibility Conflict',
+    severity: 'Critical',
+    description: 'Missing ARIA labels, focus issues',
+    icon: '♿',
     href: '/features/accessibility-checks'
   },
   {
-    title: 'Orphaned Components',
-    description: 'Components in code but missing from Figma or Storybook.',
-    icon: '👻',
-    examples: ['In code, not in design'],
-    href: '/features/drift-detection'
+    title: 'Framework Sprawl',
+    severity: 'Warning',
+    description: 'Multiple UI frameworks in same codebase',
+    icon: '🌐',
+    href: '/features/framework-sprawl'
   },
   {
-    title: 'Unused Tokens',
-    description: 'Design tokens defined but never referenced in code.',
-    icon: '🗑️',
-    examples: ['--color-unused', '--space-deprecated'],
-    href: '/features/drift-detection'
+    title: 'Orphaned Components',
+    severity: 'Info',
+    description: 'Components in code but not in design',
+    icon: '👻',
   },
 ]
 
@@ -465,19 +456,53 @@ const steps = [
   <!-- Feature Grid Section -->
   <section id="features" class="py-24 bg-navy-dark">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <h2 class="text-3xl sm:text-4xl font-bold text-light mb-4">
           What Buoy Detects
         </h2>
         <p class="text-lg text-slate max-w-2xl mx-auto">
-          Comprehensive drift detection for modern frontend codebases
+          Categorized by severity to help you prioritize fixes
         </p>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature) => (
-          <FeatureCard {...feature} />
-        ))}
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {driftTypes.map((drift) => {
+          const severityColors = {
+            Critical: 'border-critical/30 hover:border-critical/50',
+            Warning: 'border-warning/30 hover:border-warning/50',
+            Info: 'border-info/30 hover:border-info/50',
+          }
+          const severityBadge = {
+            Critical: 'bg-critical/20 text-critical',
+            Warning: 'bg-warning/20 text-warning',
+            Info: 'bg-info/20 text-info',
+          }
+
+          return (
+            <div class={`bg-navy/50 border ${severityColors[drift.severity]} rounded-xl p-5 transition-colors`}>
+              <div class="flex items-start justify-between mb-3">
+                <span class="text-2xl">{drift.icon}</span>
+                <span class={`text-xs px-2 py-0.5 rounded-full ${severityBadge[drift.severity]}`}>
+                  {drift.severity}
+                </span>
+              </div>
+              <h3 class="font-semibold text-light mb-2">
+                {drift.href ? (
+                  <a href={drift.href} class="hover:text-buoy transition-colors">
+                    {drift.title}
+                  </a>
+                ) : drift.title}
+              </h3>
+              <p class="text-sm text-slate">{drift.description}</p>
+            </div>
+          )
+        })}
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/features/drift-detection" class="text-buoy hover:underline text-sm">
+          See all drift types →
+        </a>
       </div>
     </div>
   </section>
