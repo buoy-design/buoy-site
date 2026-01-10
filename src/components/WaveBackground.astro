@@ -4,22 +4,28 @@
 
 <div class="wave-background">
   <!-- SVG Wave Layers -->
-  <svg class="wave-svg" viewBox="0 0 1440 800" preserveAspectRatio="none">
+  <svg class="wave-svg" viewBox="0 0 2880 800" preserveAspectRatio="none">
     <defs>
-      <!-- Wave gradients - tiled horizontally to prevent seam on loop -->
-      <linearGradient id="waveGradient1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+      <!-- Wave gradients - symmetric for seamless looping -->
+      <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="rgba(30, 100, 200, 0.13)" />
-        <stop offset="50%" stop-color="rgba(60, 120, 220, 0.17)" />
+        <stop offset="25%" stop-color="rgba(60, 120, 220, 0.17)" />
+        <stop offset="50%" stop-color="rgba(30, 100, 200, 0.13)" />
+        <stop offset="75%" stop-color="rgba(60, 120, 220, 0.17)" />
         <stop offset="100%" stop-color="rgba(30, 100, 200, 0.13)" />
       </linearGradient>
-      <linearGradient id="waveGradient2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+      <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="rgba(50, 90, 210, 0.12)" />
-        <stop offset="50%" stop-color="rgba(70, 110, 230, 0.16)" />
+        <stop offset="25%" stop-color="rgba(70, 110, 230, 0.16)" />
+        <stop offset="50%" stop-color="rgba(50, 90, 210, 0.12)" />
+        <stop offset="75%" stop-color="rgba(70, 110, 230, 0.16)" />
         <stop offset="100%" stop-color="rgba(50, 90, 210, 0.12)" />
       </linearGradient>
-      <linearGradient id="waveGradient3" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+      <linearGradient id="waveGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="rgba(40, 110, 195, 0.11)" />
-        <stop offset="50%" stop-color="rgba(65, 130, 215, 0.15)" />
+        <stop offset="25%" stop-color="rgba(65, 130, 215, 0.15)" />
+        <stop offset="50%" stop-color="rgba(40, 110, 195, 0.11)" />
+        <stop offset="75%" stop-color="rgba(65, 130, 215, 0.15)" />
         <stop offset="100%" stop-color="rgba(40, 110, 195, 0.11)" />
       </linearGradient>
       <!-- Clip path matching wave-1 for particles -->
@@ -139,11 +145,11 @@
 
     <!-- Digital grid lines -->
     <g class="grid-lines" opacity="0.15">
-      <line x1="0" y1="200" x2="1440" y2="200" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="300" x2="1440" y2="300" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="400" x2="1440" y2="400" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="500" x2="1440" y2="500" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="600" x2="1440" y2="600" stroke="url(#waveGradient1)" stroke-width="1"/>
+      <line x1="0" y1="200" x2="2880" y2="200" stroke="url(#waveGradient1)" stroke-width="1"/>
+      <line x1="0" y1="300" x2="2880" y2="300" stroke="url(#waveGradient1)" stroke-width="1"/>
+      <line x1="0" y1="400" x2="2880" y2="400" stroke="url(#waveGradient1)" stroke-width="1"/>
+      <line x1="0" y1="500" x2="2880" y2="500" stroke="url(#waveGradient1)" stroke-width="1"/>
+      <line x1="0" y1="600" x2="2880" y2="600" stroke="url(#waveGradient1)" stroke-width="1"/>
     </g>
   </svg>
 
