@@ -3,54 +3,16 @@
 ---
 
 <div class="wave-background">
-  <!-- SVG Wave Layers -->
-  <svg class="wave-svg" viewBox="0 0 2880 800" preserveAspectRatio="none">
+  <!-- Stars layer (static, doesn't scroll) -->
+  <svg class="stars-svg" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice">
     <defs>
-      <!-- Wave gradients - symmetric for seamless looping -->
-      <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="rgba(30, 100, 200, 0.13)" />
-        <stop offset="25%" stop-color="rgba(60, 120, 220, 0.17)" />
-        <stop offset="50%" stop-color="rgba(30, 100, 200, 0.13)" />
-        <stop offset="75%" stop-color="rgba(60, 120, 220, 0.17)" />
-        <stop offset="100%" stop-color="rgba(30, 100, 200, 0.13)" />
-      </linearGradient>
-      <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="rgba(50, 90, 210, 0.12)" />
-        <stop offset="25%" stop-color="rgba(70, 110, 230, 0.16)" />
-        <stop offset="50%" stop-color="rgba(50, 90, 210, 0.12)" />
-        <stop offset="75%" stop-color="rgba(70, 110, 230, 0.16)" />
-        <stop offset="100%" stop-color="rgba(50, 90, 210, 0.12)" />
-      </linearGradient>
-      <linearGradient id="waveGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="rgba(40, 110, 195, 0.11)" />
-        <stop offset="25%" stop-color="rgba(65, 130, 215, 0.15)" />
-        <stop offset="50%" stop-color="rgba(40, 110, 195, 0.11)" />
-        <stop offset="75%" stop-color="rgba(65, 130, 215, 0.15)" />
-        <stop offset="100%" stop-color="rgba(40, 110, 195, 0.11)" />
-      </linearGradient>
-      <!-- Clip path matching wave-1 for particles -->
-      <clipPath id="waveClip">
-        <path d="M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z"/>
-      </clipPath>
-      <!-- Drop shadow filters for wave depth -->
-      <filter id="waveShadow0" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="-14" stdDeviation="10" flood-color="rgba(0,0,0,0.4)"/>
-      </filter>
-      <filter id="waveShadow1" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="-12" stdDeviation="8" flood-color="rgba(0,0,0,0.5)"/>
-      </filter>
-      <filter id="waveShadow2" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="-10" stdDeviation="7" flood-color="rgba(0,0,0,0.45)"/>
-      </filter>
       <!-- 4-pointed star symbol -->
       <symbol id="star4" viewBox="-10 -10 20 20">
         <path d="M0,-8 L1,-1 L8,0 L1,1 L0,8 L-1,1 L-8,0 L-1,-1 Z" fill="currentColor"/>
       </symbol>
     </defs>
-
-    <!-- Stars in the sky - scattered randomly -->
+    <!-- Stars in the sky -->
     <g class="stars" fill="rgba(255,255,255,0.7)">
-      <!-- Scattered stars with natural random placement -->
       <use href="#star4" x="23" y="18" width="4" height="8" class="star"/>
       <use href="#star4" x="147" y="67" width="3" height="6" class="star"/>
       <use href="#star4" x="89" y="142" width="5" height="10" class="star"/>
@@ -78,7 +40,6 @@
       <use href="#star4" x="589" y="298" width="3" height="6" class="star"/>
       <use href="#star4" x="123" y="256" width="4" height="8" class="star"/>
       <use href="#star4" x="678" y="134" width="4" height="8" class="star"/>
-      <use href="#star4" x="1312" y="278" width="3" height="6" class="star"/>
       <use href="#star4" x="245" y="45" width="4" height="8" class="star"/>
       <use href="#star4" x="512" y="23" width="3" height="6" class="star"/>
       <use href="#star4" x="867" y="189" width="4" height="8" class="star"/>
@@ -92,66 +53,74 @@
       <use href="#star4" x="612" y="212" width="3" height="6" class="star"/>
       <use href="#star4" x="78" y="89" width="4" height="8" class="star"/>
       <use href="#star4" x="956" y="67" width="3" height="6" class="star"/>
-      <use href="#star4" x="1234" y="98" width="4" height="8" class="star"/>
-      <use href="#star4" x="489" y="267" width="4" height="8" class="star"/>
-      <use href="#star4" x="812" y="145" width="3" height="6" class="star"/>
-      <use href="#star4" x="345" y="98" width="4" height="8" class="star"/>
-      <use href="#star4" x="1156" y="178" width="5" height="10" class="star"/>
-      <use href="#star4" x="667" y="256" width="3" height="6" class="star"/>
-      <use href="#star4" x="45" y="198" width="4" height="8" class="star"/>
-      <use href="#star4" x="1045" y="189" width="3" height="6" class="star"/>
-      <use href="#star4" x="756" y="312" width="4" height="8" class="star"/>
-      <use href="#star4" x="234" y="156" width="3" height="6" class="star"/>
-      <use href="#star4" x="1289" y="234" width="4" height="8" class="star"/>
-      <use href="#star4" x="534" y="78" width="4" height="8" class="star"/>
-      <use href="#star4" x="889" y="267" width="3" height="6" class="star"/>
-      <use href="#star4" x="112" y="34" width="4" height="8" class="star"/>
-      <use href="#star4" x="1389" y="156" width="3" height="6" class="star"/>
-      <use href="#star4" x="378" y="223" width="5" height="10" class="star"/>
-      <use href="#star4" x="701" y="98" width="3" height="6" class="star"/>
-      <use href="#star4" x="1001" y="45" width="4" height="8" class="star"/>
-      <use href="#star4" x="567" y="189" width="3" height="6" class="star"/>
-      <use href="#star4" x="823" y="234" width="4" height="8" class="star"/>
-      <use href="#star4" x="189" y="134" width="3" height="6" class="star"/>
-      <use href="#star4" x="1212" y="312" width="4" height="8" class="star"/>
-      <use href="#star4" x="445" y="56" width="4" height="8" class="star"/>
-      <use href="#star4" x="1112" y="134" width="3" height="6" class="star"/>
-      <use href="#star4" x="645" y="178" width="4" height="8" class="star"/>
-      <use href="#star4" x="34" y="267" width="5" height="10" class="star"/>
-      <use href="#star4" x="912" y="156" width="3" height="6" class="star"/>
-      <use href="#star4" x="1334" y="189" width="4" height="8" class="star"/>
-      <use href="#star4" x="278" y="212" width="3" height="6" class="star"/>
-      <use href="#star4" x="778" y="78" width="4" height="8" class="star"/>
-      <use href="#star4" x="467" y="298" width="3" height="6" class="star"/>
-      <use href="#star4" x="1178" y="256" width="4" height="8" class="star"/>
-      <use href="#star4" x="623" y="112" width="4" height="8" class="star"/>
-      <use href="#star4" x="134" y="298" width="3" height="6" class="star"/>
-      <use href="#star4" x="989" y="278" width="4" height="8" class="star"/>
-      <use href="#star4" x="1423" y="67" width="3" height="6" class="star"/>
-      <use href="#star4" x="356" y="45" width="5" height="10" class="star"/>
-      <use href="#star4" x="856" y="112" width="3" height="6" class="star"/>
-      <use href="#star4" x="501" y="234" width="4" height="8" class="star"/>
-      <use href="#star4" x="1267" y="67" width="3" height="6" class="star"/>
-      <use href="#star4" x="689" y="289" width="4" height="8" class="star"/>
-      <use href="#star4" x="212" y="23" width="4" height="8" class="star"/>
-      <use href="#star4" x="1056" y="223" width="3" height="6" class="star"/>
-      <use href="#star4" x="745" y="167" width="4" height="8" class="star"/>
-    </g>
-
-    <!-- Deep background waves - doubled width for seamless horizontal scroll -->
-    <path class="wave wave-1" fill="url(#waveGradient1)" filter="url(#waveShadow0)" d="M0,400 Q180,370 360,400 T720,400 T1080,400 T1440,400 T1800,400 T2160,400 T2520,400 T2880,400 L2880,800 L0,800 Z"/>
-    <path class="wave wave-2" fill="url(#waveGradient2)" filter="url(#waveShadow1)" d="M0,450 Q200,420 400,450 T800,450 T1200,450 T1600,450 T2000,450 T2400,450 T2800,450 L2880,800 L0,800 Z"/>
-    <path class="wave wave-3" fill="url(#waveGradient3)" filter="url(#waveShadow2)" d="M0,500 Q160,475 320,500 T640,500 T960,500 T1280,500 T1600,500 T1920,500 T2240,500 T2560,500 T2880,500 L2880,800 L0,800 Z"/>
-
-    <!-- Digital grid lines -->
-    <g class="grid-lines" opacity="0.15">
-      <line x1="0" y1="200" x2="2880" y2="200" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="300" x2="2880" y2="300" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="400" x2="2880" y2="400" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="500" x2="2880" y2="500" stroke="url(#waveGradient1)" stroke-width="1"/>
-      <line x1="0" y1="600" x2="2880" y2="600" stroke="url(#waveGradient1)" stroke-width="1"/>
     </g>
   </svg>
+
+  <!-- Wave layers - each in its own container for independent animation -->
+  <div class="wave-container wave-container-1">
+    <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(30, 100, 200, 0.15)" />
+          <stop offset="50%" stop-color="rgba(60, 120, 220, 0.2)" />
+          <stop offset="100%" stop-color="rgba(30, 100, 200, 0.15)" />
+        </linearGradient>
+        <filter id="waveShadow1" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="-8" stdDeviation="6" flood-color="rgba(0,0,0,0.3)"/>
+        </filter>
+      </defs>
+      <path fill="url(#waveGradient1)" filter="url(#waveShadow1)" d="M0,160 C120,140 240,180 360,160 C480,140 600,180 720,160 C840,140 960,180 1080,160 C1200,140 1320,180 1440,160 L1440,320 L0,320 Z"/>
+    </svg>
+    <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="url(#waveGradient1)" filter="url(#waveShadow1)" d="M0,160 C120,140 240,180 360,160 C480,140 600,180 720,160 C840,140 960,180 1080,160 C1200,140 1320,180 1440,160 L1440,320 L0,320 Z"/>
+    </svg>
+  </div>
+
+  <div class="wave-container wave-container-2">
+    <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(50, 90, 210, 0.12)" />
+          <stop offset="50%" stop-color="rgba(70, 110, 230, 0.18)" />
+          <stop offset="100%" stop-color="rgba(50, 90, 210, 0.12)" />
+        </linearGradient>
+        <filter id="waveShadow2" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="-6" stdDeviation="5" flood-color="rgba(0,0,0,0.35)"/>
+        </filter>
+      </defs>
+      <path fill="url(#waveGradient2)" filter="url(#waveShadow2)" d="M0,180 C160,160 320,200 480,180 C640,160 800,200 960,180 C1120,160 1280,200 1440,180 L1440,320 L0,320 Z"/>
+    </svg>
+    <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="url(#waveGradient2)" filter="url(#waveShadow2)" d="M0,180 C160,160 320,200 480,180 C640,160 800,200 960,180 C1120,160 1280,200 1440,180 L1440,320 L0,320 Z"/>
+    </svg>
+  </div>
+
+  <div class="wave-container wave-container-3">
+    <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(40, 110, 195, 0.1)" />
+          <stop offset="50%" stop-color="rgba(65, 130, 215, 0.16)" />
+          <stop offset="100%" stop-color="rgba(40, 110, 195, 0.1)" />
+        </linearGradient>
+        <filter id="waveShadow3" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="-4" stdDeviation="4" flood-color="rgba(0,0,0,0.4)"/>
+        </filter>
+      </defs>
+      <path fill="url(#waveGradient3)" filter="url(#waveShadow3)" d="M0,200 C180,180 360,220 540,200 C720,180 900,220 1080,200 C1260,180 1440,200 1440,200 L1440,320 L0,320 Z"/>
+    </svg>
+    <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="url(#waveGradient3)" filter="url(#waveShadow3)" d="M0,200 C180,180 360,220 540,200 C720,180 900,220 1080,200 C1260,180 1440,200 1440,200 L1440,320 L0,320 Z"/>
+    </svg>
+  </div>
+
+  <!-- Grid lines overlay -->
+  <div class="grid-overlay">
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+  </div>
 
   <!-- Little boat riding the waves -->
   <div class="boat">⛵</div>
@@ -164,8 +133,6 @@
     <div class="particle p4"></div>
     <div class="particle p5"></div>
     <div class="particle p6"></div>
-    <div class="particle p7"></div>
-    <div class="particle p8"></div>
   </div>
 
   <!-- Mesh gradient overlay -->
@@ -187,30 +154,65 @@
     );
   }
 
-  .wave-svg {
+  /* Stars layer */
+  .stars-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    pointer-events: none;
+  }
+
+  .star {
+    fill: rgba(255, 255, 255, 0.6);
+    animation: twinkle 4s ease-in-out infinite;
+  }
+
+  .star:nth-child(2n) { animation-delay: -1s; animation-duration: 3.5s; }
+  .star:nth-child(3n) { animation-delay: -2s; animation-duration: 4.5s; }
+  .star:nth-child(5n) { animation-delay: -0.5s; animation-duration: 5s; }
+  .star:nth-child(7n) { animation-delay: -3s; animation-duration: 3s; }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.9; }
+  }
+
+  /* Wave containers - each contains two identical SVGs side by side */
+  .wave-container {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 200%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .wave-container .wave-svg {
+    flex: 0 0 50%;
+    width: 50%;
     height: 100%;
   }
 
-  /* Animated waves - horizontal scrolling for realistic water motion */
-  .wave {
+  /* Position each wave layer */
+  .wave-container-1 {
+    bottom: 10%;
+    height: 45%;
+    animation: waveScroll 30s linear infinite;
+  }
+
+  .wave-container-2 {
+    bottom: 5%;
+    height: 40%;
+    animation: waveScroll 25s linear infinite reverse;
+  }
+
+  .wave-container-3 {
+    bottom: 0;
+    height: 35%;
     animation: waveScroll 20s linear infinite;
-  }
-
-  .wave-1 {
-    animation-duration: 25s;
-  }
-
-  .wave-2 {
-    animation-duration: 20s;
-    animation-direction: reverse;
-  }
-
-  .wave-3 {
-    animation-duration: 15s;
   }
 
   @keyframes waveScroll {
@@ -222,22 +224,42 @@
     }
   }
 
-  /* Grid animation */
-  .grid-lines line {
+  /* Grid lines */
+  .grid-overlay {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    right: 0;
+    height: 60%;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .grid-line {
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(30, 100, 200, 0.15) 20%,
+      rgba(60, 120, 220, 0.2) 50%,
+      rgba(30, 100, 200, 0.15) 80%,
+      transparent 100%
+    );
     animation: gridPulse 4s ease-in-out infinite;
   }
 
-  .grid-lines line:nth-child(2) { animation-delay: 0.5s; }
-  .grid-lines line:nth-child(3) { animation-delay: 1s; }
-  .grid-lines line:nth-child(4) { animation-delay: 1.5s; }
-  .grid-lines line:nth-child(5) { animation-delay: 2s; }
+  .grid-line:nth-child(1) { animation-delay: 0s; }
+  .grid-line:nth-child(2) { animation-delay: 0.5s; }
+  .grid-line:nth-child(3) { animation-delay: 1s; }
+  .grid-line:nth-child(4) { animation-delay: 1.5s; }
 
   @keyframes gridPulse {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.25; }
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
   }
 
-  /* Floating particles - clipped to bottom half (wave area) */
+  /* Floating particles */
   .particles {
     position: absolute;
     top: 50%;
@@ -245,7 +267,7 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
-    clip-path: inset(0 0 0 0);
+    pointer-events: none;
   }
 
   .particle {
@@ -257,14 +279,12 @@
     animation: float 20s linear infinite;
   }
 
-  .p1 { left: 10%; bottom: 0; animation-delay: 0s; animation-duration: 25s; }
-  .p2 { left: 20%; bottom: 0; animation-delay: -5s; animation-duration: 20s; background: rgba(139, 92, 246, 0.5); }
-  .p3 { left: 35%; bottom: 0; animation-delay: -10s; animation-duration: 22s; }
-  .p4 { left: 50%; bottom: 0; animation-delay: -3s; animation-duration: 18s; background: rgba(249, 115, 22, 0.4); }
-  .p5 { left: 65%; bottom: 0; animation-delay: -8s; animation-duration: 24s; background: rgba(139, 92, 246, 0.5); }
-  .p6 { left: 75%; bottom: 0; animation-delay: -12s; animation-duration: 21s; }
-  .p7 { left: 85%; bottom: 0; animation-delay: -2s; animation-duration: 19s; background: rgba(249, 115, 22, 0.4); }
-  .p8 { left: 95%; bottom: 0; animation-delay: -7s; animation-duration: 23s; }
+  .p1 { left: 15%; bottom: 0; animation-delay: 0s; animation-duration: 25s; }
+  .p2 { left: 30%; bottom: 0; animation-delay: -5s; animation-duration: 20s; background: rgba(139, 92, 246, 0.5); }
+  .p3 { left: 45%; bottom: 0; animation-delay: -10s; animation-duration: 22s; }
+  .p4 { left: 60%; bottom: 0; animation-delay: -3s; animation-duration: 18s; background: rgba(249, 115, 22, 0.4); }
+  .p5 { left: 75%; bottom: 0; animation-delay: -8s; animation-duration: 24s; background: rgba(139, 92, 246, 0.5); }
+  .p6 { left: 90%; bottom: 0; animation-delay: -12s; animation-duration: 21s; }
 
   @keyframes float {
     0% {
@@ -285,36 +305,20 @@
     }
   }
 
-  /* Twinkling stars */
-  .star {
-    fill: rgba(255, 255, 255, 0.6);
-    animation: twinkle 4s ease-in-out infinite;
-  }
-
-  .star:nth-child(2n) { animation-delay: -1s; animation-duration: 3.5s; }
-  .star:nth-child(3n) { animation-delay: -2s; animation-duration: 4.5s; }
-  .star:nth-child(5n) { animation-delay: -0.5s; animation-duration: 5s; }
-  .star:nth-child(7n) { animation-delay: -3s; animation-duration: 3s; }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
-  }
-
   /* Little boat */
   .boat {
     position: absolute;
-    bottom: 42%;
+    bottom: 38%;
     left: 15%;
     font-size: 1.5rem;
-    animation: boatBob 4s ease-in-out infinite, boatDrift 25s linear infinite;
+    animation: boatBob 4s ease-in-out infinite, boatDrift 35s linear infinite;
     opacity: 0.7;
     z-index: 1;
   }
 
   @keyframes boatBob {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-15px) rotate(3deg); }
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
   }
 
   @keyframes boatDrift {
@@ -327,10 +331,10 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 20% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 40% 80%, rgba(249, 115, 22, 0.06) 0%, transparent 40%),
-      radial-gradient(ellipse at 90% 80%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 20%, rgba(0, 102, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 80%, rgba(249, 115, 22, 0.05) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 80%, rgba(0, 102, 255, 0.06) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -349,6 +353,9 @@
     .particle {
       width: 3px;
       height: 3px;
+    }
+    .boat {
+      font-size: 1.2rem;
     }
   }
 </style>
