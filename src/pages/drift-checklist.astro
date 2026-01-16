@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import LeadMagnetForm from '../components/LeadMagnetForm.astro'
+---
+
+<Layout
+  title="Design System Drift Checklist | Free PDF | Buoy"
+  description="20 warning signs your codebase is drifting from your design system. Download the free checklist for code review."
+>
+  <Nav />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy-dark"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Copy -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-buoy/10 border border-buoy/30 rounded-full text-buoy text-sm mb-6">
+            Free PDF Download
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6 leading-tight">
+            Is Your Codebase Betraying Your Design System?
+          </h1>
+
+          <p class="text-lg text-slate mb-8">
+            20 warning signs of design drift. Use this checklist during code review to catch hardcoded colors, arbitrary spacing, and rogue components before they spread.
+          </p>
+
+          <LeadMagnetForm
+            leadMagnet="drift-checklist"
+            buttonText="Get the Checklist"
+            successMessage="Check your email! The checklist is on its way."
+          />
+
+          <p class="text-sm text-slate/70 mt-4">
+            No spam. Unsubscribe anytime.
+          </p>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="hidden lg:block">
+          <div class="bg-navy border border-navy-light/30 rounded-xl p-6 shadow-2xl transform rotate-1 hover:rotate-0 transition-transform">
+            <div class="flex items-center gap-2 mb-4 pb-4 border-b border-navy-light/20">
+              <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+              <span class="text-xs text-slate ml-2">drift-checklist.pdf</span>
+            </div>
+
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start gap-3">
+                <div class="w-4 h-4 border border-slate/50 rounded mt-0.5"></div>
+                <span class="text-slate">Hardcoded hex values instead of tokens</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-4 h-4 border border-slate/50 rounded mt-0.5"></div>
+                <span class="text-slate">Arbitrary pixel values outside your scale</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-4 h-4 border border-slate/50 rounded mt-0.5"></div>
+                <span class="text-slate">Inline styles overriding components</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-4 h-4 border border-slate/50 rounded mt-0.5"></div>
+                <span class="text-slate">!important used to force changes</span>
+              </div>
+              <div class="flex items-start gap-3 opacity-50">
+                <div class="w-4 h-4 border border-slate/50 rounded mt-0.5"></div>
+                <span class="text-slate">+16 more warning signs...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Inside -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">What's Inside</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-buoy mb-2">20</div>
+          <p class="text-sm text-slate">Warning signs to check</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-buoy mb-2">5</div>
+          <p class="text-sm text-slate">Categories covered</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-buoy mb-2">1</div>
+          <p class="text-sm text-slate">Page, print-friendly</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-buoy mb-2">0</div>
+          <p class="text-sm text-slate">Cost to download</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Categories Covered</h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {[
+          { icon: '🎨', title: 'Colors', desc: 'Hardcoded values, opacity hacks, slight variations' },
+          { icon: '📏', title: 'Spacing', desc: 'Magic numbers, arbitrary values, mixed units' },
+          { icon: '🔤', title: 'Typography', desc: 'Font sizes, weights, line heights off-scale' },
+          { icon: '🧩', title: 'Components', desc: 'Inline overrides, duplicates, wrappers' },
+          { icon: '🚨', title: 'Code Smells', desc: 'Growing CSS, multiple patterns, confusion' },
+        ].map((cat) => (
+          <div class="bg-navy border border-navy-light/20 rounded-lg p-4">
+            <div class="text-2xl mb-2">{cat.icon}</div>
+            <h3 class="font-medium text-light mb-1">{cat.title}</h3>
+            <p class="text-sm text-slate">{cat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Who It's For -->
+  <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Who This Is For</h2>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="text-4xl mb-4">👩‍💻</div>
+          <h3 class="font-medium text-light mb-2">Frontend Developers</h3>
+          <p class="text-sm text-slate">Catch drift in your own PRs before reviewers do</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">👨‍💼</div>
+          <h3 class="font-medium text-light mb-2">Engineering Leads</h3>
+          <p class="text-sm text-slate">Standardize what your team looks for in reviews</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🎨</div>
+          <h3 class="font-medium text-light mb-2">Design System Teams</h3>
+          <p class="text-sm text-slate">Audit adoption and identify common violations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-16 bg-navy-dark">
+    <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-light mb-4">Get the Checklist</h2>
+      <p class="text-slate mb-8">Free. No spam. Immediate download.</p>
+
+      <LeadMagnetForm
+        leadMagnet="drift-checklist"
+        buttonText="Send It to Me"
+        successMessage="Done! Check your inbox."
+        class="max-w-md mx-auto"
+      />
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,98 @@
+---
+interface Props {
+  leadMagnet: string
+  buttonText?: string
+  successMessage?: string
+  class?: string
+}
+
+const {
+  leadMagnet,
+  buttonText = 'Get the PDF',
+  successMessage = 'Check your email for the download link!',
+  class: className = ''
+} = Astro.props
+
+const formId = `lead-form-${leadMagnet}`
+---
+
+<form id={formId} class={`flex flex-col sm:flex-row gap-3 ${className}`}>
+  <input
+    type="email"
+    name="email"
+    placeholder="you@company.com"
+    required
+    class="flex-1 px-4 py-3 bg-navy-light/50 border border-navy-light/50 rounded-lg text-light placeholder-slate focus:outline-none focus:border-buoy focus:ring-1 focus:ring-buoy transition-colors"
+  />
+  <button
+    type="submit"
+    class="px-6 py-3 bg-buoy text-navy-dark font-medium rounded-lg hover:bg-buoy-light transition-all duration-200 hover:scale-105 glow-buoy disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 whitespace-nowrap"
+  >
+    <span class="button-text">{buttonText}</span>
+    <span class="loading-text hidden">Sending...</span>
+  </button>
+</form>
+
+<div id={`${formId}-success`} class="hidden mt-4 p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300">
+  {successMessage}
+</div>
+
+<div id={`${formId}-error`} class="hidden mt-4 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300">
+  Something went wrong. Please try again.
+</div>
+
+<script define:vars={{ formId, leadMagnet }}>
+  const form = document.getElementById(formId);
+  const successDiv = document.getElementById(`${formId}-success`);
+  const errorDiv = document.getElementById(`${formId}-error`);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const button = form.querySelector('button');
+    const buttonText = button.querySelector('.button-text');
+    const loadingText = button.querySelector('.loading-text');
+    const emailInput = form.querySelector('input[name="email"]');
+
+    // Show loading state
+    button.disabled = true;
+    buttonText.classList.add('hidden');
+    loadingText.classList.remove('hidden');
+    successDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value,
+          leadMagnet: leadMagnet,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        successDiv.classList.remove('hidden');
+        form.classList.add('hidden');
+
+        // Track conversion if PostHog is available
+        if (window.posthog) {
+          window.posthog.capture('lead_magnet_download', {
+            lead_magnet: leadMagnet,
+          });
+        }
+      } else {
+        errorDiv.textContent = data.message || 'Something went wrong. Please try again.';
+        errorDiv.classList.remove('hidden');
+      }
+    } catch (err) {
+      errorDiv.classList.remove('hidden');
+    } finally {
+      button.disabled = false;
+      buttonText.classList.remove('hidden');
+      loadingText.classList.add('hidden');
+    }
+  });
+</script>

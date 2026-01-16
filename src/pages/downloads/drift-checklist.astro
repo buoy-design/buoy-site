@@ -1,0 +1,424 @@
+---
+// This page is designed for print-to-PDF
+// Access at /downloads/drift-checklist and use browser's Print > Save as PDF
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design System Drift Checklist | Buoy</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 11px;
+        line-height: 1.5;
+        color: #1a1a1a;
+        background: white;
+        padding: 0.5in;
+        max-width: 8.5in;
+        margin: 0 auto;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+        }
+        .no-print {
+          display: none !important;
+        }
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #F97316;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #F97316;
+      }
+
+      .title {
+        text-align: right;
+      }
+
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 4px;
+      }
+
+      .subtitle {
+        font-size: 11px;
+        color: #666;
+      }
+
+      .intro {
+        background: #f8f9fa;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 11px;
+        color: #444;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .section {
+        break-inside: avoid;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .section-icon {
+        font-size: 16px;
+      }
+
+      .section-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      .checklist {
+        list-style: none;
+      }
+
+      .checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 6px;
+        font-size: 10px;
+        color: #333;
+      }
+
+      .checkbox {
+        width: 12px;
+        height: 12px;
+        border: 1.5px solid #999;
+        border-radius: 2px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .scoring {
+        margin-top: 20px;
+        padding: 16px;
+        background: linear-gradient(135deg, #1a2744 0%, #0f1829 100%);
+        color: white;
+        border-radius: 8px;
+      }
+
+      .scoring h2 {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #F97316;
+      }
+
+      .score-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .score-item {
+        text-align: center;
+        padding: 8px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 6px;
+      }
+
+      .score-range {
+        font-size: 14px;
+        font-weight: 700;
+        color: #F97316;
+      }
+
+      .score-label {
+        font-size: 9px;
+        color: #ccc;
+        margin-top: 2px;
+      }
+
+      .causes {
+        margin-top: 20px;
+      }
+
+      .causes h2 {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #1a1a1a;
+      }
+
+      .causes-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+
+      .cause {
+        text-align: center;
+        padding: 10px 6px;
+        background: #f8f9fa;
+        border-radius: 6px;
+      }
+
+      .cause-icon {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .cause-title {
+        font-size: 9px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      .cause-desc {
+        font-size: 8px;
+        color: #666;
+        margin-top: 2px;
+      }
+
+      .cta {
+        margin-top: 20px;
+        padding: 16px;
+        background: #f8f9fa;
+        border: 1px solid #F97316;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .cta h2 {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 6px;
+      }
+
+      .cta p {
+        font-size: 10px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .cta-link {
+        display: inline-block;
+        padding: 8px 20px;
+        background: #F97316;
+        color: white;
+        font-size: 11px;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 6px;
+      }
+
+      .footer {
+        margin-top: 20px;
+        padding-top: 12px;
+        border-top: 1px solid #e5e5e5;
+        display: flex;
+        justify-content: space-between;
+        font-size: 9px;
+        color: #999;
+      }
+
+      .print-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background: #F97316;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+      }
+
+      .print-button:hover {
+        background: #ea580c;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-button no-print" onclick="window.print()">
+      Save as PDF
+    </button>
+
+    <header class="header">
+      <div class="logo">Buoy</div>
+      <div class="title">
+        <h1>Design System Drift Checklist</h1>
+        <p class="subtitle">20 warning signs your codebase is drifting</p>
+      </div>
+    </header>
+
+    <div class="intro">
+      Use this checklist during code review or codebase audits to spot drift before it spreads.
+      Check each item you find in your codebase, then score yourself at the bottom.
+    </div>
+
+    <div class="grid">
+      <!-- Colors -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">🎨</span>
+          <span class="section-title">Colors</span>
+        </div>
+        <ul class="checklist">
+          <li><div class="checkbox"></div> Hardcoded hex values (<code>#3B82F6</code>) instead of tokens</li>
+          <li><div class="checkbox"></div> RGB/HSL values that don't match any defined color</li>
+          <li><div class="checkbox"></div> Slight variations of brand colors (<code>#3A81F5</code> vs <code>#3B82F6</code>)</li>
+          <li><div class="checkbox"></div> Opacity hacks instead of defined color scales</li>
+          <li><div class="checkbox"></div> Colors defined in component files, not imported from tokens</li>
+        </ul>
+      </div>
+
+      <!-- Spacing -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">📏</span>
+          <span class="section-title">Spacing</span>
+        </div>
+        <ul class="checklist">
+          <li><div class="checkbox"></div> Arbitrary pixel values (<code>padding: 13px</code>) outside your scale</li>
+          <li><div class="checkbox"></div> Inconsistent spacing on similar components</li>
+          <li><div class="checkbox"></div> Magic numbers with no explanation (<code>margin-top: 37px</code>)</li>
+          <li><div class="checkbox"></div> Mixing units (px, rem, em) without a system</li>
+          <li><div class="checkbox"></div> Tailwind arbitrary values (<code>p-[13px]</code>) instead of scale classes</li>
+        </ul>
+      </div>
+
+      <!-- Typography -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">🔤</span>
+          <span class="section-title">Typography</span>
+        </div>
+        <ul class="checklist">
+          <li><div class="checkbox"></div> Font sizes that don't match your type scale</li>
+          <li><div class="checkbox"></div> Hardcoded <code>font-family</code> declarations</li>
+          <li><div class="checkbox"></div> Line heights that drift from defined ratios</li>
+          <li><div class="checkbox"></div> Font weights outside your allowed set</li>
+          <li><div class="checkbox"></div> Letter-spacing tweaks on individual components</li>
+        </ul>
+      </div>
+
+      <!-- Components -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">🧩</span>
+          <span class="section-title">Components</span>
+        </div>
+        <ul class="checklist">
+          <li><div class="checkbox"></div> Inline styles overriding component defaults</li>
+          <li><div class="checkbox"></div> <code>!important</code> used to force style changes</li>
+          <li><div class="checkbox"></div> Wrapper divs adding custom spacing around components</li>
+          <li><div class="checkbox"></div> Copy-pasted component code instead of imports</li>
+          <li><div class="checkbox"></div> "One-off" components that duplicate existing patterns</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Scoring -->
+    <div class="scoring">
+      <h2>Score Yourself</h2>
+      <div class="score-grid">
+        <div class="score-item">
+          <div class="score-range">0-3</div>
+          <div class="score-label">Healthy</div>
+        </div>
+        <div class="score-item">
+          <div class="score-range">4-8</div>
+          <div class="score-label">Early Drift</div>
+        </div>
+        <div class="score-item">
+          <div class="score-range">9-15</div>
+          <div class="score-label">Significant</div>
+        </div>
+        <div class="score-item">
+          <div class="score-range">16+</div>
+          <div class="score-label">Critical</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Causes -->
+    <div class="causes">
+      <h2>What Causes Drift?</h2>
+      <div class="causes-grid">
+        <div class="cause">
+          <div class="cause-icon">⏰</div>
+          <div class="cause-title">Deadlines</div>
+          <div class="cause-desc">"I'll fix it later"</div>
+        </div>
+        <div class="cause">
+          <div class="cause-icon">🔍</div>
+          <div class="cause-title">Discovery</div>
+          <div class="cause-desc">Can't find the token</div>
+        </div>
+        <div class="cause">
+          <div class="cause-icon">⚡</div>
+          <div class="cause-title">Convenience</div>
+          <div class="cause-desc">Hardcoding is faster</div>
+        </div>
+        <div class="cause">
+          <div class="cause-icon">🕳️</div>
+          <div class="cause-title">Gaps</div>
+          <div class="cause-desc">System doesn't cover it</div>
+        </div>
+        <div class="cause">
+          <div class="cause-icon">🌀</div>
+          <div class="cause-title">Entropy</div>
+          <div class="cause-desc">Small drifts compound</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <h2>Stop Drift Automatically</h2>
+      <p>Buoy scans every PR for design drift and posts findings automatically.</p>
+      <a href="https://buoy.design" class="cta-link">Scan Your Repo Free →</a>
+    </div>
+
+    <footer class="footer">
+      <span>© 2026 Buoy. The design system drift detector.</span>
+      <span>buoy.design</span>
+    </footer>
+  </body>
+</html>
