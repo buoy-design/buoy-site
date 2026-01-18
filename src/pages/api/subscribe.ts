@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { isValidEmail } from '../../utils/validation';
 
 export const prerender = false;
 
@@ -21,8 +22,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
+    if (!isValidEmail(data.email)) {
       return new Response(
         JSON.stringify({ message: 'Invalid email address' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
