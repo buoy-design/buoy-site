@@ -1,6 +1,7 @@
 ---
 import FeatureLayout from '../../layouts/FeatureLayout.astro'
 import FeatureCard from '../../components/FeatureCard.astro'
+import LeadMagnetCallout from '../../components/LeadMagnetCallout.astro'
 
 const workflowYaml = `# .github/workflows/buoy.yml
 name: Design Drift Check
@@ -147,6 +148,18 @@ const relatedFeatures = [
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- Lead Magnet: PR Review Cheatsheet -->
+  <section class="py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <LeadMagnetCallout
+        leadMagnet="pr-review-cheatsheet"
+        headline="Never miss drift in code review again"
+        subhead="A quick-reference cheat sheet for catching design system issues in PRs. Print it, pin it, use it."
+        buttonText="Get the Cheat Sheet"
+      />
     </div>
   </section>
 

@@ -1,6 +1,7 @@
 ---
 import UseCaseLayout from '../../layouts/UseCaseLayout.astro'
 import Terminal from '../../components/Terminal.astro'
+import LeadMagnetCTA from '../../components/LeadMagnetCTA.astro'
 
 const challenges = [
   {
@@ -136,4 +137,12 @@ const terminalLines = [
       <p class="text-slate mt-4">No signup. No config file needed. Just run it.</p>
     </div>
   </section>
+
+  <!-- Lead Magnet: Drift Checklist -->
+  <LeadMagnetCTA
+    leadMagnet="drift-checklist"
+    headline="Start catching drift today"
+    subhead="20 warning signs to spot design drift in your next code review. Even before you automate."
+    buttonText="Get the Checklist"
+  />
 </UseCaseLayout>

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import Button from '../components/Button.astro'
+import LeadMagnetCallout from '../components/LeadMagnetCallout.astro'
 import { siteConfig } from '../config'
 
 const values = [
@@ -165,8 +166,30 @@ const timeline = [
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Lead Magnets -->
   <section class="py-16 bg-navy">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-light mb-8 text-center">Learn More</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <LeadMagnetCallout
+          leadMagnet="why-developers-bypass"
+          headline="Why developers bypass design systems"
+          subhead="Understanding the real reasons helps you fix the problem. Research-backed insights."
+          buttonText="Get the Report"
+        />
+        <LeadMagnetCallout
+          leadMagnet="state-of-design-systems"
+          headline="State of Design Systems 2026"
+          subhead="Industry trends, adoption rates, and what's working. The definitive annual report."
+          buttonText="Get the Report"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-navy-dark">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-2xl font-bold text-light mb-4">Ready to catch design drift?</h2>
       <p class="text-slate mb-8">

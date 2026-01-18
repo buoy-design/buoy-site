@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import Button from '../components/Button.astro'
+import LeadMagnetCallout from '../components/LeadMagnetCallout.astro'
 
 const plans = [
   {
@@ -176,6 +177,18 @@ const faqs = [
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- Lead Magnet: Maturity Model -->
+  <section class="py-12 bg-navy-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <LeadMagnetCallout
+        leadMagnet="maturity-model"
+        headline="Not sure which tier fits your team?"
+        subhead="Use our Design System Maturity Model to assess where you are and what you need. Free self-assessment PDF."
+        buttonText="Get the Assessment"
+      />
     </div>
   </section>
 

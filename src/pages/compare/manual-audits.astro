@@ -1,5 +1,6 @@
 ---
 import CompareLayout from '../../layouts/CompareLayout.astro'
+import LeadMagnetCallout from '../../components/LeadMagnetCallout.astro'
 
 const comparison = [
   { aspect: 'Time', manual: 'Hours to days', buoy: 'Seconds' },
@@ -78,6 +79,18 @@ const comparison = [
           </ul>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Lead Magnet: Drift Checklist -->
+  <section class="py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <LeadMagnetCallout
+        leadMagnet="drift-checklist"
+        headline="If you're doing manual audits, use this checklist"
+        subhead="20 warning signs to check in your next code review. Catch drift faster, even without automation."
+        buttonText="Get the Checklist"
+      />
     </div>
   </section>
 
