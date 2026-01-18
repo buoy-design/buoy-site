@@ -1,8 +1,8 @@
 {
   "version": 1,
   "projectRoot": "/Users/dylantarre/dev/buoy-site",
-  "lastFullScanCommit": "17749161323d7f5c37461bcaf6cffd087f81ec2e",
-  "lastFullScanTime": 1767691015573,
+  "lastFullScanCommit": "7ca4b536e3f97172ed0b611376eb96c93230b69a",
+  "lastFullScanTime": 1768554396635,
   "entries": {
     "astro:src/pages/your-rules.astro": {
       "path": "src/pages/your-rules.astro",
