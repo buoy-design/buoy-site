@@ -181,7 +181,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       JSON.stringify({
         message: isExistingContact
           ? 'Welcome back! Check your email for the download link.'
-          : 'Subscribed successfully',
+          : 'Check your email for the download link (check spam if you don\'t see it).',
         downloadUrl: downloadUrl,
         isExistingContact,
       }),
