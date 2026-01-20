@@ -31,16 +31,17 @@ const plans = [
     features: [
       'Everything in Free',
       'Unlimited repos',
-      'GitHub PR comments',
+      'Smart GitHub PR comments',
       'Slack & Teams alerts',
       'Cloud history & trends',
       'Figma Monitor plugin',
       'No minimum seats',
     ],
-    cta: 'Start Free Trial',
-    ctaHref: '/signup',
+    cta: 'Coming Soon',
+    ctaHref: '#',
     variant: 'primary',
     popular: true,
+    disabled: true,
   },
   {
     name: 'Enterprise',
@@ -120,21 +121,6 @@ const faqs = [
     </div>
   </section>
 
-  <!-- OSS Callout -->
-  <section class="py-8 bg-navy">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-navy-dark border border-buoy/30 rounded-xl p-6 flex items-center gap-4">
-        <div class="text-4xl">💚</div>
-        <div>
-          <h3 class="font-semibold text-light mb-1">Free for open source</h3>
-          <p class="text-sm text-slate">
-            Verified open source projects get full Team plan features at no cost. Building in public? We've got you.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Founding Member Banner -->
   <section class="py-8 bg-navy">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -189,13 +175,19 @@ const faqs = [
               ))}
             </ul>
 
-            <Button
-              href={plan.ctaHref}
-              variant={plan.variant as 'primary' | 'secondary'}
-              class="w-full justify-center"
-            >
-              {plan.cta}
-            </Button>
+            {plan.disabled ? (
+              <span class="w-full py-3 px-6 text-slate/50 text-center cursor-default">
+                {plan.cta}
+              </span>
+            ) : (
+              <Button
+                href={plan.ctaHref}
+                variant={plan.variant as 'primary' | 'secondary'}
+                class="w-full justify-center"
+              >
+                {plan.cta}
+              </Button>
+            )}
           </div>
         ))}
       </div>
@@ -234,7 +226,7 @@ const faqs = [
           { feature: 'AI guardrails (MCP, skills)', free: true, team: true, ent: true },
           { feature: 'Local scan history', free: true, team: true, ent: true },
           { feature: 'Unlimited repos', free: false, team: true, ent: true },
-          { feature: 'GitHub PR comments', free: false, team: true, ent: true },
+          { feature: 'Smart GitHub PR comments', free: false, team: true, ent: true },
           { feature: 'Slack & Teams alerts', free: false, team: true, ent: true },
           { feature: 'Cloud history & trends', free: false, team: true, ent: true },
           { feature: 'Figma Monitor plugin', free: false, team: true, ent: true },
