@@ -6,7 +6,6 @@ export const prerender = false;
 interface SubscribeRequest {
   email: string;
   leadMagnet: string;
-  firstName?: string;
 }
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -93,7 +92,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
       },
       body: JSON.stringify({
         email: data.email,
-        firstName: data.firstName || '',
         source: 'lead-magnet',
         leadMagnet: data.leadMagnet,
         leadMagnetName: magnet.name,
@@ -130,7 +128,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Send transactional email with PDF immediately
-    // You need to create a transactional email in Loops with ID: lead-magnet-delivery
     const transactionalResponse = await fetch('https://app.loops.so/api/v1/transactional', {
       method: 'POST',
       headers: {
@@ -138,10 +135,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        transactionalId: 'lead-magnet-delivery',
+        transactionalId: 'cmkh92n1x0l7n0izrhzdd9itn',
         email: data.email,
         dataVariables: {
-          firstName: data.firstName || '',
           leadMagnetName: magnet.name,
           downloadUrl: `https://buoy.design${downloadUrl}`,
         },
