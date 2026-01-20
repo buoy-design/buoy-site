@@ -126,16 +126,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }
       }
 
-      // Trigger waitlist event
-      await fetch('https://app.loops.so/api/v1/events/send', {
+      // Send waitlist confirmation email
+      await fetch('https://app.loops.so/api/v1/transactional', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${LOOPS_API_KEY}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          transactionalId: 'cmkn6ps1p02y20i2xm1s7xz8u',
           email: data.email,
-          eventName: 'waitlistSignup',
         }),
       });
 
