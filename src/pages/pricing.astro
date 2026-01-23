@@ -27,7 +27,7 @@ const plans = [
     name: 'Team',
     price: '$25',
     period: '/dev/month',
-    description: 'Cloud features for teams. $20/dev billed annually.',
+    description: 'Cloud features for teams.\n$20/dev billed annually.',
     features: [
       'Everything in Free',
       'Unlimited repos',
@@ -46,7 +46,7 @@ const plans = [
     name: 'Done For You',
     price: 'From $5k',
     period: '/engagement',
-    description: 'We fix your design drift in one week. You ship features.',
+    description: 'We fix your design drift in one week.\nYou ship features.',
     features: [
       'Full codebase scan & audit',
       '20-50 critical fixes done for you',
@@ -138,7 +138,7 @@ const faqs = [
                 <span class="text-4xl font-bold text-light">{plan.price}</span>
                 {plan.period && <span class="text-slate text-sm">{plan.period}</span>}
               </div>
-              <p class="text-sm text-slate mt-2">{plan.description}</p>
+              <p class="text-sm text-slate mt-2 whitespace-pre-line">{plan.description}</p>
             </div>
 
             <ul class="space-y-3 mb-8">
