@@ -43,21 +43,21 @@ const plans = [
     popular: true,
   },
   {
-    name: 'Enterprise',
+    name: 'Done For You',
     price: 'From $5k',
     period: '/engagement',
-    description: 'Hands-on help establishing your design system. We build it with you.',
+    description: 'We fix your design drift in one week. You ship features.',
     features: [
-      'Everything in Team',
-      'Design system implementation',
-      'Token architecture & migration',
-      'Team training & workshops',
-      'Governance & adoption strategy',
-      'Dedicated Slack channel',
-      'SSO / SAML / Audit logs',
+      'Full codebase scan & audit',
+      '20-50 critical fixes done for you',
+      'Prioritized backlog for the rest',
+      'Team training & Buoy setup',
+      'CI/CD integration',
+      '30 days Slack support',
+      '100% money-back guarantee',
     ],
-    cta: 'Book a Call',
-    ctaHref: 'https://cal.com/tarre',
+    cta: 'Learn More',
+    ctaHref: '/services',
     variant: 'secondary',
   },
 ]
@@ -92,8 +92,8 @@ const faqs = [
     answer: 'A Figma plugin that shows live design system health inside your Figma files. See which components are drifting, which tokens are being used correctly — all without leaving Figma.'
   },
   {
-    question: 'What does Enterprise consulting include?',
-    answer: 'Hands-on help establishing your design system: defining tokens, documenting patterns, setting up governance, training your team. We help you build it, not just detect drift in it.'
+    question: 'What does "Done For You" include?',
+    answer: 'We scan your codebase, fix 20-50 critical drift issues ourselves, set up Buoy in your CI/CD, and train your team. You get a clean codebase in one week with a 100% money-back guarantee.'
   },
 ]
 ---
@@ -193,7 +193,7 @@ const faqs = [
           <div class="p-4 font-semibold text-slate">Feature</div>
           <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Free</div>
           <div class="p-4 font-semibold text-buoy text-center border-l border-navy-light/20">Team</div>
-          <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Enterprise</div>
+          <div class="p-4 font-semibold text-slate text-center border-l border-navy-light/20">Done For You</div>
         </div>
 
         {[
@@ -207,10 +207,10 @@ const faqs = [
           { feature: 'Slack & Teams alerts', free: false, team: true, ent: true },
           { feature: 'Cloud history & trends', free: false, team: true, ent: true },
           { feature: 'Figma Monitor plugin', free: false, team: true, ent: true },
-          { feature: 'SSO / SAML', free: false, team: false, ent: true },
-          { feature: 'Audit logs', free: false, team: false, ent: true },
-          { feature: 'SLA guarantees', free: false, team: false, ent: true },
-          { feature: 'Implementation consulting', free: false, team: false, ent: true },
+          { feature: 'We fix your drift for you', free: false, team: false, ent: true },
+          { feature: 'Team training session', free: false, team: false, ent: true },
+          { feature: 'CI/CD setup included', free: false, team: false, ent: true },
+          { feature: '100% money-back guarantee', free: false, team: false, ent: true },
         ].map((row, index) => (
           <div class={`grid grid-cols-4 text-sm ${index % 2 === 0 ? 'bg-navy/30' : ''}`}>
             <div class="p-4 text-light">{row.feature}</div>
