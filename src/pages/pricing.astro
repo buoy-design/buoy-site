@@ -112,7 +112,7 @@ const faqs = [
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sunrise/10 border border-sunrise/30 mb-6">
-        <span class="text-sunrise font-medium text-sm">🎉 Pro plan free for first 100 users</span>
+        <span class="text-sunrise font-medium text-sm" id="hero-spots">🎉 Pro plan free for first 100 Buoy Heroes</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-bold text-light mb-6">
         Free CLI. Simple per-seat pricing.
@@ -131,8 +131,8 @@ const faqs = [
         {plans.map((plan) => (
           <div class={`relative bg-navy/50 border rounded-2xl p-8 ${plan.popular ? 'border-buoy' : 'border-navy-light/20'}`}>
             {plan.earlyBird ? (
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-sunrise text-navy-dark text-xs font-semibold rounded-full">
-                🎉 Free for First 100
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-sunrise text-navy-dark text-xs font-semibold rounded-full whitespace-nowrap" id="card-spots">
+                🦸 100 Hero Spots Left
               </div>
             ) : plan.popular && (
               <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-buoy text-navy-dark text-xs font-semibold rounded-full">
@@ -262,3 +262,30 @@ const faqs = [
 
   <Footer />
 </Layout>
+
+<script>
+  async function updateSpots() {
+    try {
+      const res = await fetch('/api/installs');
+      const data = await res.json();
+
+      const heroSpots = document.getElementById('hero-spots');
+      const cardSpots = document.getElementById('card-spots');
+
+      if (data.remaining > 0) {
+        if (heroSpots) heroSpots.textContent = `🎉 Only ${data.remaining} Buoy Hero spots left!`;
+        if (cardSpots) cardSpots.textContent = `🦸 ${data.remaining} Hero Spots Left`;
+      } else {
+        // All spots taken
+        if (heroSpots) heroSpots.textContent = '🔥 All Hero spots claimed!';
+        if (cardSpots) cardSpots.textContent = '🔥 All Spots Claimed';
+      }
+    } catch (e) {
+      // Keep default text on error
+      console.error('Failed to fetch spots:', e);
+    }
+  }
+
+  // Update on load
+  updateSpots();
+</script>
